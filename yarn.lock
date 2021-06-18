@@ -174,11 +174,6 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
-"@types/js-cookie@^2.2.6":
-  version "2.2.6"
-  resolved "https://registry.npmjs.org/@types/js-cookie/-/js-cookie-2.2.6.tgz"
-  integrity sha512-+oY0FDTO2GYKEV0YPvSshGq9t7YozVkgvXLty7zogQNuCxBhT9/3INX9Q7H1aRZ4SUDRXAKlJuA4EA5nTt7SNw==
-
 "@types/json-schema@^7.0.7":
   version "7.0.7"
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.7.tgz"
@@ -193,6 +188,13 @@
   version "15.7.3"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.3.tgz"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/react-icons@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-icons/-/react-icons-3.0.0.tgz#27ca2823a6add881d06a371bfff093afc1b9c829"
+  integrity sha512-Vefs6LkLqF61vfV7AiAqls+vpR94q67gunhMueDznG+msAkrYgRxl7gYjNem/kZ+as2l2mNChmF1jRZzzQQtMg==
+  dependencies:
+    react-icons "*"
 
 "@types/react@*", "@types/react@^17.0.9":
   version "17.0.9"
@@ -1838,11 +1840,6 @@ jest-worker@27.0.0-next.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-js-cookie@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz"
-  integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
-
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
@@ -2639,6 +2636,11 @@ react-hook-form@^7.8.1:
   version "7.8.1"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.8.1.tgz"
   integrity sha512-pwWxd4UfwsKVh/W2YE2Hnu7KBY4KTCZq3QO1PMISzP31AZ5Kmv6ji085QVIHVWVSLT4oX6IhmZ2bWJ2oBIwobQ==
+
+react-icons@*, react-icons@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.2.0.tgz#6dda80c8a8f338ff96a1851424d63083282630d0"
+  integrity sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ==
 
 react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"

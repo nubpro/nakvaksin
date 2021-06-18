@@ -55,7 +55,7 @@ export default function Login() {
         })
             .then((resp) => {
                 if (resp.status === 200) {
-                    setCookie('user', resp.data);
+                    setCookie('user', resp.data, { maxAge: 86400 });
                 } else {
                     throw new Error('Unexpected response from endpoint');
 
@@ -129,7 +129,7 @@ export default function Login() {
                             <input
                                 type="text"
                                 id="username"
-                                className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 placeholder={'60123456789 / ali@email.com'}
                                 {...register('username', { required: true })}
                             />
@@ -142,7 +142,7 @@ export default function Login() {
                             <input
                                 type="password"
                                 id="password"
-                                className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 placeholder="Please enter your password"
                                 {...register('password', { required: true })}
                             />
