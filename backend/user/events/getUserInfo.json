@@ -1,0 +1,40 @@
+{
+    "version": "2.0",
+    "routeKey": "POST /getuserinfo",
+    "rawPath": "/getuserinfo",
+    "rawQueryString": "token=eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAK1TXXObMBD8L7w2eMS3nTeSKA6tsR0bp9OWjkfA2aYFiSKR1s34v1dIjp10mrc-Mdq929s77p4M3mXGpfGUGh2HlpIaUuMyNXxkuY5n-b7jpMaFJiUhw8pCfi1kI2RbzpGZvpUm9k1P0K6q5AvqpmJ7gEhLeLblD5HEuSCi4z0mH4_Q8pLRcxbLNh3PiZBgwr4DVYWeDagqJU-AEiqWHW-AFtDLb0jFQXItq7S1xWyC16slXqiUAioQrwKFknjRox30xdvtqbl4v4RvZCegJUqD71gr3mRJ05y469lDdKPQjHBYtZVC6z1_zhjUpCJ7XpLBlj0O6r0eXlnDZ0a1xDhO3qHhJUKaUmYTPd3UWMZY1-zEDqgoj9N6phd4vJqEuvHTrFMjvE6iB3yc4OzD4jxyLR_VZHsyawdrO_BQMfQdE_wcTNdDmTksXDALHxwXnAABGbkfJzMHX6Eou7rP74gnxDwbNHSrmy__u2TJ-DLfQU206NE_oUXLyuIfjO5swrbshYuR64wyQIWZOY5tuhtimZlnB2aBcifPRllgB_mPHOOb4Hfy3nOvmtvKnZc0PLnQqrdM7c9flUgB7SsLNcvKCsKmUWfQg4fjnva_5ctxU2OMk2g6Xk9m46WqodBbHCarBV7f4cn8jMaf1gkO4zNwF8mYOJyGYxzjaZIaXyVTsZxUcNpJoPIaVIo8mRsi4IUZ_pM0K3nXEd2ws_GCCNLfx-FgXBjwq5H36tsuGllDyzn8AdWsJjdJBAAA.M6uht6b237htpDaywfrDbzzYDrR5-RJ-vJftjUZeAPzjKu_Mn4rVuT68d7HL6Z-jjRu9_QhxFeN57Lr1um3AGw",
+    "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "content-length": "0",
+        "host": "gatracib39.execute-api.ap-southeast-1.amazonaws.com",
+        "postman-token": "bf6097e3-6c22-4ee8-ac6d-8fe1f1221931",
+        "user-agent": "PostmanRuntime/7.26.8",
+        "x-amzn-trace-id": "Root=1-60cda185-2a56daaf21bc80d218e61d74",
+        "x-forwarded-for": "115.135.247.200",
+        "x-forwarded-port": "443",
+        "x-forwarded-proto": "https"
+    },
+    "queryStringParameters": {
+        "token": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAK1TXXObMBD8L7w2eMS3nTeSKA6tsR0bp9OWjkfA2aYFiSKR1s34v1dIjp10mrc-Mdq929s77p4M3mXGpfGUGh2HlpIaUuMyNXxkuY5n-b7jpMaFJiUhw8pCfi1kI2RbzpGZvpUm9k1P0K6q5AvqpmJ7gEhLeLblD5HEuSCi4z0mH4_Q8pLRcxbLNh3PiZBgwr4DVYWeDagqJU-AEiqWHW-AFtDLb0jFQXItq7S1xWyC16slXqiUAioQrwKFknjRox30xdvtqbl4v4RvZCegJUqD71gr3mRJ05y469lDdKPQjHBYtZVC6z1_zhjUpCJ7XpLBlj0O6r0eXlnDZ0a1xDhO3qHhJUKaUmYTPd3UWMZY1-zEDqgoj9N6phd4vJqEuvHTrFMjvE6iB3yc4OzD4jxyLR_VZHsyawdrO_BQMfQdE_wcTNdDmTksXDALHxwXnAABGbkfJzMHX6Eou7rP74gnxDwbNHSrmy__u2TJ-DLfQU206NE_oUXLyuIfjO5swrbshYuR64wyQIWZOY5tuhtimZlnB2aBcifPRllgB_mPHOOb4Hfy3nOvmtvKnZc0PLnQqrdM7c9flUgB7SsLNcvKCsKmUWfQg4fjnva_5ctxU2OMk2g6Xk9m46WqodBbHCarBV7f4cn8jMaf1gkO4zNwF8mYOJyGYxzjaZIaXyVTsZxUcNpJoPIaVIo8mRsi4IUZ_pM0K3nXEd2ws_GCCNLfx-FgXBjwq5H36tsuGllDyzn8AdWsJjdJBAAA.M6uht6b237htpDaywfrDbzzYDrR5-RJ-vJftjUZeAPzjKu_Mn4rVuT68d7HL6Z-jjRu9_QhxFeN57Lr1um3AGw"
+    },
+    "requestContext": {
+        "accountId": "451570671507",
+        "apiId": "gatracib39",
+        "domainName": "gatracib39.execute-api.ap-southeast-1.amazonaws.com",
+        "domainPrefix": "gatracib39",
+        "http": {
+            "method": "POST",
+            "path": "/getuserinfo",
+            "protocol": "HTTP/1.1",
+            "sourceIp": "115.135.247.200",
+            "userAgent": "PostmanRuntime/7.26.8"
+        },
+        "requestId": "BKYs1j3qSQ0EJDA=",
+        "routeKey": "POST /getuserinfo",
+        "stage": "$default",
+        "time": "19/Jun/2021:07:49:25 +0000",
+        "timeEpoch": 1624088965198
+    },
+    "isBase64Encoded": false
+}

@@ -1,0 +1,41 @@
+org: vicchai
+app: naksin
+service: nakvaksin
+
+frameworkVersion: '2'
+
+plugins:
+    - serverless-webpack
+
+provider:
+    name: aws
+    runtime: nodejs12.x
+    lambdaHashingVersion: 20201221
+    region: ap-southeast-1
+
+functions:
+    getUserInfo:
+        handler: user/handler.getUserInfo
+        events:
+            - httpApi:
+                  path: /getuserinfo
+                  method: GET
+    processPreUserQueue:
+        handler: user/handler.processPreUserQueue
+        # batchSize: 10
+        # reservedConcurrency: 10
+        events:
+            - sqs:
+                  arn:
+                      Fn::GetAtt:
+                          - PreUserQueue
+                          - Arn
+    pushUserToQueue:
+        handler: user/handler.pushUserToQueue
+
+resources:
+    Resources:
+        PreUserQueue:
+            Type: 'AWS::SQS::Queue'
+            Properties:
+                QueueName: 'PreUserQueue'
