@@ -12,12 +12,14 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.35.2"
   },
   "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.932.0",
     "axios": "^0.21.1"
   }
 }

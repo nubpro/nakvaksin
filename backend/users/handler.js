@@ -45,10 +45,10 @@ export const getUserInfo = async (event) => {
     };
 };
 
-export const pushUserToQueue = async (event) => {
-    // test
-};
-
 export const processPreUserQueue = async (event) => {
-    console.log(event);
+    event.Records.forEach((record) => {
+        const { body } = record;
+        console.log(body);
+        console.log(record);
+    });
 };

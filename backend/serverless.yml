@@ -6,6 +6,7 @@ frameworkVersion: '2'
 
 plugins:
     - serverless-webpack
+    - serverless-iam-roles-per-function
 
 provider:
     name: aws
@@ -15,13 +16,13 @@ provider:
 
 functions:
     getUserInfo:
-        handler: user/handler.getUserInfo
+        handler: users/handler.getUserInfo
         events:
             - httpApi:
                   path: /getuserinfo
                   method: GET
     processPreUserQueue:
-        handler: user/handler.processPreUserQueue
+        handler: users/handler.processPreUserQueue
         # batchSize: 10
         # reservedConcurrency: 10
         events:
@@ -31,7 +32,17 @@ functions:
                           - PreUserQueue
                           - Arn
     pushUserToQueue:
-        handler: user/handler.pushUserToQueue
+        handler: users/pushUserToQueue.handler
+        environment:
+            PreUserQueue_URL: { Ref: PreUserQueue }
+        iamRoleStatements:
+            - Effect: 'Allow'
+              Action:
+                  - sqs:SendMessage
+              Resource:
+                  Fn::GetAtt:
+                      - PreUserQueue
+                      - Arn
 
 resources:
     Resources:
