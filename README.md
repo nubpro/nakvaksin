@@ -31,6 +31,7 @@ To be documented soon, not something we may need to know?
 ## Backend Architecture
 
 I've drafted out the backend architecture based on AWS infra as I was planning to have it there using [Serverless Framework](https://www.serverless.com/). I believe there are some gaps here and there, I have quite some doubt myself
+
 You can check out `/backend/` directory. It is still in a very rough stage, I honestly wont mind you scrap the whole thing and do it over
 
 ![image](https://user-images.githubusercontent.com/762914/123636048-fab2c280-d84e-11eb-9388-011dd9077da2.png)
