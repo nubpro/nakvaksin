@@ -34,3 +34,6 @@ yarn-error.log*
 .vercel
 
 sample_data
+
+# IDE folder
+/.idea
