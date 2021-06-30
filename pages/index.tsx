@@ -44,7 +44,7 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <div className="hidden sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end sm:-mt-48">
+                            <div className="sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end ">
                                 <Image src="/phone.png" width={282} height={572} />
                             </div>
                         </div>
