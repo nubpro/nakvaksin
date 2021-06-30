@@ -4,8 +4,10 @@ import { GiHumanPyramid } from 'react-icons/gi';
 import { IoHeartCircleOutline, IoNotificationsOutline, IoLogoGithub } from 'react-icons/io5';
 
 import Header from '../components/header';
+import useUser from '../hooks/useUser';
 
 export default function Home() {
+    const user = useUser();
     return (
         <div>
             <div
@@ -36,11 +38,21 @@ export default function Home() {
                                     BILA AKU BOLEH KENA CUCUK!?
                                 </p>
                                 <div className="flex flex-col justify-center lg:flex-row pb-8">
-                                    <Link href="/subscribe">
-                                        <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                            I nak SMS when appointment is ready{' 💬 '}
-                                        </button>
-                                    </Link>
+                                    {user && (
+                                        <Link href="/subscribe">
+                                            <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                I nak SMS when appointment is ready{' 💬 '}
+                                            </button>
+                                        </Link>
+                                    )}
+
+                                    {!user && (
+                                        <Link href="/login">
+                                            <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                I nak SMS when appointment is ready{' 💬 '}
+                                            </button>
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
 
