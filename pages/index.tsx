@@ -8,14 +8,8 @@ import Header from '../components/header';
 export default function Home() {
     return (
         <div>
-            <div className="bg-cover bg-center absolute z-0 h-screen bg-no-repeat" />
-            <div
-                className="z-0 opacity-90 w-full h-full absolute"
-                style={{
-                    background: `linear-gradient(-45deg, #2f1ce0 0%, #53a0fd 50%, #51eca5 100%)`
-                }}
-            />
-            ;
+            <div className="z-0 opacity-90 w-full h-full absolute bg-gradient-to-tl to-blue-400 from-blue-900 min-h-screen overflow-auto" />
+
             <div className="absolute w-full flex flex-col">
                 <div
                     className="bg-bottom bg-no-repeat bg-cover h-screen"
