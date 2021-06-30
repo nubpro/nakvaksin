@@ -73,7 +73,7 @@ export default function Home() {
                                 <div className="leading-relaxed pr-4">
                                     <p>
                                         <b className="font-normal text-blue-600">
-                                            Don't worry, we are not as forgetful
+                                            Don&apos;t worry, we are not as forgetful
                                         </b>
                                     </p>
                                     <p>
@@ -96,7 +96,7 @@ export default function Home() {
                                 <div className="leading-relaxed pr-4">
                                     <p>
                                         <b className="font-normal text-blue-600">
-                                            Get up to speed with your family member's vaccine
+                                            Get up to speed with your family member&apos;s vaccine
                                             appointment updates
                                         </b>
                                     </p>
