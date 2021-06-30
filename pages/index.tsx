@@ -8,7 +8,12 @@ import Header from '../components/header';
 export default function Home() {
     return (
         <div>
-            <div className="z-0 opacity-90 w-full h-full absolute bg-gradient-to-tl to-blue-400 from-blue-900 min-h-screen overflow-auto" />
+            <div
+                className="z-0 opacity-90 w-full h-full absolute"
+                style={{
+                    background: `linear-gradient(-45deg, #2f1ce0 0%, #53a0fd 50%, #51eca5 100%)`
+                }}
+            />
 
             <div className="absolute w-full flex flex-col">
                 <div
@@ -20,13 +25,13 @@ export default function Home() {
                     <section className="w-full">
                         <div className="container mx-auto flex md:flex-row sm:items-center xl:pb-16 xl:px-0 px-4">
                             <div className="w-1/2 text-white md:flex md:flex-col md:space-y-6">
-                                <h1 className="sm:text-5xl text-xl font-weight-bolder sm:mb-4 text-black md:text-white">
+                                <h1 className="sm:text-5xl text-xl font-weight-bolder sm:mb-4 text-white">
                                     Tiap-tiap hari check MySejahtera?
                                 </h1>
-                                <h2 className="sm:text-2xl text-base mb-2 text-black md:text-white">
+                                <h2 className="sm:text-2xl text-base mb-2 text-white">
                                     Missed appointment?
                                 </h2>
-                                <p className="text-xs sm:text-base text-black md:text-white">
+                                <p className="text-xs sm:text-base text-white">
                                     BILA AKU BOLEH KENA CUCUK!?
                                 </p>
                                 <div className="xl:mt-4 mt-8 flex">
