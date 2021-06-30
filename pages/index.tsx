@@ -23,27 +23,29 @@ export default function Home() {
                     }}>
                     <Header />
                     <section className="w-full">
-                        <div className="container mx-auto flex md:flex-row sm:items-center xl:pb-16 xl:px-0 px-4">
-                            <div className="w-1/2 text-white md:flex md:flex-col md:space-y-6">
-                                <h1 className="sm:text-5xl text-xl font-weight-bolder sm:mb-4 text-white">
+                        <div className="container flex flex-col items-center px-5 min-h-screen mx-auto sm:flex-row ">
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start min-h-screen sm:min-h-full text-left space-y-8 mt-12 sm:mt-0 sm:-mt-72 sm:px-8">
+                                <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font">
                                     Tiap-tiap hari check MySejahtera?
                                 </h1>
-                                <h2 className="sm:text-2xl text-base mb-2 text-white">
+
+                                <p className="w-full text-xl text-left text-white">
                                     Missed appointment?
-                                </h2>
-                                <p className="text-xs sm:text-base text-white">
+                                </p>
+                                <p className="w-full text-xl text-left text-white">
                                     BILA AKU BOLEH KENA CUCUK!?
                                 </p>
-                                <div className="xl:mt-4 mt-8 flex">
+                                <div className="flex flex-col justify-center lg:flex-row">
                                     <Link href="/subscribe">
-                                        <button className="w-4/5 md:w-full py-8 md:px-8 md:py-4 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                        <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
                                             I nak SMS when appointment is ready{' 💬 '}
                                         </button>
                                     </Link>
                                 </div>
                             </div>
-                            <div className="w-1/2 xl:pt-8 xl:items-center flex justify-end">
-                                <Image src="/phone.png" width={256} height={520} />
+
+                            <div className="hidden sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end sm:-mt-48">
+                                <Image src="/phone.png" width={282} height={572} />
                             </div>
                         </div>
                     </section>
