@@ -49,7 +49,7 @@ export default function Home() {
                     </section>
                 </div>
                 <div className="bg-white pb-8 w-full pt-8">
-                    <div className="container mx-auto">
+                    <div className="container mx-auto px-8 md:px-0">
                         <div className="text-center w-full pb-16">
                             <h3 className="uppercase text-gray-800">Kenapa this app?</h3>
                             <p className="sm:text-3xl text-2xl text-black-800 pt-4 xl:w-1/2 mx-auto">
