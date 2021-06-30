@@ -17,14 +17,14 @@ export default function Home() {
 
             <div className="absolute w-full flex flex-col">
                 <div
-                    className="bg-bottom bg-no-repeat bg-cover h-screen"
+                    className="bg-bottom bg-no-repeat bg-cover min-h-screen"
                     style={{
                         backgroundImage: "url('bg-curve.svg')"
                     }}>
                     <Header />
                     <section className="w-full">
-                        <div className="container flex flex-col items-center px-5 min-h-screen mx-auto sm:flex-row ">
-                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start min-h-screen sm:min-h-full text-left space-y-8 mt-12 sm:mt-0 sm:-mt-72 sm:px-8">
+                        <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row ">
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start min-h-full text-left space-y-8 mt-12  sm:px-8">
                                 <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font">
                                     Tiap-tiap hari check MySejahtera?
                                 </h1>
@@ -35,7 +35,7 @@ export default function Home() {
                                 <p className="w-full text-xl text-left text-white">
                                     BILA AKU BOLEH KENA CUCUK!?
                                 </p>
-                                <div className="flex flex-col justify-center lg:flex-row">
+                                <div className="flex flex-col justify-center lg:flex-row pb-8">
                                     <Link href="/subscribe">
                                         <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
                                             I nak SMS when appointment is ready{' 💬 '}
