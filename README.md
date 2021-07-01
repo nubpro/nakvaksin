@@ -311,5 +311,23 @@ Response:
 ```
 
 </details>
+---
+#### 4. Forgot password
+```
+curl --location --request POST 'https://mysejahtera.malaysia.gov.my/register/forgotPassword' \
+--header 'Connection: keep-alive' \
+--header 'Accept-Language: en-MY;q=1, zh-Hans-MY;q=0.9' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'Content-Length: 33' \
+--header 'User-Agent: MySejahtera/1.0.36 (iPhone; iOS 14.4.2; Scale/2.00)' \
+--header 'Host: mysejahtera.malaysia.gov.my' \
+--data-raw '{"emailOrUserName":"60143516633"}'
+```
+
+Response:
+
+- `200` status code if success
 
 ---
+
