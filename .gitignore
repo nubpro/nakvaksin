@@ -33,7 +33,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-sample_data
+sample_data/others
 
 # IDE folder
 /.idea
