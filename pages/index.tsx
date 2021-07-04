@@ -1,50 +1,73 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 import { GiHumanPyramid } from 'react-icons/gi';
-import { IoHeartCircleOutline, IoNotificationsOutline, IoLogoGithub } from 'react-icons/io5';
+import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'react-icons/io5';
 
 import Header from '../components/header';
+import useUser from '../hooks/useUser';
+
+const CallToActionButton = () => {
+    const redirectUrl = useUser() ? '/subscribe' : '/login';
+    return (
+        <div>
+            <Link href={redirectUrl}>
+                <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    I nak SMS when appointment is ready{' 💬 '}
+                </button>
+            </Link>
+        </div>
+    );
+};
 
 export default function Home() {
     return (
         <div>
-            <div className="z-0 opacity-90 w-full h-full absolute bg-gradient-to-tl to-blue-400 from-blue-900 min-h-screen overflow-auto" />
+            <div
+                className="z-0 opacity-90 w-full h-full absolute"
+                style={{
+                    background: `linear-gradient(-45deg, #2f1ce0 0%, #53a0fd 50%, #51eca5 100%)`
+                }}
+            />
 
+            <div
+                className="hidden sm:block absolute w-full h-full bg-bottom bg-no-repeat bg-cover min-h-screen "
+                style={{
+                    backgroundImage: "url('bg-curve.svg')"
+                }}
+            />
             <div className="absolute w-full flex flex-col">
-                <div
-                    className="bg-bottom bg-no-repeat bg-cover h-screen"
-                    style={{
-                        backgroundImage: "url('bg-curve.svg')"
-                    }}>
+                <div>
                     <Header />
                     <section className="w-full">
-                        <div className="container mx-auto flex md:flex-row sm:items-center xl:pb-16 xl:px-0 px-4">
-                            <div className="w-1/2 text-white md:flex md:flex-col md:space-y-6">
-                                <h1 className="sm:text-5xl text-xl font-weight-bolder sm:mb-4 text-black md:text-white">
+                        <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row min-h-screen">
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left space-y-8 sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24">
+                                <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font">
                                     Tiap-tiap hari check MySejahtera?
                                 </h1>
-                                <h2 className="sm:text-2xl text-base mb-2 text-black md:text-white">
+
+                                <p className="w-full text-xl text-left text-white">
                                     Missed appointment?
-                                </h2>
-                                <p className="text-xs sm:text-base text-black md:text-white">
+                                </p>
+                                <p className="w-full text-xl text-left text-white">
                                     BILA AKU BOLEH KENA CUCUK!?
                                 </p>
-                                <div className="xl:mt-4 mt-8 flex">
-                                    <Link href="/subscribe">
-                                        <button className="w-4/5 md:w-full py-8 md:px-8 md:py-4 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                            I nak SMS when appointment is ready{' 💬 '}
-                                        </button>
-                                    </Link>
-                                </div>
+                                <CallToActionButton />
                             </div>
-                            <div className="w-1/2 xl:pt-8 xl:items-center flex justify-end">
-                                <Image src="/phone.png" width={256} height={520} />
+
+                            <div className="sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end sm:-mt-24 ">
+                                <Image
+                                    src="/phone.png"
+                                    width={282}
+                                    height={572}
+                                    alt="Screenshot of this application"
+                                />
                             </div>
                         </div>
                     </section>
                 </div>
                 <div className="bg-white pb-8 w-full pt-8">
-                    <div className="container mx-auto">
+                    <div className="container mx-auto px-8 md:px-0">
                         <div className="text-center w-full pb-16">
                             <h3 className="uppercase text-gray-800">Kenapa this app?</h3>
                             <p className="sm:text-3xl text-2xl text-black-800 pt-4 xl:w-1/2 mx-auto">
@@ -66,7 +89,7 @@ export default function Home() {
                                 <div className="leading-relaxed pr-4">
                                     <p>
                                         <b className="font-normal text-blue-600">
-                                            Don't worry, we are not as forgetful
+                                            Don&apos;t worry, we are not as forgetful
                                         </b>
                                     </p>
                                     <p>
@@ -89,7 +112,7 @@ export default function Home() {
                                 <div className="leading-relaxed pr-4">
                                     <p>
                                         <b className="font-normal text-blue-600">
-                                            Get up to speed with your family member's vaccine
+                                            Get up to speed with your family member&apos;s vaccine
                                             appointment updates
                                         </b>
                                     </p>
