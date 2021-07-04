@@ -1,0 +1,175 @@
+[
+    {
+        "timestamp": "03-Mar",
+        "headerText": {
+            "en_US": "Registered",
+            "ms_MY": "Berdaftar"
+        },
+        "state": "COMPLETED",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": "22-Jun",
+        "headerText": {
+            "en_US": "Eligible for vaccine?",
+            "ms_MY": "Layak untuk vaksinasi?"
+        },
+        "state": "COMPLETED",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": "22-Jun",
+        "headerText": {
+            "en_US": "1st Dose appointment",
+            "ms_MY": "Temu janji Dos 1"
+        },
+        "state": "COMPLETED",
+        "data": [
+            {
+                "text": {
+                    "en_US": "Health Facility:",
+                    "ms_MY": "Fasiliti Kesihatan:"
+                },
+                "value": "Hospital Wanita dan Kanak - Kanak, Likas"
+            },
+            {
+                "text": {
+                    "en_US": "Vaccination Location:",
+                    "ms_MY": "Lokasi Vaksinasi:"
+                },
+                "value": "HOSPITAL WANITA DAN KANAK - KANAK, LIKAS"
+            },
+            {
+                "text": {
+                    "en_US": "Date:",
+                    "ms_MY": "Tarikh:"
+                },
+                "value": "22-06-2021"
+            },
+            {
+                "text": {
+                    "en_US": "Time:",
+                    "ms_MY": "Masa:"
+                },
+                "value": "09:00AM"
+            }
+        ],
+        "action": []
+    },
+    {
+        "timestamp": "22-Jun",
+        "headerText": {
+            "en_US": "1st Dose completed",
+            "ms_MY": "Dos 1 selesai"
+        },
+        "state": "COMPLETED",
+        "data": [
+            {
+                "text": {
+                    "en_US": "Vaccination Date:",
+                    "ms_MY": "Tarikh Vaksinasi:"
+                },
+                "value": "22-Jun-2021 01:34 PM"
+            },
+            {
+                "text": {
+                    "en_US": "Vaccine Number:",
+                    "ms_MY": "Nombor Vaksin:"
+                },
+                "value": "8979676390900"
+            },
+            {
+                "text": {
+                    "en_US": "Batch Number:",
+                    "ms_MY": "Nombor Kelompok:"
+                },
+                "value": "FE2083"
+            },
+            {
+                "text": {
+                    "en_US": "Expiry Date:",
+                    "ms_MY": "Tarikh Luput:"
+                },
+                "value": "31-Oct-2021"
+            }
+        ],
+        "action": [
+            {
+                "text": {
+                    "en_US": "Click here to report symptoms after vaccination",
+                    "ms_MY": "Tekan di sini untuk melapor gejala selepas vaksinasi"
+                },
+                "value": "DOSE1_MONITORING_ASSESSMENT"
+            }
+        ]
+    },
+    {
+        "timestamp": "13-Jul",
+        "headerText": {
+            "en_US": "2nd Dose appointment",
+            "ms_MY": "Temu janji Dos 2"
+        },
+        "state": "ACTIVE",
+        "data": [
+            {
+                "text": {
+                    "en_US": "Health Facility:",
+                    "ms_MY": "Fasiliti Kesihatan:"
+                },
+                "value": "Hospital Wanita dan Kanak - Kanak, Likas"
+            },
+            {
+                "text": {
+                    "en_US": "Vaccination Location:",
+                    "ms_MY": "Lokasi Vaksinasi:"
+                },
+                "value": "HOSPITAL WANITA DAN KANAK-KANAK, LIKAS"
+            },
+            {
+                "text": {
+                    "en_US": "Date:",
+                    "ms_MY": "Tarikh:"
+                },
+                "value": "13-07-2021"
+            },
+            {
+                "text": {
+                    "en_US": "Time:",
+                    "ms_MY": "Masa:"
+                },
+                "value": "09:00AM"
+            }
+        ],
+        "action": [
+            {
+                "text": {
+                    "en_US": "Click here to confirm your appointment",
+                    "ms_MY": "Klik di sini untuk mengesahkan temu janji anda"
+                },
+                "value": "DOSE2_APPOINTMENT_ASSESSMENT"
+            }
+        ]
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "en_US": "2nd Dose completed",
+            "ms_MY": "Dos 2 selesai"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "en_US": "Digital certificate issued",
+            "ms_MY": "Sijil digital dikeluarkan"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    }
+]
