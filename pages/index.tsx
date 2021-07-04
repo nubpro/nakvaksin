@@ -30,16 +30,18 @@ export default function Home() {
                 }}
             />
 
+            <div
+                className="hidden sm:block absolute w-full h-full bg-bottom bg-no-repeat bg-cover min-h-screen "
+                style={{
+                    backgroundImage: "url('bg-curve.svg')"
+                }}
+            />
             <div className="absolute w-full flex flex-col">
-                <div
-                    className="bg-bottom bg-no-repeat bg-cover min-h-screen"
-                    style={{
-                        backgroundImage: "url('bg-curve.svg')"
-                    }}>
+                <div>
                     <Header />
                     <section className="w-full">
-                        <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row ">
-                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start min-h-full text-left space-y-8 mt-12  sm:px-8">
+                        <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row min-h-screen">
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left space-y-8 sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24">
                                 <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font">
                                     Tiap-tiap hari check MySejahtera?
                                 </h1>
@@ -53,8 +55,13 @@ export default function Home() {
                                 <CallToActionButton />
                             </div>
 
-                            <div className="sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end ">
-                                <Image src="/phone.png" width={282} height={572} />
+                            <div className="sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end sm:-mt-24 ">
+                                <Image
+                                    src="/phone.png"
+                                    width={282}
+                                    height={572}
+                                    alt="Screenshot of this application"
+                                />
                             </div>
                         </div>
                     </section>
