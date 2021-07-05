@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
@@ -24,9 +24,9 @@ type FormData = {
 export default function Login() {
     const [axiosErrorMessage, setAxiosErrorMessage] = useState('');
     const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
+    const [usernameValue, setUsernameValue] = useState('');
     const router = useRouter();
     const user = useUser();
-    const [usernameValue, setUsernameValue] = useState('');
     useEffect(() => {
         if (user) {
             router.push('/subscribe');
@@ -39,14 +39,14 @@ export default function Login() {
         formState: { errors, isSubmitting }
     } = useForm<FormData>();
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(() => {
         setAxiosErrorMessage('');
 
         return axios({
             method: 'POST',
             url: '/api/forgetPassword',
             data: {
-                emailOrUserName: data.username
+                emailOrUserName: usernameValue
             }
         })
             .then((res) => {
