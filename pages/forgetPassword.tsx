@@ -26,7 +26,7 @@ export default function Login() {
     const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
     const router = useRouter();
     const user = useUser();
-
+    const [usernameValue, setUsernameValue] = useState('');
     useEffect(() => {
         if (user) {
             router.push('/subscribe');
@@ -54,9 +54,11 @@ export default function Login() {
                     setAxiosSuccessMessage(
                         'If the email/phone number is correct, You will receive SMS or Email for reset password !'
                     );
+                    setUsernameValue('');
                 } else {
                     setAxiosSuccessMessage(res.data);
                 }
+                setUsernameValue('');
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -139,6 +141,8 @@ export default function Login() {
                                 className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 placeholder={'60123456789 / ali@email.com'}
                                 {...register('username', { required: true })}
+                                value={usernameValue}
+                                onChange={(e) => setUsernameValue(e.target.value)}
                             />
                             {errors.username && <ErrorMessage>This is required.</ErrorMessage>}
                         </div>
