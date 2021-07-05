@@ -288,7 +288,7 @@ curl --location --request POST 'https://mysejahtera.malaysia.gov.my/register/for
 --header 'Content-Length: 33' \
 --header 'User-Agent: MySejahtera/1.0.36 (iPhone; iOS 14.4.2; Scale/2.00)' \
 --header 'Host: mysejahtera.malaysia.gov.my' \
---data-raw '{"emailOrUserName":"60143516633"}'
+--data-raw '{"emailOrUserName":"60123456789"}'
 ```
 
 Response:
