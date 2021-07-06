@@ -41,6 +41,16 @@ export default function Login() {
 
     const onSubmit = handleSubmit((data, event) => {
         setAxiosErrorMessage('');
+        setAxiosSuccessMessage('');
+
+        if (
+            !data.username.includes('@') &&
+            !data.username.includes('+') &&
+            !data.username.includes('-') &&
+            !data.username.match('^[0-9]+$')
+        ) {
+            return setAxiosErrorMessage('Please Enter Proper Email address or phone number');
+        }
 
         return axios({
             method: 'POST',
