@@ -1,0 +1,109 @@
+[
+    {
+        "timestamp": "03-Mar",
+        "headerText": {
+            "en_US": "Registered",
+            "ms_MY": "Berdaftar"
+        },
+        "state": "COMPLETED",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": "16-Jun",
+        "headerText": {
+            "en_US": "Eligible for vaccine?",
+            "ms_MY": "Layak untuk vaksinasi?"
+        },
+        "state": "COMPLETED",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": "22-Jun",
+        "headerText": {
+            "en_US": "1st Dose appointment",
+            "ms_MY": "Temu janji Dos 1"
+        },
+        "state": "ACTIVE",
+        "data": [
+            {
+                "text": {
+                    "en_US": "Health Facility:",
+                    "ms_MY": "Fasiliti Kesihatan:"
+                },
+                "value": "Hospital Wanita dan Kanak - Kanak, Likas"
+            },
+            {
+                "text": {
+                    "en_US": "Vaccination Location:",
+                    "ms_MY": "Lokasi Vaksinasi:"
+                },
+                "value": "HOSPITAL WANITA DAN KANAK - KANAK, LIKAS"
+            },
+            {
+                "text": {
+                    "en_US": "Date:",
+                    "ms_MY": "Tarikh:"
+                },
+                "value": "22-06-2021"
+            },
+            {
+                "text": {
+                    "en_US": "Time:",
+                    "ms_MY": "Masa:"
+                },
+                "value": "12:00PM"
+            }
+        ],
+        "action": [
+            {
+                "text": {
+                    "en_US": "Click here to scan vaccination location QR when you arrive",
+                    "ms_MY": "Tekan di sini untuk imbas kod QR lokasi vaksinasi apabila anda tiba"
+                },
+                "value": "USER_CHECK_IN"
+            }
+        ]
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "en_US": "1st Dose completed",
+            "ms_MY": "Dos 1 selesai"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "en_US": "2nd Dose appointment",
+            "ms_MY": "Temu janji Dos 2"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "en_US": "2nd Dose completed",
+            "ms_MY": "Dos 2 selesai"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "en_US": "Digital certificate issued",
+            "ms_MY": "Sijil digital dikeluarkan"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    }
+]

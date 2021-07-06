@@ -3,12 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
 import useUser from '../hooks/useUser';
+import formatPhoneNumber from '../utlis/formatPhoneNumber';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -20,19 +20,15 @@ ErrorMessage.propTypes = {
 
 type FormData = {
     username: string;
-    password: string;
 };
 
 export default function Login() {
-    // const [isMobile, setIsMobile] = useState(true);
-    const [AuthErrorMessage, setAuthErrorMessage] = useState('');
+    const [axiosErrorMessage, setAxiosErrorMessage] = useState('');
+    const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
     const router = useRouter();
-    const [, setCookie] = useCookies(['user']);
     const user = useUser();
-
     useEffect(() => {
         if (user) {
-            // is logged in
             router.push('/subscribe');
         }
     }, [user]);
@@ -42,37 +38,55 @@ export default function Login() {
         handleSubmit,
         formState: { errors, isSubmitting }
     } = useForm<FormData>();
-    const onSubmit = handleSubmit((data) => {
-        setAuthErrorMessage('');
+
+    const onSubmit = handleSubmit((data, event) => {
+        setAxiosErrorMessage('');
+        setAxiosSuccessMessage('');
+
+        if (
+            !data.username.includes('@') &&
+            !data.username.includes('+') &&
+            !data.username.includes('-') &&
+            !data.username.match('^[0-9]+$')
+        ) {
+            return setAxiosErrorMessage('Please Enter Proper Email address or phone number');
+        }
 
         return axios({
             method: 'POST',
-            url: '/api/myslogin',
+            url: '/api/resetpassword',
             data: {
-                username: data.username,
-                password: data.password
+                username: formatPhoneNumber(data.username)
             }
         })
-            .then((resp) => {
-                if (resp.status === 200) {
-                    setCookie('user', resp.data, { maxAge: 86400 });
-                } else {
-                    throw new Error('Unexpected response from endpoint');
+            .then((res) => {
+                event?.target.reset();
 
-                    // TODO: add sentry logging here
+                if (res.status === 200) {
+                    return setAxiosSuccessMessage(
+                        'You will receive a SMS from MySejahtera to reset your password shortly'
+                    );
                 }
+
+                return setAxiosSuccessMessage(res.data);
             })
             .catch((err) => {
-                if (err.response.status === 401) {
-                    setAuthErrorMessage(
-                        'Your account and/or password is incorrect, please try again'
-                    );
-                } else {
-                    setAuthErrorMessage(err.message);
-                    // TODO: add sentry logging here
+                if (err.response.status === 418) {
+                    return setAxiosErrorMessage('Hmm Server hang... Please Try again ');
+                }
+                event?.target.reset();
+
+                if (err.response.status === 404) {
+                    return setAxiosErrorMessage('The SMS/Email Not Found, ada typo tak?');
                 }
 
-                console.error(err);
+                if (err.response.status === 400) {
+                    return setAxiosErrorMessage(
+                        'Please Enter Proper Email address or phone number'
+                    );
+                }
+
+                return setAxiosErrorMessage(err.message);
             });
     });
 
@@ -94,11 +108,13 @@ export default function Login() {
                                 cy="12"
                                 r="10"
                                 stroke="currentColor"
-                                strokeWidth="4"></circle>
+                                strokeWidth="4"
+                            />
                             <path
                                 className="opacity-75"
                                 fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            />
                         </svg>
                     </div>
                 )}
@@ -110,15 +126,28 @@ export default function Login() {
                         width={50}
                         height={50}
                     />
-                    <div className="text-sm">Please use your MySejahtera account to login</div>
-
+                    <div>
+                        <h1 className="text-xl">Reset your MySejahtera&apos;s Password</h1>
+                        <h2 className="text-sm">
+                            This will not affect your existing logged in devices
+                        </h2>
+                    </div>
                     <div className="mt-4">
-                        {AuthErrorMessage.length > 0 && (
+                        {axiosErrorMessage.length > 0 && (
                             <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-1 px-1 mb-3">
                                 <span role="img" aria-label="exclaimation">
                                     ⚠️
                                 </span>{' '}
-                                {AuthErrorMessage}
+                                {axiosErrorMessage}
+                            </div>
+                        )}
+
+                        {axiosSuccessMessage.length > 0 && (
+                            <div className="bg-green-500 text-white border border-green-500 text-sm rounded-md py-1 px-1 mb-3">
+                                <span role="img" aria-label="tick">
+                                    ✅
+                                </span>{' '}
+                                {axiosSuccessMessage}
                             </div>
                         )}
 
@@ -135,36 +164,14 @@ export default function Login() {
                             />
                             {errors.username && <ErrorMessage>This is required.</ErrorMessage>}
                         </div>
-                        <div className="relative text-left">
-                            <label htmlFor="password" className="text-gray-700 text-sm">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                placeholder="Please enter your password"
-                                {...register('password', { required: true })}
-                            />
-                            {errors.password && <ErrorMessage>This is required.</ErrorMessage>}
-                        </div>
-                        {/* <div className="text-center md:text-right mt-1">
-                            <button
-                                type="button"
-                                className="text-sm"
-                                onClick={() => setIsMobile((s) => !s)}>
-                                Change to login with {isMobile ? 'email' : 'mobile number'}
-                            </button>
-                        </div> */}
-
                         <button
                             type="submit"
                             className="mt-6 py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                            Login
+                            Send Reset Password SMS
                         </button>
                         <div className="mt-1">
-                            <Link href="/resetpassword">
-                                <a className="text-sm hover:underline">Forgot password?</a>
+                            <Link href="/login">
+                                <a className="text-sm hover:underline">Nak Login?</a>
                             </Link>
                         </div>
                     </div>

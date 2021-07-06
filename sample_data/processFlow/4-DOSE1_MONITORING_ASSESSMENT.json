@@ -1,0 +1,175 @@
+[
+    {
+        "timestamp": "04-Mar",
+        "headerText": {
+            "ms_MY": "Berdaftar",
+            "en_US": "Registered"
+        },
+        "state": "COMPLETED",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": "05-Jun",
+        "headerText": {
+            "ms_MY": "Layak untuk vaksinasi?",
+            "en_US": "Eligible for vaccine?"
+        },
+        "state": "COMPLETED",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": "05-Jun",
+        "headerText": {
+            "ms_MY": "Temu janji Dos 1",
+            "en_US": "1st Dose appointment"
+        },
+        "state": "COMPLETED",
+        "data": [
+            {
+                "text": {
+                    "ms_MY": "Fasiliti Kesihatan:",
+                    "en_US": "Health Facility:"
+                },
+                "value": "Dewan Mini Putrajaya Sabah"
+            },
+            {
+                "text": {
+                    "ms_MY": "Lokasi Vaksinasi:",
+                    "en_US": "Vaccination Location:"
+                },
+                "value": "Dewan Pusat Pentadbiran Kerajaan Persekutuan, Kota Kinabalu"
+            },
+            {
+                "text": {
+                    "ms_MY": "Tarikh:",
+                    "en_US": "Date:"
+                },
+                "value": "05-06-2021"
+            },
+            {
+                "text": {
+                    "ms_MY": "Masa:",
+                    "en_US": "Time:"
+                },
+                "value": "08:00"
+            }
+        ],
+        "action": []
+    },
+    {
+        "timestamp": "05-Jun",
+        "headerText": {
+            "ms_MY": "Dos 1 selesai",
+            "en_US": "1st Dose completed"
+        },
+        "state": "COMPLETED",
+        "data": [
+            {
+                "text": {
+                    "ms_MY": "Tarikh Vaksinasi:",
+                    "en_US": "Vaccination Date:"
+                },
+                "value": "05-Jun-2021 11:59 AM"
+            },
+            {
+                "text": {
+                    "ms_MY": "Nombor Vaksin:",
+                    "en_US": "Vaccine Number:"
+                },
+                "value": "8274439257420"
+            },
+            {
+                "text": {
+                    "ms_MY": "Nombor Kelompok:",
+                    "en_US": "Batch Number:"
+                },
+                "value": "EX2405"
+            },
+            {
+                "text": {
+                    "ms_MY": "Tarikh Luput:",
+                    "en_US": "Expiry Date:"
+                },
+                "value": "31-Aug-2021"
+            }
+        ],
+        "action": [
+            {
+                "text": {
+                    "ms_MY": "Tekan di sini untuk melapor gejala selepas vaksinasi",
+                    "en_US": "Click here to report symptoms after vaccination"
+                },
+                "value": "DOSE1_MONITORING_ASSESSMENT"
+            }
+        ]
+    },
+    {
+        "timestamp": "26-Jun",
+        "headerText": {
+            "ms_MY": "Temu janji Dos 2",
+            "en_US": "2nd Dose appointment"
+        },
+        "state": "ACTIVE",
+        "data": [
+            {
+                "text": {
+                    "ms_MY": "Fasiliti Kesihatan:",
+                    "en_US": "Health Facility:"
+                },
+                "value": "Dewan Mini Putrajaya Sabah"
+            },
+            {
+                "text": {
+                    "ms_MY": "Lokasi Vaksinasi:",
+                    "en_US": "Vaccination Location:"
+                },
+                "value": "Dewan Pusat Pentadbiran Kerajaan Persekutuan, Kota Kinabalu"
+            },
+            {
+                "text": {
+                    "ms_MY": "Tarikh:",
+                    "en_US": "Date:"
+                },
+                "value": "26-06-2021"
+            },
+            {
+                "text": {
+                    "ms_MY": "Masa:",
+                    "en_US": "Time:"
+                },
+                "value": "08:00"
+            }
+        ],
+        "action": [
+            {
+                "text": {
+                    "ms_MY": "Klik di sini untuk mengesahkan temu janji anda",
+                    "en_US": "Click here to confirm your appointment"
+                },
+                "value": "DOSE2_APPOINTMENT_ASSESSMENT"
+            }
+        ]
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "ms_MY": "Dos 2 selesai",
+            "en_US": "2nd Dose completed"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    },
+    {
+        "timestamp": null,
+        "headerText": {
+            "ms_MY": "Sijil digital dikeluarkan",
+            "en_US": "Digital certificate issued"
+        },
+        "state": "PENDING",
+        "data": [],
+        "action": []
+    }
+]
