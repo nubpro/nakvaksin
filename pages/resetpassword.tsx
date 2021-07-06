@@ -54,7 +54,7 @@ export default function Login() {
 
         return axios({
             method: 'POST',
-            url: '/api/forgetPassword',
+            url: '/api/resetpassword',
             data: {
                 username: formatPhoneNumber(data.username)
             }
