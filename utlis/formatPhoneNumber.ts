@@ -1,5 +1,5 @@
 function formatPhoneNumber(usernameValue: string): string {
-    const isMobile = usernameValue.indexOf('@') === -1;
+    const isMobile = usernameValue.includes('@');
     let temp = usernameValue;
 
     if (!isMobile) return usernameValue;
