@@ -62,7 +62,7 @@ export default function Login() {
             .then((res) => {
                 if (res.status === 200) {
                     setAxiosSuccessMessage(
-                        'If the email/phone number is correct, You will receive SMS or Email for reset password !'
+                        'You will receive a SMS from MySejahtera to reset your password shortly'
                     );
                 } else {
                     setAxiosSuccessMessage(res.data);
@@ -117,11 +117,12 @@ export default function Login() {
                         width={50}
                         height={50}
                     />
-                    <div className="text-sm">
-                        Please Enter your Email or Phone number to receive SMS or Email to reset
-                        your password
+                    <div>
+                        <h1 className="text-xl">Reset your MySejahtera's Password</h1>
+                        <h2 className="text-sm">
+                            This will not affect your existing logged in devices
+                        </h2>
                     </div>
-
                     <div className="mt-4">
                         {axiosErrorMessage.length > 0 && (
                             <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-1 px-1 mb-3">
