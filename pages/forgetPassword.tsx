@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
 import useUser from '../hooks/useUser';
+import formatPhoneNumber from '../utlis/formatPhoneNumber';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -46,7 +47,7 @@ export default function Login() {
             method: 'POST',
             url: '/api/forgetPassword',
             data: {
-                emailOrUserName: usernameValue
+                emailOrUserName: formatPhoneNumber(usernameValue)
             }
         })
             .then((res) => {
