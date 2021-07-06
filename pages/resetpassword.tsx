@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import Header from '../components/header';
 import useUser from '../hooks/useUser';
 import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
+import { isUsernameValid } from '../utils/username';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -36,20 +37,16 @@ export default function Login() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting }
+        formState: { errors, isSubmitting },
+        reset
     } = useForm<FormData>();
 
     const onSubmit = handleSubmit((data, event) => {
         setAxiosErrorMessage('');
         setAxiosSuccessMessage('');
 
-        if (
-            !data.username.includes('@') &&
-            !data.username.includes('+') &&
-            !data.username.includes('-') &&
-            !data.username.match('^[0-9]+$')
-        ) {
-            return setAxiosErrorMessage('Please Enter Proper Email address or phone number');
+        if (isUsernameValid(data.username) === false) {
+            return setAxiosErrorMessage('Please enter valid Phone Number or Email Address');
         }
 
         return axios({
@@ -60,30 +57,27 @@ export default function Login() {
             }
         })
             .then((res) => {
-                event?.target.reset();
+                reset();
 
                 if (res.status === 200) {
                     return setAxiosSuccessMessage(
                         'You will receive a SMS from MySejahtera to reset your password shortly'
                     );
+                } else {
+                    // TODO: add sentry logging
                 }
 
                 return setAxiosSuccessMessage(res.data);
             })
             .catch((err) => {
-                if (err.response.status === 418) {
-                    return setAxiosErrorMessage('Hmm Server hang... Please Try again ');
-                }
-                event?.target.reset();
-
-                if (err.response.status === 404) {
-                    return setAxiosErrorMessage('The SMS/Email Not Found, ada typo tak?');
+                if (err.response.status === 408) {
+                    return setAxiosErrorMessage(
+                        'Unexpected failure from MySejahtera (Please ensure your Phone Number or Email Address is correct)'
+                    );
                 }
 
                 if (err.response.status === 400) {
-                    return setAxiosErrorMessage(
-                        'Please Enter Proper Email address or phone number'
-                    );
+                    return setAxiosErrorMessage('Please enter valid Phone Number or Email Address');
                 }
 
                 return setAxiosErrorMessage(err.message);
@@ -128,8 +122,8 @@ export default function Login() {
                     />
                     <div>
                         <h1 className="text-xl">Reset your MySejahtera&apos;s Password</h1>
-                        <h2 className="text-sm">
-                            This will not affect your existing logged in devices
+                        <h2 className="text-sm text-gray-600">
+                            Resetting password will not affect your existing logged in devices
                         </h2>
                     </div>
                     <div className="mt-4">
