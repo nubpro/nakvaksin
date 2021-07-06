@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         });
     }
     try {
-        await axios({
+        const response = await axios({
             method: 'post',
             url: 'https://mysejahtera.malaysia.gov.my/register/forgotPassword',
             data: {
@@ -25,10 +25,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             timeoutErrorMessage: 'TIMEOUT'
         });
 
-        res.status(200).json({
-            status: 'OK'
+        /**
+         * Weird behaving of MySej API status, it mean the user do not exits
+         */
+        if (!response.data) {
+            return res.status(404).json({
+                message: 'Email/Phone Number Not Found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'OK'
         });
     } catch (err) {
+        // Axios Timeout Due to the Invalid Input
+        if (err?.code === 'ECONNABORTED') {
+            return res.status(408).json({
+                message: 'Request Timed out'
+            });
+        }
         return res.status(err.response.status).json({ error: err.message });
     }
 };
