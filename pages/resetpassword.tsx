@@ -60,24 +60,33 @@ export default function Login() {
             }
         })
             .then((res) => {
+                event?.target.reset();
+
                 if (res.status === 200) {
-                    setAxiosSuccessMessage(
+                    return setAxiosSuccessMessage(
                         'You will receive a SMS from MySejahtera to reset your password shortly'
                     );
-                } else {
-                    setAxiosSuccessMessage(res.data);
                 }
-                event?.target.reset();
+
+                return setAxiosSuccessMessage(res.data);
             })
             .catch((err) => {
-                if (err.response.status === 401) {
-                    setAxiosErrorMessage(
-                        'Your account and/or password is incorrect, please try again'
-                    );
-                } else {
-                    setAxiosErrorMessage(err.message);
+                if (err.response.status === 418) {
+                    return setAxiosErrorMessage('Hmm Server hang... Please Try again ');
                 }
                 event?.target.reset();
+
+                if (err.response.status === 404) {
+                    return setAxiosErrorMessage('The SMS/Email Not Found, ada typo tak?');
+                }
+
+                if (err.response.status === 400) {
+                    return setAxiosErrorMessage(
+                        'Please Enter Proper Email address or phone number'
+                    );
+                }
+
+                return setAxiosErrorMessage(err.message);
             });
     });
 
