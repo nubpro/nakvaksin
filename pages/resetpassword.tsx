@@ -127,7 +127,7 @@ export default function Login() {
                         height={50}
                     />
                     <div>
-                        <h1 className="text-xl">Reset your MySejahtera's Password</h1>
+                        <h1 className="text-xl">Reset your MySejahtera&apos;s Password</h1>
                         <h2 className="text-sm">
                             This will not affect your existing logged in devices
                         </h2>
