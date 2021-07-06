@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import formatPhoneNumber from '../../utlis/formatPhoneNumber';
+import sanitizePhoneNumber from '../../utils/sanitizePhoneNumber';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (
@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             method: 'post',
             url: 'https://mysejahtera.malaysia.gov.my/register/forgotPassword',
             data: {
-                emailOrUserName: formatPhoneNumber(req.body.username)
+                emailOrUserName: sanitizePhoneNumber(req.body.username)
             },
             timeout: 5000,
             timeoutErrorMessage: 'TIMEOUT'

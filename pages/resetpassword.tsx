@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
 import useUser from '../hooks/useUser';
-import formatPhoneNumber from '../utlis/formatPhoneNumber';
+import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -56,7 +56,7 @@ export default function Login() {
             method: 'POST',
             url: '/api/resetpassword',
             data: {
-                username: formatPhoneNumber(data.username)
+                username: sanitizePhoneNumber(data.username)
             }
         })
             .then((res) => {
@@ -151,7 +151,7 @@ export default function Login() {
                             </div>
                         )}
 
-                        <div className="relative text-left mb-3">
+                        <div className="relative text-left">
                             <label htmlFor="username" className="text-gray-700 text-sm">
                                 Phone Number or Email
                             </label>
@@ -164,10 +164,11 @@ export default function Login() {
                             />
                             {errors.username && <ErrorMessage>This is required.</ErrorMessage>}
                         </div>
+
                         <button
                             type="submit"
                             className="mt-6 py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                            Send Reset Password SMS
+                            Reset Password
                         </button>
                         <div className="mt-1">
                             <Link href="/login">
