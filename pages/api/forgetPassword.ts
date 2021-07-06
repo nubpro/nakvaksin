@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             method: 'post',
             url: 'https://mysejahtera.malaysia.gov.my/register/forgotPassword',
             data: {
-                emailOrUserName: req.body.emailOrUserName
+                emailOrUserName: req.body.username
             }
         });
 

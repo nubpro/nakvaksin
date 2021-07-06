@@ -47,7 +47,7 @@ export default function Login() {
             method: 'POST',
             url: '/api/forgetPassword',
             data: {
-                emailOrUserName: formatPhoneNumber(usernameValue)
+                username: formatPhoneNumber(data.username)
             }
         })
             .then((res) => {
