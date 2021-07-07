@@ -1,8 +1,10 @@
+import { isEmail } from './username';
+
 function sanitizePhoneNumber(usernameValue: string): string {
     /**
      * Return because it is Email
      */
-    if (usernameValue.includes('@')) {
+    if (isEmail(usernameValue)) {
         return usernameValue;
     }
 
