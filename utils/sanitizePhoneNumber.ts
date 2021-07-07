@@ -17,8 +17,8 @@ function sanitizePhoneNumber(usernameValue: string): string {
     }
 
     newUsernameValue = newUsernameValue.replace('+60', '60');
-    newUsernameValue = newUsernameValue.replaceAll('-', '');
-    newUsernameValue = newUsernameValue.replaceAll(' ', '');
+    newUsernameValue = newUsernameValue.replace(/-/g, '');
+    newUsernameValue = newUsernameValue.replace(/ /g, '');
     return newUsernameValue;
 }
 
