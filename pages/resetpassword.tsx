@@ -45,7 +45,7 @@ export default function Login() {
         setAxiosErrorMessage('');
         setAxiosSuccessMessage('');
 
-        if (isUsernameValid(data.username) === false) {
+        if (!isUsernameValid(data.username)) {
             return setAxiosErrorMessage('Please enter valid Phone Number or Email Address');
         }
 
