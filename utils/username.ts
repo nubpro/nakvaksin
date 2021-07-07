@@ -3,7 +3,7 @@ function isEmail(username: string): boolean {
 }
 
 function isPhoneNumber(username: string): boolean {
-    const regex = new RegExp(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g);
+    const regex = new RegExp(/^[+]*[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/g);
     return regex.test(username);
 }
 
