@@ -16,7 +16,7 @@ function sanitizePhoneNumber(usernameValue: string): string {
         newUsernameValue = '6' + newUsernameValue;
     }
 
-    newUsernameValue = newUsernameValue.replace('+60', '60');
+    newUsernameValue = newUsernameValue.replace(/^\+60/, '60');
     newUsernameValue = newUsernameValue.replace(/-/g, '');
     newUsernameValue = newUsernameValue.replace(/ /g, '');
     return newUsernameValue;
