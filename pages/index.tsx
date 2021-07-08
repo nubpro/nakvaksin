@@ -69,7 +69,7 @@ export default function Home() {
                 <div className="bg-white pb-8 w-full pt-8">
                     <div className="container mx-auto px-8 md:px-0">
                         <div className="text-center w-full pb-16">
-                            <h3 className="uppercase text-gray-800">Kenapa this app?</h3>
+                            <h2 className="uppercase text-gray-800">Kenapa this app?</h2>
                             <p className="sm:text-3xl text-2xl text-black-800 pt-4 xl:w-1/2 mx-auto">
                                 A simple, easier way to get notified on your appointment.
                             </p>
@@ -81,9 +81,9 @@ export default function Home() {
                                         <IoNotificationsOutline size={48} />
                                     </div>
                                     <div className="w-5/6">
-                                        <h4 className="text-black items-center xl:text-2xl">
+                                        <h3 className="text-black items-center xl:text-2xl">
                                             Guaranteed notification
-                                        </h4>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div className="leading-relaxed pr-4">
@@ -104,9 +104,9 @@ export default function Home() {
                                         <IoHeartCircleOutline size={48} />
                                     </div>
                                     <div className="w-4/5">
-                                        <h4 className="text-black items-center xl:text-2xl">
+                                        <h3 className="text-black items-center xl:text-2xl">
                                             Care for your loved one
-                                        </h4>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div className="leading-relaxed pr-4">
@@ -128,9 +128,9 @@ export default function Home() {
                                         <GiHumanPyramid size={48} />
                                     </div>
                                     <div className="w-4/5">
-                                        <h4 className="text-black items-center xl:text-2xl">
+                                        <h3 className="text-black items-center xl:text-2xl">
                                             Made by Malaysians for everyone
-                                        </h4>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div className="leading-relaxed pr-4">
