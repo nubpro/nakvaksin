@@ -15,7 +15,7 @@ A simple, easier way to get notified on your appointment.
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary>Table of Contents</summary>
+  <summary><b>Table of Contents<b></summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
