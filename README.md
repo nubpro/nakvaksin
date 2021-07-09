@@ -6,7 +6,7 @@
 A simple, easier way to get notified on your appointment.
 <br />
 <br />
-<a href="https://nakvaksin.vercel.app/">View The App</a>
+<a href="https://nakvaksin.vercel.app/">View the App (Under development)</a>
 ·
 <a href="https://github.com/nubpro/nakvaksin/issues">Report Bug</a>
 ·
@@ -39,9 +39,9 @@ A simple, easier way to get notified on your appointment.
 </details>
 
 <!-- ABOUT THE PROJECT -->
-
 ## About The Project
-As some [MySejahtera](https://mysejahtera.malaysia.gov.my/intro_en/) user do not receive any notification and missed their appointment, or user ar force to check the application every day for the very same reason.
+
+As some [MySejahtera](https://mysejahtera.malaysia.gov.my/intro_en/) user do not receive any notification and missed their appointment, or user are forced to check the application every day for the very same reason.
 <br>
 This application will provide a simple, easier way to get notified on user's vaccination appointment.
 
@@ -49,7 +49,6 @@ This application will provide a simple, easier way to get notified on user's vac
 
 -   [React JS](https://reactjs.org/)
 -   [Next JS](https://nextjs.org/)
--   [AWS](https://aws.amazon.com/)
 
 <!-- GETTING STARTED -->
 
@@ -61,7 +60,8 @@ This is an example of how to list things you need to use the software and how to
 
 -   npm
 -   yarn
--   node.js v14 
+-   node.js
+
 ```sh
 npm install yarn@latest -g
 ```
@@ -117,17 +117,6 @@ _A. Token Authentication Method_
 _B. Login with Basic Auth_
 
 To be documented soon, not something we may need to know?
-
-#### Backend Architecture
-
-I've drafted out the backend architecture based on AWS infra as I was planning to have it there using
-[Serverless Framework](https://www.serverless.com/). I believe there are some gaps here and there, I have quite some
-doubt myself
-
-You can check out `/backend/` directory. It is still in a very rough stage, I honestly wont mind you scrap the whole
-thing and do it over
-
-![image](https://user-images.githubusercontent.com/762914/123636048-fab2c280-d84e-11eb-9388-011dd9077da2.png)
 
 ## MySejahtera API
 
