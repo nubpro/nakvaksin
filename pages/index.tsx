@@ -80,13 +80,13 @@ export default function Home() {
                                     <div className="w-1/6 items-center mx-auto">
                                         <IoNotificationsOutline size={48} />
                                     </div>
-                                    <div className="w-5/6">
-                                        <h3 className="text-black items-center xl:text-2xl">
+                                    <div className="w-5/6 flex flex-wrap content-center">
+                                        <h3 className="text-black text-xl font-medium xl:text-2xl mx-auto">
                                             Guaranteed notification
                                         </h3>
                                     </div>
                                 </div>
-                                <div className="leading-relaxed pr-4">
+                                <div className="leading-relaxed pr-4 text-justify pt-4">
                                     <p>
                                         <b className="font-normal text-blue-600">
                                             Don&apos;t worry, we are not as forgetful
@@ -103,13 +103,13 @@ export default function Home() {
                                     <div className="w-1/6 items-center mx-auto">
                                         <IoHeartCircleOutline size={48} />
                                     </div>
-                                    <div className="w-4/5">
-                                        <h3 className="text-black items-center xl:text-2xl">
+                                    <div className="w-4/5 flex flex-wrap content-center">
+                                        <h3 className="text-black text-xl font-medium xl:text-2xl mx-auto">
                                             Care for your loved one
                                         </h3>
                                     </div>
                                 </div>
-                                <div className="leading-relaxed pr-4">
+                                <div className="leading-relaxed pr-4 text-justify pt-4">
                                     <p>
                                         <b className="font-normal text-blue-600">
                                             Get up to speed with your family member&apos;s vaccine
@@ -128,12 +128,12 @@ export default function Home() {
                                         <GiHumanPyramid size={48} />
                                     </div>
                                     <div className="w-4/5">
-                                        <h3 className="text-black items-center xl:text-2xl">
+                                        <h3 className="text-black text-xl font-medium xl:text-2xl mx-auto text-center">
                                             Made by Malaysians for everyone
                                         </h3>
                                     </div>
                                 </div>
-                                <div className="leading-relaxed pr-4">
+                                <div className="leading-relaxed pr-4 text-justify">
                                     <p>
                                         <b className="font-normal text-blue-600">
                                             We do what we can, we are in this together
