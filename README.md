@@ -1,40 +1,98 @@
+<br />
+
+<h3 align="center">NakVaksin</h3>
+
+<p align="center">
+A simple, easier way to get notified on your appointment.
+<br />
+<br />
+<a href="https://nakvaksin.vercel.app/">View the App (Under development)</a>
+·
+<a href="https://github.com/nubpro/nakvaksin/issues">Report Bug</a>
+·
+<a href="https://github.com/nubpro/nakvaksin/issues">Request Feature</a>
+</p>
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+As some [MySejahtera](https://mysejahtera.malaysia.gov.my/intro_en/) user do not receive any notification and missed their appointment, or user are forced to check the application every day for the very same reason.
+<br>
+This application will provide a simple, easier way to get notified on user's vaccination appointment.
+
+### Built With
+
+-   [React JS](https://reactjs.org/)
+-   [Next JS](https://nextjs.org/)
+
+<!-- GETTING STARTED -->
+
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
+This is an example of how to list things you need to use the software and how to install them.
+
+-   npm
+-   yarn
+-   node.js
+
+```sh
+npm install yarn@latest -g
+```
+
+### Installation
+
+1. Clone the repo
+
+```sh
+git clone https://github.com/nubpro/nakvaksin.git
+```
+
+2. Install NPM packages
+
+```sh
+yarn install
+```
+
+<!-- USAGE EXAMPLES -->
+
+## Usage
+
+After that, simply run below command to start up the development server
+
+```sh
 yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on
+[http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory agre treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The `pages/api` directory is map to `/api/*`. Files in this directory is treat as
+[API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technical Explanation
 
-## How MySejahtera Authentication Works
+#### How MySejahtera Authentication Works
 
 _A. Token Authentication Method_
 
 1. Login to MySejahtera API
+
 2. A token is returned (`x-auth-token` from response header)
+
 3. This token expires within 3 days
+
 4. Pass the token when making MySejahtera API request. In the response header, a new `x-auth-token` is returned.
+
 5. Save that token on the client to ensure token validity.
 
 _B. Login with Basic Auth_
+
 To be documented soon, not something we may need to know?
-
-## Backend Architecture
-
-I've drafted out the backend architecture based on AWS infra as I was planning to have it there using [Serverless Framework](https://www.serverless.com/). I believe there are some gaps here and there, I have quite some doubt myself
-
-You can check out `/backend/` directory. It is still in a very rough stage, I honestly wont mind you scrap the whole thing and do it over
-
-![image](https://user-images.githubusercontent.com/762914/123636048-fab2c280-d84e-11eb-9388-011dd9077da2.png)
 
 ## MySejahtera API
 
@@ -42,7 +100,7 @@ You can check out `/backend/` directory. It is still in a very rough stage, I ho
 
 Request:
 
-```
+```curl
 curl --location --request POST 'https://mysejahtera.malaysia.gov.my/epms/login' \
 --header 'Content-Type: multipart/form-data;boundary=31' \
 --header 'Host: mysejahtera.malaysia.gov.my' \
@@ -62,7 +120,7 @@ Request:
 
 ```
 curl --location --request GET 'https://mysejahtera.malaysia.gov.my/epms/v1/mobileApp/vaccinationEmployeeInfo' \
---header 'x-auth-token: <INSERT YOUR X-AUTH-TOKEN>' \
+--header 'x-auth-token: <INSERT YOUR X-AUTH-TOKEN>'
 ```
 
 Response:
@@ -276,9 +334,9 @@ Response:
 </details>
   
 ---
-  
+
 #### 4. Forgot password
-  
+
 ```
 curl --location --request POST 'https://mysejahtera.malaysia.gov.my/register/forgotPassword' \
 --header 'Connection: keep-alive' \
@@ -296,3 +354,36 @@ Response:
 -   `200` status code if success
 
 ---
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+See the [open issues](https://github.com/nubpro/nakvaksin/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any
+contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the GPL v3 License. See `LICENSE` for more information.
+
+<!-- CONTACT -->
+
+## Contact
+
+<!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email -->
+
+Project Link: [https://github.com/nubpro/nakvaksin](https://github.com/nubpro/nakvaksin)
