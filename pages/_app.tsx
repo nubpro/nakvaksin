@@ -6,14 +6,12 @@ import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <>
+        <CookiesProvider>
             <Head>
                 <title>Nak Naksin!</title>
             </Head>
-            <CookiesProvider>
-                <Component {...pageProps} />
-            </CookiesProvider>
-        </>
+            <Component {...pageProps} />
+        </CookiesProvider>
     );
 }
 
