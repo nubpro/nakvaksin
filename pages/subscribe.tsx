@@ -1,125 +1,43 @@
-import classNames from 'classnames';
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import React, { MouseEvent, ReactNode, useEffect, useState } from 'react';
-import { GoCheck } from 'react-icons/go';
-import { IoCallOutline, IoTrashOutline } from 'react-icons/io5';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
 import useUser from '../hooks/useUser';
+import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
+import { isEmail, isPhoneNumber, isUsernameValid } from '../utils/username';
 
-const Checkbox = ({
-    children,
-    checked = false,
-    className,
-    onClick
-}: {
-    children: ReactNode;
-    checked?: boolean;
-    className?: string;
-    onClick?: (event: MouseEvent) => void;
-}) => {
-    const [isChecked, setIsChecked] = useState(checked);
-
-    return (
-        <button
-            className={classNames(
-                'w-full text-left focus:outline-none focus:ring-4 py-4 px-5 bg-primary rounded-lg text-sm md:text-base font-extrabold text-white flex items-center flex-1',
-                className
-            )}
-            onClick={(e) => onClick && onClick(e)}>
-            <div className="mr-8 flex-1">{children}</div>
-
-            <div className="my-1">
-                {isChecked ? (
-                    <div className="bg-primaryDark rounded text-white h-12 w-12 flex-none flex justify-center items-center">
-                        <GoCheck size={35} />
-                    </div>
-                ) : (
-                    <div className="rounded border-4 border-white text-white h-12 w-12 flex-none flex justify-center items-center"></div>
-                )}
-            </div>
-        </button>
-    );
+type FormData = {
+    email: string;
+    phone: string;
+    fam_email: string;
+    fam_phone: string;
 };
-
-const ExpandedCheckbox = ({
-    checked = false,
-    className,
-    onClick
-}: {
-    checked?: boolean;
-    className?: string;
-    onClick?: (event: MouseEvent) => void;
-}) => {
-    const [isChecked, setIsChecked] = useState(checked);
-
-    return (
-        <div>
-            <button
-                className={classNames(
-                    'w-full rounded-t-lg text-left focus:outline-none focus:ring-4 py-4 px-5 bg-primary text-sm md:text-base font-extrabold text-white flex items-center flex-1',
-                    className
-                )}
-                onClick={(e) => onClick && onClick(e)}>
-                <div className="mr-4 flex-1">I would like to inform my family / friend too</div>
-
-                <div className="my-1">
-                    {isChecked ? (
-                        <div className="bg-primaryDark rounded text-white h-12 w-12 flex-none flex justify-center items-center">
-                            <GoCheck size={35} />
-                        </div>
-                    ) : (
-                        <div className="rounded border-4 border-white text-white h-12 w-12 flex-none flex justify-center items-center"></div>
-                    )}
-                </div>
-            </button>
-            <div className="bg-gray-100 rounded-b-lg px-4 py-5">
-                <div className="flex items-center">
-                    <IoCallOutline size={25} className="text-gray-800" />
-                    <div className="leading-tight text-sm ml-2">
-                        <div className="text-gray-800">Please enter their phone number</div>
-                        <div className="text-gray-500">
-                            Only send your appointment to someone you trust
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-gray-300 h-px mt-2"></div>
-
-                <div className="py-6 px-3">
-                    <input
-                        type="text"
-                        id="username"
-                        className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder={'60123456789'}
-                    />
-                </div>
-
-                <div className="bg-gray-300 h-px"></div>
-
-                <div className="flex items-center mt-3">
-                    <button className="text-sm rounded-full h-10 bg-secondary inline-block px-6 text-white focus:ring-2 focus:outline-none focus:ring-secondary focus:ring-opacity-40 hover:bg-secondaryDark">
-                        Save
-                    </button>
-
-                    <button className="text-sm ml-4 h-10 flex items-center justify-center text-red-500 hover:text-red-800">
-                        <IoTrashOutline size={22} />
-                        <div className="ml-1">Remove this number</div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// Checkbox.propTypes = {
-//     children: PropTypes.node,
-//     checked: PropTypes.bool
-// };
 
 export default function Subscribe() {
     const router = useRouter();
     const user = useUser();
+    const [axiosErrorMessage, setAxiosErrorMessage] = useState('');
+    const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        reset
+    } = useForm<FormData>();
+
+    const onSubmit = handleSubmit((data, event) => {
+        setAxiosErrorMessage('');
+        setAxiosSuccessMessage('');
+
+        return axios({
+            method: 'POST',
+            url: '/api/resetpsassword',
+            data: {}
+        });
+    });
 
     useEffect(() => {
         if (!user) {
@@ -131,17 +49,83 @@ export default function Subscribe() {
         <div className="container mx-auto px-4 pt-5">
             <Header />
 
-            <Checkbox>
-                <div>Text me once my appointment is set</div>
-                <div className="flex mt-2 ml-1 items-center">
-                    <IoCallOutline size={23} />
-                    <span className="text-base sm:text-lg font-normal ml-1.5">
-                        {user?.username}
+            <form className="text-center space-y-6" onSubmit={onSubmit}>
+                {isSubmitting && (
+                    <div className="absolute bg-black bg-opacity-60 w-full h-full z-10 left-0 top-0 flex flex-col justify-center items-center">
+                        <svg
+                            className="animate-spin h-8 w-8 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24">
+                            <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                            />
+                            <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            />
+                        </svg>
+                    </div>
+                )}
+                <h4 className="text-xl font-semibold w-3/4 mx-auto ">
+                    Subscribe me to my vaccination status
+                </h4>
+                <input
+                    id="phone"
+                    type="text"
+                    className="border border-8 py-4 w-full border-blue-500 rounded-full text-center"
+                    placeholder="Please enter your phone number"
+                    {...register('phone', { required: false })}
+                />
+                {isPhoneNumber(user?.username) && (
+                    <span>
+                        Use <button className="text-blue-500 underline">{user?.username}</button>
                     </span>
-                </div>
-            </Checkbox>
+                )}
+                <input
+                    id="email"
+                    type="email"
+                    className="border border-8 py-4 w-full border-blue-500 rounded-full text-center mt-2"
+                    placeholder="Please enter your email"
+                    {...register('email', { required: false })}
+                />
+                {isEmail(user?.username) && (
+                    <span>
+                        Use <button className="text-blue-500 underline">{user?.username}</button>
+                    </span>
+                )}
 
-            <ExpandedCheckbox className={'mt-5'} />
+                <h4 className="text-xl font-semibold w-3/4 mx-auto pt-12">
+                    Update my family about my vaccination status (optional)
+                </h4>
+                <div className="space-y-4">
+                    <input
+                        id="fam_phone"
+                        type="text"
+                        className="border border-8 py-4 w-full border-blue-500 rounded-full text-center"
+                        placeholder="Please enter their phone number"
+                        {...register('fam_phone', { required: false })}
+                    />
+                    <input
+                        id="fam_email"
+                        type="email"
+                        className="border border-8 py-4 w-full border-blue-500 rounded-full text-center"
+                        placeholder="Please enter their email"
+                        {...register('fam_email', { required: false })}
+                    />
+                    <button
+                        type="submit"
+                        className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2 mt-2 font-bold">
+                        Subscribe !
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }
