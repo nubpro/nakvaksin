@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { GiHumanPyramid } from 'react-icons/gi';
 import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'react-icons/io5';
 
@@ -19,6 +19,29 @@ const CallToActionButton = () => {
         </div>
     );
 };
+
+const FeaturedItem = ({
+    icon,
+    title,
+    subtitle,
+    description
+}: {
+    icon: ReactElement;
+    title: string;
+    subtitle: string;
+    description: string;
+}) => (
+    <div className="flex-1 mb-8 lg:px-4">
+        <div className="flex items-center mb-1 xl:mb-3">
+            <div>{icon}</div>
+            <div className="ml-3 text-black font-medium xl:text-2xl">{title}</div>
+        </div>
+        <div className="leading-relaxed pr-4">
+            <div className="font-normal text-blue-600 ">{subtitle}</div>
+            <div>{description}</div>
+        </div>
+    </div>
+);
 
 export default function Home() {
     return (
@@ -74,75 +97,34 @@ export default function Home() {
                                 A simple, easier way to get notified on your appointment.
                             </p>
                         </div>
-                        <div className="flex sm:flex-row flex-col w-full xl:mt-12 mb-12 xl:px-0 px-4">
-                            <div className="sm:w-1/3 mb-8 sm:mb-0 xl:pr-0 pr-2">
-                                <div className="flex flex-wrap mb-4 mt-0">
-                                    <div className="w-1/6 items-center mx-auto">
-                                        <IoNotificationsOutline size={48} />
-                                    </div>
-                                    <div className="w-5/6 flex flex-wrap content-center pl-4">
-                                        <h3 className="text-black text-xl font-medium xl:text-2xl mx-auto">
-                                            Guaranteed notification
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div className="leading-relaxed sm:pr-4 text-justify sm:pt-4">
-                                    <p>
-                                        <b className="font-normal text-blue-600">
-                                            Don&apos;t worry, we are not as forgetful
-                                        </b>
-                                    </p>
-                                    <p>
-                                        We promise that you will receive an SMS from us if your
-                                        vaccination appointment is ready or even changed.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="sm:w-1/3 mb-8 sm:mb-0 xl:pr-0 pr-2">
-                                <div className="flex flex-wrap mb-4">
-                                    <div className="w-1/6 items-center mx-auto">
-                                        <IoHeartCircleOutline size={48} />
-                                    </div>
-                                    <div className="w-5/6 flex flex-wrap content-center pl-4">
-                                        <h3 className="text-black text-xl font-medium xl:text-2xl mx-auto">
-                                            Care for your loved one
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div className="leading-relaxed sm:pr-4 text-justify sm:pt-4">
-                                    <p>
-                                        <b className="font-normal text-blue-600">
-                                            Get up to speed with your family member&apos;s vaccine
-                                            appointment updates
-                                        </b>
-                                    </p>
-                                    <p>
-                                        Keep an eye out for your grandparents, parents and even
-                                        childrens when their appointed is set up.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="sm:w-1/3 mb-8 sm:mb-0 xl:pr-0 pr-2">
-                                <div className="flex flex-wrap mb-4">
-                                    <div className="w-1/6 items-center mx-auto">
-                                        <GiHumanPyramid size={48} />
-                                    </div>
-                                    <div className="w-5/6 flex flex-wrap content-center pl-4">
-                                        <h3 className="text-black text-xl font-medium xl:text-2xl mx-auto">
-                                            Made by Malaysians for everyone
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div className="leading-relaxed sm:pr-4 text-justify">
-                                    <p>
-                                        <b className="font-normal text-blue-600">
-                                            We do what we can, we are in this together
-                                        </b>
-                                    </p>
-                                    This is an open-source initiative by Malaysians. Your
-                                    contributions and donations are very welcomed.
-                                </div>
-                            </div>
+
+                        <div className="flex flex-col w-full lg:flex-row">
+                            <FeaturedItem
+                                icon={<IoNotificationsOutline size={48} />}
+                                title={'Guaranteed notification'}
+                                subtitle={"Don't worry, we are not as forgetful"}
+                                description={
+                                    'We promise that you will receive an SMS from us if your vaccination appointment is ready or even changed.'
+                                }
+                            />
+                            <FeaturedItem
+                                icon={<IoHeartCircleOutline size={48} />}
+                                title={'Care for your loved one'}
+                                subtitle={
+                                    "Get up to speed with your family member's vaccine appointment updates"
+                                }
+                                description={
+                                    'Keep an eye out for your grandparents, parents and even childrens when their appointed is set up.'
+                                }
+                            />
+                            <FeaturedItem
+                                icon={<GiHumanPyramid size={48} />}
+                                title={'Made by Malaysians for everyone'}
+                                subtitle={'We do what we can, we are in this together'}
+                                description={
+                                    ' This is an open-source initiative by Malaysians. Your contributions and donations are very welcomed.'
+                                }
+                            />
                         </div>
                     </div>
                 </div>
