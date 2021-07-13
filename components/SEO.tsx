@@ -2,9 +2,9 @@ export default function SEO() {
     const description = 'A simple, easier way to get notified on your Vaccine appointment.';
     const title = 'Nak Naksin!';
     const keyword = ['Malaysia', 'Vaccine', 'Vaksin', 'Nak Vaksin', 'My Sejahtera', 'MySej'];
-    const url = 'https://nakvaksin.vercel.app/';
-    const twitterUserName = '@nakVaksin';
-    const imageUrl = 'https://nakvaksin.vercel.app/_next/image?url=%2Fphone.png&w=640&q=75';
+    const url = 'https://www.nakvaksin.com/';
+    const twitterUserName = '@NakVaksin';
+    const imageUrl = 'https://www.nakvaksin.com/_next/image?url=%2Fphone.png&w=640&q=75';
     return (
         <>
             <title>{title}</title>
