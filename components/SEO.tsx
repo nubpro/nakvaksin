@@ -1,7 +1,16 @@
 export default function SEO() {
-    const description = 'A simple, easier way to get notified on your Vaccine appointment.';
+    const description = 'A simple, easier way to get notified on your vaccination appointment.';
     const title = 'Nak Naksin!';
-    const keyword = ['Malaysia', 'Vaccine', 'Vaksin', 'Nak Vaksin', 'My Sejahtera', 'MySej'];
+    const keyword = [
+        'Malaysia',
+        'Vaccine',
+        'Vaccination',
+        'Vaksinasi',
+        'Vaksin',
+        'Nak Vaksin',
+        'My Sejahtera',
+        'MySej'
+    ];
     const url = 'https://www.nakvaksin.com/';
     const twitterUserName = '@NakVaksin';
     const imageUrl = 'https://www.nakvaksin.com/_next/image?url=%2Fphone.png&w=640&q=75';
