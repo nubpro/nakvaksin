@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
+import { axInstance } from '../apis/nakvaksin.instance';
 
 import Header from '../components/header';
 import useUser from '../hooks/useUser';
+import User from '../types/user';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -45,9 +47,9 @@ export default function Login() {
     const onSubmit = handleSubmit((data) => {
         setAuthErrorMessage('');
 
-        return axios({
+        return axInstance({
             method: 'POST',
-            url: '/api/myslogin',
+            url: '/login',
             data: {
                 username: data.username,
                 password: data.password
@@ -55,7 +57,15 @@ export default function Login() {
         })
             .then((resp) => {
                 if (resp.status === 200) {
-                    setCookie('user', resp.data, { maxAge: 86400 });
+                    const { userId, username, displayName, phoneNumber } = resp.data.user;
+                    const user: User = {
+                        userId,
+                        username,
+                        displayName,
+                        phoneNumber
+                    };
+
+                    // setCookie('user', user, { maxAge: 86400 });
                 } else {
                     throw new Error('Unexpected response from endpoint');
 

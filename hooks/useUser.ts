@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import User from '../types/user';
 
-function useUser(): { username: string; displayName: string; token: string } {
+function useUser(): User {
     const [cookies] = useCookies(['user']);
 
     return cookies.user;
