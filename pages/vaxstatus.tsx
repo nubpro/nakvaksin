@@ -89,7 +89,7 @@ export default function vaxstatus() {
 
                     <VaxStatus
                         heading="Dose 2"
-                        status="COMPLETED"
+                        status="PENDING"
                         isOpen={true}
                         className="bg-gradient-to-r from-yellow-600 to-yellow-400">
                         <p className="font-bold">Appointment Date :</p>
