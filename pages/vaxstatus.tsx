@@ -64,41 +64,44 @@ export default function vaxstatus() {
     return (
         <div className="h-auto mx-auto px-4 pt-5">
             <Header />
-            <div className="bg-gray-100 rounded rounded-2xl p-4 pb-36">
-                <div className="space-y-2">
-                    <h3 className="text-gray-500 text-sm ">Name </h3>
-                    <p className="text-black text-xl font-bold">Ching Cheng Kang</p>
-                </div>
-                <div className="mt-2 space-y-4">
-                    <VaxStatus
-                        heading="Dose 1"
-                        status="COMPLETED"
-                        isOpen={false}
-                        className="bg-gradient-to-r from-green-400 to-blue-500">
-                        <p className="font-bold">Appointment Date :</p>
-                        <p>22 June 2021 09:00AM</p>
-                        <br />
-                        <p className="font-bold"> Health Facility:</p>
-                        <p>Hospital Want dan Kanak</p>
-                        <br />
-                        <p className="font-bold"> Location:</p>
-                        <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
-                    </VaxStatus>
+            <div>
+                <h1 className="text-black text-2xl text-center font-bold">Your Vaccination Status</h1>
+                <div className="bg-gray-100 rounded rounded-2xl p-4 pb-12">
+                    <div className="space-y-2">
+                        <h2 className="text-gray-500 text-sm ">Name </h2>
+                        <p className="text-black text-xl">Ching Cheng Kang</p>
+                    </div>
+                    <div className="mt-2 space-y-4">
+                        <VaxStatus
+                            heading="Dose 1"
+                            status="COMPLETED"
+                            isOpen={false}
+                            className="bg-gradient-to-r from-green-400 to-blue-500">
+                            <p className="font-bold">Appointment Date :</p>
+                            <p>22 June 2021 09:00AM</p>
+                            <br />
+                            <p className="font-bold"> Health Facility:</p>
+                            <p>Hospital Want dan Kanak</p>
+                            <br />
+                            <p className="font-bold"> Location:</p>
+                            <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
+                        </VaxStatus>
 
-                    <VaxStatus
-                        heading="Dose 2"
-                        status="PENDING"
-                        isOpen={false}
-                        className="bg-gradient-to-r from-yellow-600 to-yellow-400">
-                        <p className="font-bold">Appointment Date :</p>
-                        <p>22 June 2021 09:00AM</p>
-                        <br />
-                        <p className="font-bold"> Health Facility:</p>
-                        <p>Hospital Want dan Kanak</p>
-                        <br />
-                        <p className="font-bold"> Location:</p>
-                        <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
-                    </VaxStatus>
+                        <VaxStatus
+                            heading="Dose 2"
+                            status="PENDING"
+                            isOpen={false}
+                            className="bg-gradient-to-r from-yellow-600 to-yellow-400">
+                            <p className="font-bold">Appointment Date :</p>
+                            <p>22 June 2021 09:00AM</p>
+                            <br />
+                            <p className="font-bold"> Health Facility:</p>
+                            <p>Hospital Want dan Kanak</p>
+                            <br />
+                            <p className="font-bold"> Location:</p>
+                            <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
+                        </VaxStatus>
+                    </div>
                 </div>
             </div>
         </div>
