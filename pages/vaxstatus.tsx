@@ -62,9 +62,9 @@ const VaxStatus = ({
 
 export default function vaxstatus() {
     return (
-        <div className="container mx-auto px-4 pt-5">
+        <div className="h-auto mx-auto px-4 pt-5">
             <Header />
-            <div className="bg-gray-100 h-screen rounded rounded-2xl p-4">
+            <div className="bg-gray-100 rounded rounded-2xl p-4 pb-36">
                 <div className="space-y-2">
                     <h3 className="text-gray-500 text-sm ">Name </h3>
                     <p className="text-black text-xl font-bold">Ching Cheng Kang</p>
@@ -88,7 +88,7 @@ export default function vaxstatus() {
                     <VaxStatus
                         heading="Dose 2"
                         status="PENDING"
-                        isOpen={true}
+                        isOpen={false}
                         className="bg-gradient-to-r from-yellow-600 to-yellow-400">
                         <p className="font-bold">Appointment Date :</p>
                         <p>22 June 2021 09:00AM</p>
