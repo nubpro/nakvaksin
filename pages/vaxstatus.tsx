@@ -68,8 +68,6 @@ export default function vaxstatus() {
                 <div className="space-y-2">
                     <h3 className="text-gray-500 text-sm ">Name </h3>
                     <p className="text-black text-xl font-bold">Ching Cheng Kang</p>
-                    <h3 className="text-gray-500 text-sm ">IC / Passport No </h3>
-                    <p className="text-black text-xl font-bold">990503015307</p>
                 </div>
                 <div className="mt-2 space-y-4">
                     <VaxStatus
