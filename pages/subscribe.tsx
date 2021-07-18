@@ -6,7 +6,7 @@ import { GoCheck } from 'react-icons/go';
 import { IoCallOutline, IoTrashOutline } from 'react-icons/io5';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 
 const Checkbox = ({
     children,
@@ -118,14 +118,7 @@ const ExpandedCheckbox = ({
 // };
 
 export default function Subscribe() {
-    const router = useRouter();
-    const user = useUser();
-
-    useEffect(() => {
-        if (!user) {
-            router.push('/login');
-        }
-    }, []);
+    const { user } = useUser();
 
     return (
         <div className="container mx-auto px-4 pt-5">

@@ -2,18 +2,22 @@ import 'tailwindcss/tailwind.css';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { CookiesProvider } from 'react-cookie';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import SEO from '../components/SEO';
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <CookiesProvider>
+        <QueryClientProvider client={queryClient}>
             <Head>
                 <SEO />
             </Head>
             <Component {...pageProps} />
-        </CookiesProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
     );
 }
 
