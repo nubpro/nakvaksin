@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useQueryClient } from 'react-query';
 
 import { useUser } from '../hooks/useUser';
-// import { logout } from '../services/auth';
 
 export default function Header() {
     const { user, logout } = useUser();
@@ -42,9 +40,6 @@ export default function Header() {
                                 className="text-xl text-white bg-blue-600 rounded-xl py-1 px-4 font-bold hover:underline"
                                 onClick={() => {
                                     logout();
-                                    // queryClient.invalidateQueries('user');
-                                    // router.push('/');
-                                    // getUserToken();
                                 }}>
                                 Logout
                             </button>
@@ -52,22 +47,6 @@ export default function Header() {
                     )}
                 </div>
             </div>
-
-            {/* <button
-                onClick={() => {
-                    console.log(useUser());
-                }}>
-                Click this button
-            </button> */}
-
-            <TestButton />
-            <TestButton />
         </header>
     );
 }
-
-const TestButton = () => {
-    const { data } = useUser();
-
-    return <div>{data?.displayName}</div>;
-};
