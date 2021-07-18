@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -6,7 +5,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
-import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
+import { resetPassword } from '../services/auth';
 import { isUsernameValid } from '../utils/username';
 
 const ErrorMessage: React.FC = ({ children }) => (
@@ -40,13 +39,7 @@ export default function ResetPassword() {
             return setAxiosErrorMessage('Please enter valid Phone Number or Email Address');
         }
 
-        return axios({
-            method: 'POST',
-            url: '/api/resetpassword',
-            data: {
-                username: sanitizePhoneNumber(data.username)
-            }
-        })
+        return resetPassword(data.username)
             .then((res) => {
                 reset();
 

@@ -1,6 +1,8 @@
+import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import { axInstance } from '../apis/nakvaksin.instance';
+import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 
 const COOKIE_USER_TOKEN = 'userToken';
 
@@ -16,7 +18,13 @@ async function login(username: string, password: string) {
 }
 
 async function resetPassword(username: string) {
-    // TODO: @CCK
+    return axios({
+        method: 'POST',
+        url: '/api/resetpassword',
+        data: {
+            username: sanitizePhoneNumber(username)
+        }
+    });
 }
 
 function setUserToken(token: string) {
