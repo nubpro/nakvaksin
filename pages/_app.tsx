@@ -10,6 +10,7 @@ import SEO from '../components/SEO';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const queryClient = new QueryClient();
+
     return (
         <CookiesProvider>
             <QueryClientProvider client={queryClient}>

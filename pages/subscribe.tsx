@@ -6,7 +6,7 @@ import { GoCheck } from 'react-icons/go';
 import { IoCallOutline, IoTrashOutline } from 'react-icons/io5';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 
 const Checkbox = ({
     children,
@@ -122,9 +122,9 @@ export default function Subscribe() {
     const user = useUser();
 
     useEffect(() => {
-        if (!user) {
-            router.push('/login');
-        }
+        // if (!user) {
+        //     router.push('/login');
+        // }
     }, []);
 
     return (
@@ -136,7 +136,7 @@ export default function Subscribe() {
                 <div className="flex mt-2 ml-1 items-center">
                     <IoCallOutline size={23} />
                     <span className="text-base sm:text-lg font-normal ml-1.5">
-                        {user?.username}
+                        {user.data?.username}
                     </span>
                 </div>
             </Checkbox>

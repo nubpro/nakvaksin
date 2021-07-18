@@ -1,15 +1,14 @@
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
-import { axInstance } from '../apis/nakvaksin.instance';
+import { useQueryClient } from 'react-query';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
+import { login, logout } from '../services/auth';
 import User from '../types/user';
 
 const ErrorMessage: React.FC = ({ children }) => (
@@ -29,43 +28,30 @@ export default function Login() {
     // const [isMobile, setIsMobile] = useState(true);
     const [AuthErrorMessage, setAuthErrorMessage] = useState('');
     const router = useRouter();
-    const [, setCookie] = useCookies(['user']);
     const user = useUser();
 
     useEffect(() => {
-        if (user) {
-            // is logged in
+        if (user.data) {
             router.push('/subscribe');
         }
-    }, [user]);
+    }, [user.data]);
 
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting }
     } = useForm<FormData>();
+    const queryClient = useQueryClient();
+
     const onSubmit = handleSubmit((data) => {
         setAuthErrorMessage('');
 
-        return axInstance({
-            method: 'POST',
-            url: '/login',
-            data: {
-                username: data.username,
-                password: data.password
-            }
-        })
+        return login(data.username, data.password)
             .then((resp) => {
                 if (resp.status === 200) {
-                    const { userId, username, displayName, phoneNumber } = resp.data.user;
-                    const user: User = {
-                        userId,
-                        username,
-                        displayName,
-                        phoneNumber
-                    };
+                    const { user } = resp.data;
 
-                    // setCookie('user', user, { maxAge: 86400 });
+                    queryClient.setQueryData('user', user);
                 } else {
                     throw new Error('Unexpected response from endpoint');
 

@@ -5,10 +5,11 @@ import { GiHumanPyramid } from 'react-icons/gi';
 import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'react-icons/io5';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 
 const CallToActionButton = () => {
-    const redirectUrl = useUser() ? '/subscribe' : '/login';
+    const redirectUrl = useUser().data ? '/subscribe' : '/login';
+
     return (
         <div>
             <Link href={redirectUrl}>

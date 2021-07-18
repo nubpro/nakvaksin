@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 import { isUsernameValid } from '../utils/username';
 
@@ -29,10 +29,10 @@ export default function Login() {
     const router = useRouter();
     const user = useUser();
     useEffect(() => {
-        if (user) {
+        if (user.data) {
             router.push('/subscribe');
         }
-    }, [user]);
+    }, [user.data]);
 
     const {
         register,
