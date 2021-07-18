@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 import { axInstance } from '../apis/nakvaksin.instance';
 
-const USER_TOKEN = 'userToken';
+const COOKIE_USER_TOKEN = 'userToken';
 
 async function login(username: string, password: string) {
     return axInstance({
@@ -19,19 +19,19 @@ async function resetPassword(username: string) {
     // TODO: @CCK
 }
 
-async function logout() {
-    Cookies.remove(USER_TOKEN);
-
-    // const queryClient = useQueryClient();
-    // queryClient.invalidateQueries('user');
-}
-
 function setUserToken(token: string) {
-    Cookies.set(USER_TOKEN, token);
+    Cookies.set(COOKIE_USER_TOKEN, token);
 }
 
 function getUserToken() {
-    return Cookies.get(USER_TOKEN);
+    return Cookies.get(COOKIE_USER_TOKEN);
 }
 
-export { getUserToken, login, logout, resetPassword, setUserToken };
+function clearUserToken() {
+    return new Promise<void>((resolve) => {
+        Cookies.remove(COOKIE_USER_TOKEN);
+        resolve();
+    });
+}
+
+export { clearUserToken, getUserToken, login, resetPassword, setUserToken };

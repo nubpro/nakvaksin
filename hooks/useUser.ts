@@ -1,28 +1,37 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import { getUserToken } from '../services/auth';
+import { clearUserToken, getUserToken } from '../services/auth';
 import User from '../types/user';
+
+const QK_USER = 'user';
 
 async function getUser() {
     if (getUserToken() == null) {
         return null;
     }
 
-    const resp = await axInstance({
+    const { data } = await axInstance({
         method: 'GET',
         url: '/profile'
     });
-    const { user } = resp.data;
 
-    return user;
+    return data;
 }
 
 const useUser = () => {
-    return useQuery<User>('user', getUser, {
+    const queryClient = useQueryClient();
+
+    const { data: user } = useQuery<User>(QK_USER, getUser, {
         staleTime: 1000 * 86400 * 3, // 3 days
         retry: false
     });
+
+    const { mutate: logout } = useMutation(clearUserToken, {
+        onSuccess: () => queryClient.invalidateQueries(QK_USER)
+    });
+
+    return { user, logout };
 };
 
 export { useUser };

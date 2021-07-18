@@ -8,7 +8,8 @@ import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
 
 const CallToActionButton = () => {
-    const redirectUrl = useUser().data ? '/subscribe' : '/login';
+    const { user } = useUser();
+    const redirectUrl = user ? '/subscribe' : '/login';
 
     return (
         <div>

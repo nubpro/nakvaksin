@@ -1,13 +1,11 @@
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
-import { useUser } from '../hooks/useUser';
 import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 import { isUsernameValid } from '../utils/username';
 
@@ -23,16 +21,9 @@ type FormData = {
     username: string;
 };
 
-export default function Login() {
+export default function ResetPassword() {
     const [axiosErrorMessage, setAxiosErrorMessage] = useState('');
     const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
-    const router = useRouter();
-    const user = useUser();
-    useEffect(() => {
-        if (user.data) {
-            router.push('/subscribe');
-        }
-    }, [user.data]);
 
     const {
         register,

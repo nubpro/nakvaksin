@@ -118,14 +118,7 @@ const ExpandedCheckbox = ({
 // };
 
 export default function Subscribe() {
-    const router = useRouter();
-    const user = useUser();
-
-    useEffect(() => {
-        // if (!user) {
-        //     router.push('/login');
-        // }
-    }, []);
+    const { user } = useUser();
 
     return (
         <div className="container mx-auto px-4 pt-5">
@@ -136,7 +129,7 @@ export default function Subscribe() {
                 <div className="flex mt-2 ml-1 items-center">
                     <IoCallOutline size={23} />
                     <span className="text-base sm:text-lg font-normal ml-1.5">
-                        {user.data?.username}
+                        {user?.username}
                     </span>
                 </div>
             </Checkbox>

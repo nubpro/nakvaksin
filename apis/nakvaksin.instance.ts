@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-import { setUserToken } from '../services/auth';
+import { getUserToken, setUserToken } from '../services/auth';
 
 const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL
@@ -9,7 +9,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
     if (Cookies.get('userToken')) {
-        // config.headers['x-auth-token'] = getUserToken();
+        config.headers['x-auth-token'] = getUserToken();
     }
 
     return config;

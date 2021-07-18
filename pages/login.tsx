@@ -8,7 +8,7 @@ import { useQueryClient } from 'react-query';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
-import { login, logout } from '../services/auth';
+import { login } from '../services/auth';
 import User from '../types/user';
 
 const ErrorMessage: React.FC = ({ children }) => (
@@ -28,13 +28,14 @@ export default function Login() {
     // const [isMobile, setIsMobile] = useState(true);
     const [AuthErrorMessage, setAuthErrorMessage] = useState('');
     const router = useRouter();
-    const user = useUser();
+    const { user } = useUser();
 
     useEffect(() => {
-        if (user.data) {
+        // user has logged in
+        if (user) {
             router.push('/subscribe');
         }
-    }, [user.data]);
+    }, [user]);
 
     const {
         register,
@@ -144,14 +145,6 @@ export default function Login() {
                             />
                             {errors.password && <ErrorMessage>This is required.</ErrorMessage>}
                         </div>
-                        {/* <div className="text-center md:text-right mt-1">
-                            <button
-                                type="button"
-                                className="text-sm"
-                                onClick={() => setIsMobile((s) => !s)}>
-                                Change to login with {isMobile ? 'email' : 'mobile number'}
-                            </button>
-                        </div> */}
 
                         <button
                             type="submit"
