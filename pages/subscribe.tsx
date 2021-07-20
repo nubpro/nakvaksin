@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 import { isEmail, isPhoneNumber, isUsernameValid } from '../utils/username';
 
@@ -17,7 +17,7 @@ type FormData = {
 
 export default function Subscribe() {
     const router = useRouter();
-    const user = useUser();
+    const { user } = useUser();
     const [axiosErrorMessage, setAxiosErrorMessage] = useState('');
     const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
 
@@ -38,12 +38,6 @@ export default function Subscribe() {
             data: {}
         });
     });
-
-    useEffect(() => {
-        if (!user) {
-            router.push('/login');
-        }
-    }, []);
 
     return (
         <div className="container mx-auto px-4 pt-5">

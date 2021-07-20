@@ -1,14 +1,15 @@
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 
 import Header from '../components/header';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
+import { login } from '../services/auth';
+import User from '../types/user';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -27,12 +28,11 @@ export default function Login() {
     // const [isMobile, setIsMobile] = useState(true);
     const [AuthErrorMessage, setAuthErrorMessage] = useState('');
     const router = useRouter();
-    const [, setCookie] = useCookies(['user']);
-    const user = useUser();
+    const { user } = useUser();
 
     useEffect(() => {
+        // user has logged in
         if (user) {
-            // is logged in
             router.push('/subscribe');
         }
     }, [user]);
@@ -42,20 +42,17 @@ export default function Login() {
         handleSubmit,
         formState: { errors, isSubmitting }
     } = useForm<FormData>();
+    const queryClient = useQueryClient();
+
     const onSubmit = handleSubmit((data) => {
         setAuthErrorMessage('');
 
-        return axios({
-            method: 'POST',
-            url: '/api/myslogin',
-            data: {
-                username: data.username,
-                password: data.password
-            }
-        })
+        return login(data.username, data.password)
             .then((resp) => {
                 if (resp.status === 200) {
-                    setCookie('user', resp.data, { maxAge: 86400 });
+                    const { user } = resp.data;
+
+                    queryClient.setQueryData('user', user);
                 } else {
                     throw new Error('Unexpected response from endpoint');
 
@@ -148,14 +145,6 @@ export default function Login() {
                             />
                             {errors.password && <ErrorMessage>This is required.</ErrorMessage>}
                         </div>
-                        {/* <div className="text-center md:text-right mt-1">
-                            <button
-                                type="button"
-                                className="text-sm"
-                                onClick={() => setIsMobile((s) => !s)}>
-                                Change to login with {isMobile ? 'email' : 'mobile number'}
-                            </button>
-                        </div> */}
 
                         <button
                             type="submit"
