@@ -8,7 +8,7 @@ import { useQueryClient } from 'react-query';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
-import { login } from '../services/auth';
+import { login, setUserProfile } from '../services/auth';
 import User from '../types/user';
 
 const ErrorMessage: React.FC = ({ children }) => (
@@ -53,6 +53,7 @@ export default function Login() {
                     const { user } = resp.data;
 
                     queryClient.setQueryData('user', user);
+                    setUserProfile(user);
                 } else {
                     throw new Error('Unexpected response from endpoint');
 
