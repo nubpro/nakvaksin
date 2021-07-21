@@ -1,14 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import {
-    clearUserToken,
-    destroyUserProfile,
-    getCachedUserProfile,
-    getUserToken,
-    setUserToken
-} from '../services/auth';
+import { clearUserToken, destroyUserProfile, getUserToken } from '../services/auth';
 import User from '../types/user';
 
 const QK_USER = 'user';
