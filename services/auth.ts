@@ -30,7 +30,7 @@ async function resetPassword(username: string) {
 }
 
 function setUserToken(token: string) {
-    Cookies.set(COOKIE_USER_TOKEN, token);
+    Cookies.set(COOKIE_USER_TOKEN, token, { sameSite: 'strict' });
 }
 
 function getUserToken() {
@@ -38,35 +38,23 @@ function getUserToken() {
 }
 
 function clearUserToken() {
-    return new Promise<void>((resolve) => {
-        Cookies.remove(COOKIE_USER_TOKEN);
-        resolve();
-    });
+    Cookies.remove(COOKIE_USER_TOKEN);
 }
 
-function setCachedUserProfile(user: User) {
-    Cookies.set(COOKIE_USER_PROFILE, user);
+function persistUserProfile(user: User) {
+    Cookies.set(COOKIE_USER_PROFILE, user, { sameSite: 'strict' });
 }
 
-function getCachedUserProfile() {
-    // IMPORTANT!
-    // Do not use this function to retrieve user's profile
-    // Use useUser() hook instead
-    const cookie = Cookies.get(COOKIE_USER_PROFILE);
-
-    if (cookie) {
-        return JSON.parse(cookie) as User;
-    }
-
-    return undefined;
+function destroyUserProfile() {
+    Cookies.remove(COOKIE_USER_PROFILE);
 }
 
 export {
     clearUserToken,
-    getCachedUserProfile,
+    destroyUserProfile,
     getUserToken,
     login,
+    persistUserProfile,
     resetPassword,
-    setCachedUserProfile,
     setUserToken
 };
