@@ -63,7 +63,7 @@ export default function Subscribe() {
     const groupHeadingStyle = 'font-semibold mb-3';
 
     return (
-        <div className="container mx-auto flex flex-col h-screen px-5 relative">
+        <div className="container mx-auto flex flex-col h-screen px-5 relative md:max-w-xl">
             <button className="absolute top-0 right-0 m-5">
                 <IoClose size={45} />
             </button>
@@ -134,7 +134,7 @@ export default function Subscribe() {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center mb-4">
+                <div className="flex flex-col items-center mt-10 mb-4">
                     <button
                         type="submit"
                         className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2">
