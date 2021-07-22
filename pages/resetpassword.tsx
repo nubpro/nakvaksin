@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 
 import Header from '../components/header';
 import { resetPassword } from '../services/auth';
-import { isUsernameValid } from '../utils/username';
+import { isEmail, isUsernameValid } from '../utils/username';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -44,8 +44,9 @@ export default function ResetPassword() {
                 reset();
 
                 if (res.status === 200) {
+                    const mode = isEmail(data.username) ? 'Email' : 'SMS';
                     return setAxiosSuccessMessage(
-                        'You will receive a SMS from MySejahtera to reset your password shortly'
+                        `You will receive a ${mode} from MySejahtera to reset your password shortly`
                     );
                 } else {
                     // TODO: add sentry logging
