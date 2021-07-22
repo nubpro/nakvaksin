@@ -20,6 +20,9 @@ instance.interceptors.response.use((response) => {
         setUserToken(response.headers['x-auth-token']);
     }
 
+    // TODO: if status code returns unauthorized (expired token),
+    // clear userToken and kick user out to homepage
+
     return response;
 });
 

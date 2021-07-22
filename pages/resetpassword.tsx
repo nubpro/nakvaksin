@@ -1,12 +1,15 @@
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { resetPassword } from '../services/auth';
-import { isUsernameValid } from '../utils/username';
+import { isEmail, isUsernameValid } from '../utils/username';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -18,6 +21,21 @@ ErrorMessage.propTypes = {
 
 type FormData = {
     username: string;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
 };
 
 export default function ResetPassword() {
@@ -44,8 +62,9 @@ export default function ResetPassword() {
                 reset();
 
                 if (res.status === 200) {
+                    const mode = isEmail(data.username) ? 'Email' : 'SMS';
                     return setAxiosSuccessMessage(
-                        'You will receive a SMS from MySejahtera to reset your password shortly'
+                        `You will receive a ${mode} from MySejahtera to reset your password shortly`
                     );
                 } else {
                     // TODO: add sentry logging

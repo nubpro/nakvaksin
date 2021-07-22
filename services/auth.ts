@@ -2,9 +2,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import { axInstance } from '../apis/nakvaksin.instance';
+import User from '../types/user';
 import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 
 const COOKIE_USER_TOKEN = 'userToken';
+const COOKIE_USER_PROFILE = 'userProfile';
 
 async function login(username: string, password: string) {
     return axInstance({
@@ -28,7 +30,7 @@ async function resetPassword(username: string) {
 }
 
 function setUserToken(token: string) {
-    Cookies.set(COOKIE_USER_TOKEN, token);
+    Cookies.set(COOKIE_USER_TOKEN, token, { sameSite: 'strict' });
 }
 
 function getUserToken() {
@@ -36,10 +38,23 @@ function getUserToken() {
 }
 
 function clearUserToken() {
-    return new Promise<void>((resolve) => {
-        Cookies.remove(COOKIE_USER_TOKEN);
-        resolve();
-    });
+    Cookies.remove(COOKIE_USER_TOKEN);
 }
 
-export { clearUserToken, getUserToken, login, resetPassword, setUserToken };
+function persistUserProfile(user: User) {
+    Cookies.set(COOKIE_USER_PROFILE, user, { sameSite: 'strict' });
+}
+
+function destroyUserProfile() {
+    Cookies.remove(COOKIE_USER_PROFILE);
+}
+
+export {
+    clearUserToken,
+    destroyUserProfile,
+    getUserToken,
+    login,
+    persistUserProfile,
+    resetPassword,
+    setUserToken
+};

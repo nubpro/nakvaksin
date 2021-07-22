@@ -16,7 +16,6 @@ export default function SEO() {
     const imageUrl = 'https://www.nakvaksin.com/_next/image?url=%2Fphone.png&w=640&q=75';
     return (
         <>
-            <title>{title}</title>
             <meta name="description" content={description} />
             <meta name="keywords" content={keyword.join(',')} />
             <link rel="canonical" href={url} />

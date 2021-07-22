@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
@@ -13,6 +16,21 @@ type FormData = {
     phone: string;
     fam_email: string;
     fam_phone: string;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
 };
 
 export default function Subscribe() {
