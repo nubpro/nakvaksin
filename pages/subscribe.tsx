@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import React, { MouseEvent, ReactNode, useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import React, { MouseEvent, ReactNode, useState } from 'react';
 import { GoCheck } from 'react-icons/go';
 import { IoCallOutline, IoTrashOutline } from 'react-icons/io5';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
@@ -116,6 +117,21 @@ const ExpandedCheckbox = ({
 //     children: PropTypes.node,
 //     checked: PropTypes.bool
 // };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
+};
 
 export default function Subscribe() {
     const { user } = useUser();

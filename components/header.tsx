@@ -11,9 +11,11 @@ export default function Header() {
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
         const publicRoutes = ['/', '/login', '/resetpassword'];
+        const isPublicRoute = publicRoutes.includes(router.pathname);
+        const isAuthenticated = !!user;
 
-        // Redirect user to landing page if unauthenticated
-        if (user == null && !publicRoutes.includes(router.pathname)) {
+        // Redirect unauthenticated user to home
+        if (!isAuthenticated && !isPublicRoute) {
             router.push('/');
         }
     }, [user, router.pathname]);

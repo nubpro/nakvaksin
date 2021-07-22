@@ -1,8 +1,11 @@
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { resetPassword } from '../services/auth';
@@ -18,6 +21,21 @@ ErrorMessage.propTypes = {
 
 type FormData = {
     username: string;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
 };
 
 export default function ResetPassword() {

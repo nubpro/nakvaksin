@@ -1,15 +1,16 @@
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
+import { QueryClient, useQueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
-import { login } from '../services/auth';
-import User from '../types/user';
+import { login, persistUserProfile } from '../services/auth';
 
 const ErrorMessage: React.FC = ({ children }) => (
     <div className="text-sm text-red-500 mt-0.5">{children}</div>
@@ -22,6 +23,21 @@ ErrorMessage.propTypes = {
 type FormData = {
     username: string;
     password: string;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
 };
 
 export default function Login() {
@@ -53,6 +69,7 @@ export default function Login() {
                     const { user } = resp.data;
 
                     queryClient.setQueryData('user', user);
+                    persistUserProfile(user);
                 } else {
                     throw new Error('Unexpected response from endpoint');
 
