@@ -3,13 +3,14 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { IoCallOutline, IoTrashOutline, IoClose } from 'react-icons/io5';
+import { BiTrash } from 'react-icons/bi';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
 import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
-import { isEmail, isPhoneNumber, isUsernameValid } from '../utils/username';
 
 type FormData = {
     email: string;
@@ -58,22 +59,27 @@ export default function Subscribe() {
     });
 
     const textFieldStyle =
-        'border border-black py-5 rounded-full text-center w-full placeholder-gray-700 font-light outline-none';
-    const groupHeadingStyle = 'text-xl font-semibold mb-3';
+        'border border-black py-5 rounded-full text-center w-full placeholder-gray-900 font-light outline-none';
+    const groupHeadingStyle = 'font-semibold mb-3';
 
     return (
-        <div className="container mx-auto flex flex-col h-screen">
-            <div className="text-center italic font-light py-7">
+        <div className="container mx-auto flex flex-col h-screen px-5 relative">
+            <button className="absolute top-0 right-0 m-5">
+                <IoClose size={45} />
+            </button>
+
+            <div className="text-center italic font-light text-gray-500 py-7 text-sm">
                 All fields are optional
                 <br />
                 You may leave them blank
             </div>
 
-            <form className="text-center flex-1 flex flex-col" onSubmit={onSubmit}>
-                <div className="flex-1">
+            <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
+                <div className="flex-1 text-center">
                     <div>
                         <div className={groupHeadingStyle}>
-                            Subscribe <span className="underline">me</span> to my vaccination status
+                            Subscribe <span className="underline">yourself</span> to your
+                            vaccination updates
                         </div>
 
                         <div className="flex flex-col space-y-4">
@@ -105,8 +111,8 @@ export default function Subscribe() {
 
                     <div className="mt-10">
                         <div className={groupHeadingStyle}>
-                            Subscribe <span className="underline">my family</span> to my vaccination
-                            status
+                            Subscribe <span className="underline">your family</span> to your
+                            vaccination updates
                         </div>
 
                         <div className="flex flex-col space-y-4">
@@ -128,11 +134,16 @@ export default function Subscribe() {
                     </div>
                 </div>
 
-                <div className="">
+                <div className="flex flex-col items-center mb-4">
                     <button
                         type="submit"
                         className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2">
                         Save
+                    </button>
+
+                    <button className="my-2 py-2 text-sm flex items-center text-red-500 hover:text-red-700">
+                        <BiTrash size={22} />
+                        <div className="ml-1 font-medium">Unsubscribe from NakVaksin</div>
                     </button>
                 </div>
             </form>
@@ -142,6 +153,6 @@ export default function Subscribe() {
 
 const FieldUnderCaption = ({ caption }: { caption: string }) => (
     <div>
-        Use <button className="text-blue-500 underline pt-1.5 pb-1 font-medium">{caption}</button>
+        Use <button className="text-blue-500 pt-1.5 pb-1 font-medium underline">{caption}</button>
     </div>
 );
