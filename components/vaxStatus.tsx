@@ -1,53 +1,106 @@
-import Link from 'next/link';
-import { FaBell, FaEnvelope, FaPen, FaPhone } from 'react-icons/fa';
+import classNames from 'classnames';
+import React, { ReactNode, useState } from 'react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-import { useVaxSubscription } from '../hooks/useVaxSubscription';
+const VaxStatusCard = ({
+    isOpen = false,
+    className,
+    heading,
+    status,
+    children
+}: {
+    isOpen?: boolean;
+    className?: string;
+    status?: string;
+    heading?: string;
+    children?: ReactNode;
+}) => {
+    const [isOpened, setIsOpened] = useState(isOpen);
+    if (isOpened) {
+        return (
+            <button onClick={() => setIsOpened(!isOpened)} className="w-full">
+                <div className={classNames('rounded-t-xl py-4', className)}>
+                    <div className="flex">
+                        <h1 className="flex-none text-white uppercase pl-4 font-bold inline">
+                            {heading}
+                        </h1>
+                        <h1 className="flex-grow text-white uppercase pl-4 font-bold inline text-right">
+                            {status}
+                        </h1>
+                        <div className="h-auto px-2">
+                            <FaChevronUp className="inline text-white" />
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-white h-auto rounded-b-xl p-8">
+                    <div>{children}</div>
+                </div>
+            </button>
+        );
+    } else {
+        return (
+            <button onClick={() => setIsOpened(!isOpened)} className="w-full">
+                <div className={classNames('rounded-xl py-4', className)}>
+                    <div className="flex">
+                        <h1 className="flex-none text-white uppercase pl-4 font-bold inline">
+                            {heading}
+                        </h1>
+                        <h1 className="flex-grow text-white uppercase pl-4 font-bold inline text-right">
+                            {status}
+                        </h1>
+                        <div className="h-auto px-2">
+                            <FaChevronDown className="inline text-white" />
+                        </div>
+                    </div>
+                </div>
+            </button>
+        );
+    }
+};
+
 export default function VaxStatus() {
-    const { data } = useVaxSubscription();
     return (
-        <div>
-            <h2 className="font-bold">
-                <FaBell className="inline" /> Subscribe to vaccination updates
-            </h2>
-            <p className="text-xs text-gray-500 py-2">
-                You (and your family) will be notified when your vaccination appointment changes
-            </p>
-            <Link href="/subscribe">
-                <button className="float-right bg-blue-500 rounded-full text-white py-1 px-4 mt-1 mr-1">
-                    <FaPen className="inline" /> Edit
-                </button>
-            </Link>
-            <div className="bg-gray-200 rounded-t-xl p-4 space-y-2">
-                <h3 className="font-bold text-sm">Your Info</h3>
+        <div className="h-auto mx-auto ">
+            <div>
+                <h1 className="text-black text-2xl text-center font-bold">
+                    Your Vaccination Status
+                </h1>
+                <div className="bg-gray-100 rounded rounded-2xl p-4 pb-12">
+                    <div className="space-y-2">
+                        <h2 className="text-gray-500 text-sm ">Name </h2>
+                        <p className="text-black text-xl">Ching Cheng Kang</p>
+                    </div>
+                    <div className="mt-2 space-y-4">
+                        <VaxStatusCard
+                            heading="Dose 1"
+                            status="COMPLETED"
+                            isOpen={false}
+                            className="bg-gradient-to-r from-green-400 to-blue-500">
+                            <p className="font-bold">Appointment Date :</p>
+                            <p>22 June 2021 09:00AM</p>
+                            <br />
+                            <p className="font-bold"> Health Facility:</p>
+                            <p>Hospital Want dan Kanak</p>
+                            <br />
+                            <p className="font-bold"> Location:</p>
+                            <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
+                        </VaxStatusCard>
 
-                <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaPhone className="inline w-2/12" /> |{' '}
-                    <p className="inline text-center w-8/12">
-                        {data?.userPhoneNumber ? data?.userPhoneNumber : ''}
-                    </p>
-                </div>
-                <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaEnvelope className="inline w-2/12" /> |{' '}
-                    <p className="inline text-center w-8/12">
-                        {data?.userEmail ? data?.userEmail : ''}
-                    </p>
-                </div>
-            </div>
-
-            <div className="bg-gray-200 rounded-b-xl p-4 space-y-2">
-                <h3 className="font-bold text-sm">Your family Info</h3>
-
-                <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaPhone className="inline w-2/12" /> |{' '}
-                    <p className="inline text-center w-8/12">
-                        {data?.familyPhoneNumber ? data?.familyPhoneNumber : ''}
-                    </p>
-                </div>
-                <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaEnvelope className="inline w-2/12" /> |{' '}
-                    <p className="inline text-center w-8/12">
-                        {data?.familyEmail ? data?.familyEmail : ''}
-                    </p>
+                        <VaxStatusCard
+                            heading="Dose 2"
+                            status="PENDING"
+                            isOpen={false}
+                            className="bg-gradient-to-r from-yellow-600 to-yellow-400">
+                            <p className="font-bold">Appointment Date :</p>
+                            <p>22 June 2021 09:00AM</p>
+                            <br />
+                            <p className="font-bold"> Health Facility:</p>
+                            <p>Hospital Want dan Kanak</p>
+                            <br />
+                            <p className="font-bold"> Location:</p>
+                            <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
+                        </VaxStatusCard>
+                    </div>
                 </div>
             </div>
         </div>
