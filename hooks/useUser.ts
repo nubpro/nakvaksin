@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import { clearUserToken, getUserToken } from '../services/auth';
+import { clearUserToken, destroyUserProfile, getUserToken } from '../services/auth';
 import User from '../types/user';
 
 const QK_USER = 'user';
@@ -24,12 +24,15 @@ const useUser = () => {
 
     const { data: user } = useQuery<User>(QK_USER, getUser, {
         staleTime: 1000 * 86400 * 3, // 3 days
-        retry: false
+        retry: 1
     });
 
-    const { mutate: logout } = useMutation(clearUserToken, {
-        onSuccess: () => queryClient.invalidateQueries(QK_USER)
-    });
+    const logout = () => {
+        clearUserToken();
+        destroyUserProfile();
+
+        queryClient.invalidateQueries(QK_USER);
+    };
 
     return { user, logout };
 };

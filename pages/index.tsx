@@ -1,8 +1,11 @@
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { GiHumanPyramid } from 'react-icons/gi';
 import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'react-icons/io5';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
@@ -44,6 +47,21 @@ const FeaturedItem = ({
         </div>
     </div>
 );
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
+};
 
 export default function Home() {
     return (
