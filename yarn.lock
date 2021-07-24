@@ -2670,9 +2670,9 @@ react-dom@17.0.2:
     scheduler "^0.20.2"
 
 react-hook-form@^7.8.1:
-  version "7.8.1"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.8.1.tgz"
-  integrity sha512-pwWxd4UfwsKVh/W2YE2Hnu7KBY4KTCZq3QO1PMISzP31AZ5Kmv6ji085QVIHVWVSLT4oX6IhmZ2bWJ2oBIwobQ==
+  version "7.12.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.12.0.tgz#91320b61d98458fdc3376b064b81a4d7875f671a"
+  integrity sha512-Rg96xvdOwr/z/2+HKos+jHVIqYxPUPvrFkZkd8ZHPLIBjcD2MLMCM8n1U5FHm8CDvlNNZx7TS+C6v/TAXp4NCQ==
 
 react-icons@*, react-icons@^4.2.0:
   version "4.2.0"
