@@ -1,14 +1,18 @@
+import axios from 'axios';
 import classNames from 'classnames';
 import React, { ReactNode, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
+import { getVaxStatus } from '../services/vaxStatus';
+import { VaxStatusType } from '../types/VaxStatusType';
+
 const VaxStatusCard = ({
-    isOpen = false,
-    className,
-    heading,
-    status,
-    children
-}: {
+                           isOpen = false,
+                           className,
+                           heading,
+                           status,
+                           children
+                       }: {
     isOpen?: boolean;
     className?: string;
     status?: string;
@@ -59,6 +63,13 @@ const VaxStatusCard = ({
 };
 
 export default function VaxStatus() {
+    let firstDoseStatus;
+    getVaxStatus().then((res) => {
+        const data = res as VaxStatusType[];
+        firstDoseStatus = data[1].state;
+        console.log(data[1].state);
+    });
+
     return (
         <div className="h-auto mx-auto ">
             <div>
@@ -73,7 +84,7 @@ export default function VaxStatus() {
                     <div className="mt-2 space-y-4">
                         <VaxStatusCard
                             heading="Dose 1"
-                            status="COMPLETED"
+                            status={firstDoseStatus}
                             isOpen={false}
                             className="bg-gradient-to-r from-green-400 to-blue-500">
                             <p className="font-bold">Appointment Date :</p>
