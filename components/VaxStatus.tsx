@@ -1,9 +1,14 @@
-import axios from 'axios';
 import classNames from 'classnames';
 import React, { ReactNode, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-import { getVaxStatus } from '../services/vaxStatus';
+import {
+    getFirstDoseStatus,
+    getHealthFacility,
+    getSecondDoseStatus,
+    getVaccinationLocation,
+    useVaxStatus
+} from '../services/vaxStatus';
 import { VaxStatusType } from '../types/VaxStatusType';
 
 const VaxStatusCard = ({
@@ -63,13 +68,11 @@ const VaxStatusCard = ({
 };
 
 export default function VaxStatus() {
-    let firstDoseStatus;
-    getVaxStatus().then((res) => {
-        const data = res as VaxStatusType[];
-        firstDoseStatus = data[1].state;
-        console.log(data[1].state);
-    });
-
+    const { data } = useVaxStatus();
+    const vaxStatus = data as unknown as VaxStatusType[];
+    const firstDoseStatus = getFirstDoseStatus(vaxStatus);
+    const secondVaccination = getSecondDoseStatus(vaxStatus);
+    console.log(vaxStatus);
     return (
         <div className="h-auto mx-auto ">
             <div>
@@ -82,35 +85,39 @@ export default function VaxStatus() {
                         <p className="text-black text-xl">Ching Cheng Kang</p>
                     </div>
                     <div className="mt-2 space-y-4">
-                        <VaxStatusCard
-                            heading="Dose 1"
-                            status={firstDoseStatus}
-                            isOpen={false}
-                            className="bg-gradient-to-r from-green-400 to-blue-500">
-                            <p className="font-bold">Appointment Date :</p>
-                            <p>22 June 2021 09:00AM</p>
-                            <br />
-                            <p className="font-bold"> Health Facility:</p>
-                            <p>Hospital Want dan Kanak</p>
-                            <br />
-                            <p className="font-bold"> Location:</p>
-                            <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
-                        </VaxStatusCard>
+                        {firstDoseStatus !== undefined && (
+                            <VaxStatusCard
+                                heading="Dose 1"
+                                status={firstDoseStatus?.state}
+                                isOpen={false}
+                                className="bg-gradient-to-r from-green-400 to-blue-500">
+                                <p className="font-bold">Appointment Date :</p>
+                                <p>{firstDoseStatus?.timestamp}</p>
+                                <br />
+                                <p className="font-bold"> Health Facility:</p>
+                                <p>{getHealthFacility(firstDoseStatus?.data)}</p>
+                                <br />
+                                <p className="font-bold"> Location:</p>
+                                <p>{getVaccinationLocation(firstDoseStatus?.data)}</p>
+                            </VaxStatusCard>
+                        )}
 
-                        <VaxStatusCard
-                            heading="Dose 2"
-                            status="PENDING"
-                            isOpen={false}
-                            className="bg-gradient-to-r from-yellow-600 to-yellow-400">
-                            <p className="font-bold">Appointment Date :</p>
-                            <p>22 June 2021 09:00AM</p>
-                            <br />
-                            <p className="font-bold"> Health Facility:</p>
-                            <p>Hospital Want dan Kanak</p>
-                            <br />
-                            <p className="font-bold"> Location:</p>
-                            <p>HOSPITAL WANITA DAN KANAK-KANAK, LIKAS</p>
-                        </VaxStatusCard>
+                        {secondVaccination !== undefined && (
+                            <VaxStatusCard
+                                heading="Dose 2"
+                                status={secondVaccination.state}
+                                isOpen={false}
+                                className="bg-gradient-to-r from-yellow-600 to-yellow-400">
+                                <p className="font-bold">Appointment Date :</p>
+                                <p>{secondVaccination.timestamp}</p>
+                                <br />
+                                <p className="font-bold"> Health Facility:</p>
+                                <p>{getHealthFacility(secondVaccination?.data)}</p>
+                                <br />
+                                <p className="font-bold"> Location:</p>
+                                <p>{getVaccinationLocation(secondVaccination?.data)}</p>
+                            </VaxStatusCard>
+                        )}
                     </div>
                 </div>
             </div>
