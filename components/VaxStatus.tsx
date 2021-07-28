@@ -72,7 +72,6 @@ export default function VaxStatus() {
     const vaxStatus = data as unknown as VaxStatusType[];
     const firstDoseStatus = getFirstDoseStatus(vaxStatus);
     const secondVaccination = getSecondDoseStatus(vaxStatus);
-    console.log(vaxStatus);
     return (
         <div className="h-auto mx-auto ">
             <div>
