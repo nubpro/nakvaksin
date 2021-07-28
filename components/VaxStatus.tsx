@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { ReactNode, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
+import { useUser } from '../hooks/useUser';
 import {
     getFirstDoseStatus,
     getHealthFacility,
@@ -68,6 +69,8 @@ const VaxStatusCard = ({
 };
 
 export default function VaxStatus() {
+    const { user } = useUser();
+
     const { data } = useVaxStatus();
     const vaxStatus = data as unknown as VaxStatusType[];
     const firstDoseStatus = getFirstDoseStatus(vaxStatus);
@@ -81,7 +84,7 @@ export default function VaxStatus() {
                 <div className="bg-gray-100 rounded rounded-2xl p-4 pb-12">
                     <div className="space-y-2">
                         <h2 className="text-gray-500 text-sm ">Name </h2>
-                        <p className="text-black text-xl">Ching Cheng Kang</p>
+                        <p className="text-black text-xl">{user?.displayName}</p>
                     </div>
                     <div className="mt-2 space-y-4">
                         {firstDoseStatus !== undefined && (
