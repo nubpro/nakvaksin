@@ -7,12 +7,12 @@ import { getVaxStatus } from '../services/vaxStatus';
 import { VaxStatusType } from '../types/VaxStatusType';
 
 const VaxStatusCard = ({
-                           isOpen = false,
-                           className,
-                           heading,
-                           status,
-                           children
-                       }: {
+    isOpen = false,
+    className,
+    heading,
+    status,
+    children
+}: {
     isOpen?: boolean;
     className?: string;
     status?: string;
