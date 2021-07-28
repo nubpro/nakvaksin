@@ -3,7 +3,7 @@ export interface VaxStatusType {
     headerText: HeaderTextOrText;
     state: string;
     data?: (DataEntityOrActionEntity | null)[] | null;
-    action?: (DataEntityOrActionEntity1 | null)[] | null;
+    action?: (DataEntityOrActionEntity | null)[] | null;
 }
 
 interface HeaderTextOrText {
@@ -11,12 +11,8 @@ interface HeaderTextOrText {
     en_US: string;
 }
 
-interface DataEntityOrActionEntity {
+export interface DataEntityOrActionEntity {
     text: HeaderTextOrText;
     value: string;
 }
 
-interface DataEntityOrActionEntity1 {
-    text: HeaderTextOrText;
-    value: string;
-}
