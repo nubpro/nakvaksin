@@ -3,7 +3,13 @@ import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 import { useUser } from '../hooks/useUser';
-import { getHealthFacility, getVaccinationLocation, useVaxStatus } from '../hooks/useVaxStatus';
+import {
+    formatApptDate,
+    getApptDate,
+    getHealthFacility,
+    getVaccinationLocation,
+    useVaxStatus
+} from '../hooks/useVaxStatus';
 import { VaxElemState, VaxStatusElem } from '../types/VaxStatus';
 
 const VaxStatusCard = ({
@@ -53,7 +59,7 @@ const VaxStatusCard = ({
             {isOpened && (
                 <div className="bg-white h-auto rounded-b-xl p-8 text-center">
                     <p className="font-bold">Appointment Date & Time</p>
-                    <p>{vaxStatus.timestamp}</p>
+                    <p>{formatApptDate(getApptDate(vaxStatus))}</p>
                     <br />
                     <p className="font-bold">Health Facility</p>
                     <p>{getHealthFacility(vaxStatus)}</p>

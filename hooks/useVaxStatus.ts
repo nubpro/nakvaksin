@@ -45,4 +45,22 @@ function getVaccinationLocation(vaxStatus: VaxStatusElem) {
         ?.value.toUpperCase();
 }
 
-export { getHealthFacility, getVaccinationLocation, useVaxStatus };
+function getApptDate(vaxStatus: VaxStatusElem) {
+    const date = vaxStatus.data
+        ?.find((el) => el?.text.en_US.toUpperCase().includes('DATE:'))
+        ?.value.split('-');
+    const [day, month, year] = [date?.[0], date?.[1], date?.[2]];
+    const time = vaxStatus.data?.find((el) => el?.text.en_US.toUpperCase().includes('TIME:'));
+    return new Date(`${year}-${month}-${day} ${time?.value}`);
+}
+
+function formatApptDate(date: Date) {
+    const dayName = date.toLocaleString('en-us', { weekday: 'long' });
+    const month = date.toLocaleString('default', { month: 'short' });
+    const [day, year] = [date.getDate(), date.getFullYear()];
+    const [hour, minutes] = [date.getHours(), date.getMinutes()];
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    return `${dayName}, ${day} ${month} ${year}, ${hour}:${minutes} ${ampm}`;
+}
+
+export { formatApptDate, getApptDate, getHealthFacility, getVaccinationLocation, useVaxStatus };
