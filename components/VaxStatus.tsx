@@ -94,7 +94,8 @@ export default function VaxStatusComponent() {
                                         isOpen={
                                             data.firstDoseAppointment.state !==
                                             VaxElemState.COMPLETED
-                                        }></VaxStatusCard>
+                                        }
+                                    />
                                 )}
 
                                 {data?.secondDoseAppointment && (
@@ -104,7 +105,8 @@ export default function VaxStatusComponent() {
                                         isOpen={
                                             data.secondDoseAppointment.state !==
                                             VaxElemState.COMPLETED
-                                        }></VaxStatusCard>
+                                        }
+                                    />
                                 )}
                             </>
                         )}
