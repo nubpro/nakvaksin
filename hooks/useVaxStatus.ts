@@ -54,6 +54,7 @@ function getApptTime(vaxStatus: VaxStatusElem) {
 
 function getApptDateTime(vaxStatus: VaxStatusElem) {
     const date = getApptDate(vaxStatus); // eg: 26-06-2021
+    const _date = date ? DateTime.fromFormat(date, 'dd-MM-yyyy') : undefined;
 
     // NOTE:
     // The MySejahtera API is not returning the AM / PM consistently,
@@ -61,11 +62,6 @@ function getApptDateTime(vaxStatus: VaxStatusElem) {
     // any additional process to prevent mistakes
     // eg: 08:00, 08:00AM
     const time = getApptTime(vaxStatus);
-
-    let _date;
-    if (date) {
-        _date = DateTime.fromFormat(date, 'dd-MM-yyyy');
-    }
 
     return {
         date,
