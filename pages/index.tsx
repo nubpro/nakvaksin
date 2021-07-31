@@ -12,7 +12,7 @@ import { useUser } from '../hooks/useUser';
 
 const CallToActionButton = () => {
     const { user } = useUser();
-    const redirectUrl = user ? '/subscribe' : '/login';
+    const redirectUrl = user ? '/dashboard' : '/login';
 
     return (
         <div>
