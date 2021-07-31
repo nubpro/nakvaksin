@@ -8,12 +8,12 @@ import { VaxElemState, VaxStatusElem } from '../types/VaxStatus';
 
 const VaxStatusCard = ({
     vaxStatus,
-    isOpen = false,
-    heading
+    heading,
+    isOpen = false
 }: {
     vaxStatus: VaxStatusElem;
+    heading: string;
     isOpen?: boolean;
-    heading?: string;
 }) => {
     const [isOpened, setIsOpened] = useState(isOpen);
 
