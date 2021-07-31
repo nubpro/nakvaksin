@@ -51,15 +51,18 @@ function getApptDate(vaxStatus: VaxStatusElem) {
         ?.value.split('-');
     const [day, month, year] = [date?.[0], date?.[1], date?.[2]];
     const time = vaxStatus.data?.find((el) => el?.text.en_US.toUpperCase().includes('TIME:'));
+    console.log(time);
     return new Date(`${year}-${month}-${day} ${time?.value}`);
 }
 
 function formatApptDate(date: Date) {
     const dayName = date.toLocaleString('en-us', { weekday: 'long' });
     const month = date.toLocaleString('default', { month: 'short' });
-    const [day, year] = [date.getDate(), date.getFullYear()];
-    const [hour, minutes] = [date.getHours(), date.getMinutes()];
-    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const [minutes, day, year] = [date.getMinutes(), date.getDate(), date.getFullYear()];
+
+    let hour = date.getHours();
+    const ampm = hour >= 12 ? 'pm' : 'am';
+    hour = hour % 12 ? hour : 12; //12.30PM should be 12 also
     return `${dayName}, ${day} ${month} ${year}, ${hour}:${minutes} ${ampm}`;
 }
 
