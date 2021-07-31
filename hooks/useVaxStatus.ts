@@ -57,7 +57,7 @@ function getApptDateTime(vaxStatus: VaxStatusElem) {
 
     // NOTE:
     // The MySejahtera API is not returning the AM / PM consistently,
-    // hence I will only display what the API returning without doing
+    // hence I will only display what the API is returning without
     // any additional process to prevent mistakes
     // eg: 08:00, 08:00AM
     const time = getApptTime(vaxStatus);
