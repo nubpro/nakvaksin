@@ -1,9 +1,21 @@
-export interface VaxStatusType {
+export interface VaxStatus {
+    firstDoseAppointment: VaxStatusElem | undefined;
+    secondDoseAppointment: VaxStatusElem | undefined;
+    rawData: VaxStatusElem[];
+}
+
+export interface VaxStatusElem {
     timestamp?: string | null;
     headerText: HeaderTextOrText;
-    state: string;
+    state: VaxElemState;
     data?: (DataEntityOrActionEntity | null)[] | null;
     action?: (DataEntityOrActionEntity | null)[] | null;
+}
+
+export enum VaxElemState {
+    PENDING = 'PENDING',
+    ACTIVE = 'ACTIVE',
+    COMPLETED = 'COMPLETED'
 }
 
 interface HeaderTextOrText {
@@ -15,4 +27,3 @@ export interface DataEntityOrActionEntity {
     text: HeaderTextOrText;
     value: string;
 }
-
