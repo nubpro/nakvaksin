@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
@@ -34,36 +35,43 @@ function getSecondDoseAppt(rawData: VaxStatusElem[]) {
 }
 
 function getHealthFacility(vaxStatus: VaxStatusElem) {
-    return vaxStatus.data
-        ?.find((d) => d?.text.en_US.toUpperCase().includes('HEALTH FACILITY'))
-        ?.value.toUpperCase();
+    return vaxStatus.data?.find((d) => d?.text.en_US.toUpperCase().includes('HEALTH FACILITY'))
+        ?.value;
 }
 
 function getVaccinationLocation(vaxStatus: VaxStatusElem) {
-    return vaxStatus.data
-        ?.find((d) => d?.text.en_US.toUpperCase().includes('VACCINATION LOCATION'))
-        ?.value.toUpperCase();
+    return vaxStatus.data?.find((d) => d?.text.en_US.toUpperCase().includes('VACCINATION LOCATION'))
+        ?.value;
 }
 
 function getApptDate(vaxStatus: VaxStatusElem) {
-    const date = vaxStatus.data
-        ?.find((el) => el?.text.en_US.toUpperCase().includes('DATE:'))
-        ?.value.split('-');
-    const [day, month, year] = [date?.[0], date?.[1], date?.[2]];
-    const time = vaxStatus.data?.find((el) => el?.text.en_US.toUpperCase().includes('TIME:'));
-    console.log(time);
-    return new Date(`${year}-${month}-${day} ${time?.value}`);
+    return vaxStatus.data?.find((el) => el?.text.en_US.toUpperCase().includes('DATE'))?.value; // eg: 26-06-2021
 }
 
-function formatApptDate(date: Date) {
-    const dayName = date.toLocaleString('en-us', { weekday: 'long' });
-    const month = date.toLocaleString('default', { month: 'short' });
-    const [minutes, day, year] = [date.getMinutes(), date.getDate(), date.getFullYear()];
-
-    let hour = date.getHours();
-    const ampm = hour >= 12 ? 'pm' : 'am';
-    hour = hour % 12 ? hour : 12; //12.30PM should be 12 also
-    return `${dayName}, ${day} ${month} ${year}, ${hour}:${minutes} ${ampm}`;
+function getApptTime(vaxStatus: VaxStatusElem) {
+    return vaxStatus.data?.find((el) => el?.text.en_US.toUpperCase().includes('TIME'))?.value;
 }
 
-export { formatApptDate, getApptDate, getHealthFacility, getVaccinationLocation, useVaxStatus };
+function getApptDateTime(vaxStatus: VaxStatusElem) {
+    const date = getApptDate(vaxStatus); // eg: 26-06-2021
+
+    // NOTE:
+    // The MySejahtera API is not returning the AM / PM consistently,
+    // hence I will only display what the API returning without doing
+    // any additional process to prevent mistakes
+    // eg: 08:00, 08:00AM
+    const time = getApptTime(vaxStatus);
+
+    let _date;
+    if (date) {
+        _date = DateTime.fromFormat(date, 'dd-MM-yyyy');
+    }
+
+    return {
+        date,
+        _date,
+        time
+    };
+}
+
+export { getApptDateTime, getHealthFacility, getVaccinationLocation, useVaxStatus };

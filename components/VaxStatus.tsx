@@ -4,13 +4,18 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 import { useUser } from '../hooks/useUser';
 import {
-    formatApptDate,
-    getApptDate,
+    getApptDateTime,
     getHealthFacility,
     getVaccinationLocation,
     useVaxStatus
 } from '../hooks/useVaxStatus';
 import { VaxElemState, VaxStatusElem } from '../types/VaxStatus';
+
+const COLOR_BY_STATE = {
+    [VaxElemState.ACTIVE]: 'bg-gradient-to-r from-yellow-600 to-yellow-400', // TODO: change this maybe
+    [VaxElemState.PENDING]: 'bg-gradient-to-r from-yellow-600 to-yellow-400',
+    [VaxElemState.COMPLETED]: 'bg-gradient-to-r from-green-400 to-blue-500'
+};
 
 const VaxStatusCard = ({
     vaxStatus,
@@ -22,12 +27,7 @@ const VaxStatusCard = ({
     isOpen?: boolean;
 }) => {
     const [isOpened, setIsOpened] = useState(isOpen);
-
-    const COLOR_BY_STATE = {
-        [VaxElemState.ACTIVE]: 'bg-gradient-to-r from-yellow-600 to-yellow-400', // TODO: change this maybe
-        [VaxElemState.PENDING]: 'bg-gradient-to-r from-yellow-600 to-yellow-400',
-        [VaxElemState.COMPLETED]: 'bg-gradient-to-r from-green-400 to-blue-500'
-    };
+    const { _date, time } = getApptDateTime(vaxStatus);
 
     return (
         <div className="flex flex-col">
@@ -59,7 +59,9 @@ const VaxStatusCard = ({
             {isOpened && (
                 <div className="bg-white h-auto rounded-b-xl p-8 text-center">
                     <p className="font-bold">Appointment Date & Time</p>
-                    <p>{formatApptDate(getApptDate(vaxStatus))}</p>
+                    <p>
+                        {_date?.toFormat('EEE, d MMM yyyy')}, {time}
+                    </p>
                     <br />
                     <p className="font-bold">Health Facility</p>
                     <p>{getHealthFacility(vaxStatus)}</p>
