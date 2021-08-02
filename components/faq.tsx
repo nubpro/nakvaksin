@@ -41,10 +41,10 @@ const FaqElement = ({
 
 export default function Faq() {
     return (
-        <div className="container h-auto mx-auto">
+        <div className="container h-auto mx-auto" id="faq-section">
             <div className="mx-2">
                 <h1 className="text-black text-3xl text-center py-2">
-                    Biasa Orang Selalu Tanya (FAQ)
+                    <a href="#faq-section">Biasa Orang Selalu Tanya (FAQ)</a>
                 </h1>
                 <div className="bg-gray-300 rounded-2xl py-6 px-2">
                     <div className="space-y-5">
