@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import VaxSubscription from '../types/VaxSubscription';
+import { VaxSubscription } from '../types/vaxSubscription';
 
 const QK_SUBSCRIBE = 'subscribe';
 

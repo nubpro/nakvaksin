@@ -1,21 +1,18 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiTrash } from 'react-icons/bi';
-import { IoCallOutline, IoClose, IoTrashOutline } from 'react-icons/io5';
+import { IoCall, IoMail } from 'react-icons/io5';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import Header from '../components/header';
 
 import Overlay from '../components/overlay';
-import { useUser } from '../hooks/useUser';
+IoCall;
 import { QK_VAC_SUBSCRIPTION, useVacSub } from '../hooks/useVacSub';
 import { updateVacSub } from '../services/vaxSubscription.service';
-import VacSubscription from '../types/VacSubscription';
-import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
+import { VaxSubscription } from '../types/vaxSubscription';
 import { REGEX_EMAIL, REGEX_PHONE_NUMBER } from '../utils/username';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -34,20 +31,50 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const ErrorMessage: React.FC = ({ children }) => (
-    <div className="text-sm text-red-500 mt-0.5">{children}</div>
+    <div className="text-sm text-red-500 mt-1">{children}</div>
 );
 ErrorMessage.propTypes = {
     children: PropTypes.node
 };
 
+const GroupHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => {
+    return (
+        <div className="mb-2">
+            <div className="font-medium">{title}</div>
+            <div className="text-sm text-gray-500">{subtitle}</div>
+        </div>
+    );
+};
+
+const SubscribeField = ({
+    icon,
+    placeholder,
+    defaultValue,
+    register
+}: {
+    icon: ReactElement;
+    placeholder: string;
+    defaultValue?: string;
+    register: any;
+}) => {
+    return (
+        <div className="flex border h-16 items-center border-black rounded-full pl-7">
+            <div className="flex mr-4">{icon}</div>
+
+            <input
+                className="flex-1 h-10 outline-none rounded-r-full text-sm placeholder-gray-500 font-light"
+                placeholder={placeholder}
+                {...register}
+                defaultValue={defaultValue}
+            />
+        </div>
+    );
+};
+
 export default function Subscribe() {
-    const router = useRouter();
-    const { user } = useUser();
-    // const [axiosErrorMessage, setAxiosErrorMessage] = useState('');
-    // const [axiosSuccessMessage, setAxiosSuccessMessage] = useState('');
     const vacSub = useVacSub();
     const queryClient = useQueryClient();
-    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VacSubscription>(updateVacSub, {
+    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VaxSubscription>(updateVacSub, {
         onSuccess: (data, variables) => {
             queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
         },
@@ -62,78 +89,88 @@ export default function Subscribe() {
         handleSubmit,
         formState: { errors, isSubmitting },
         reset
-    } = useForm<VacSubscription>();
+    } = useForm<VaxSubscription>();
 
-    const onSubmit = handleSubmit((data) =>
+    const onSubmit = handleSubmit((data) => {
+        console.log(data);
         mutateAsync(data).catch(() => {
             // no need to do anything as it is being handled in useMutation
             // we are only adding this catch here otherwise we will get Uncaught promise error
-        })
-    );
-
-    const textFieldStyle =
-        'border border-black py-5 rounded-full text-center w-full placeholder-gray-700 font-light outline-none';
-    const groupHeadingStyle = 'font-semibold mb-3';
+        });
+    });
 
     return (
         <div className="flex flex-col h-screen px-5 relative">
-            <Header />
             {isSubmitting && <Overlay />}
 
             <button className="absolute top-0 right-0 m-5" onClick={() => reset()}>
-                <IoClose size={45} />
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24.178"
+                    height="24.178"
+                    viewBox="0 0 24.178 24.178">
+                    <g
+                        id="Group_26"
+                        data-name="Group 26"
+                        transform="translate(-178.822 -11.822)"
+                        opacity="0.766">
+                        <rect
+                            id="Rectangle_32"
+                            data-name="Rectangle 32"
+                            width="2.052"
+                            height="32.141"
+                            transform="translate(201.549 11.822) rotate(45)"
+                        />
+                        <rect
+                            id="Rectangle_33"
+                            data-name="Rectangle 33"
+                            width="2.052"
+                            height="32.141"
+                            transform="translate(178.822 13.273) rotate(-45)"
+                        />
+                    </g>
+                </svg>
             </button>
 
-            {/* <div className="text-center italic font-light text-gray-500 py-7 text-sm">
-                All fields are optional
-                <br />
-                You may leave them blank
-            </div> */}
+            <div className="text-center font-light py-7 text-lg">
+                Subscribe to your vaccination status
+            </div>
 
-            <div className="py-10">{JSON.stringify(vacSub.data)}</div>
+            {/* <div className="py-10">{JSON.stringify(vacSub.data)}</div> */}
 
-            {/* {vacSubMutation.error} */}
+            {/* {vacSubMutation.error} TODO: show error from server */}
 
             <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
                 <div className="flex-1 text-center">
                     <div>
-                        <div className={groupHeadingStyle}>
-                            Subscribe <span className="underline">yourself</span> to your
-                            vaccination updates
-                        </div>
+                        <GroupHeading title="Subscribe your family" />
 
                         <div className="flex flex-col space-y-4">
                             <div>
-                                <input
-                                    id="userPhoneNumber"
-                                    className={textFieldStyle}
-                                    placeholder="Please enter your phone number (optional)"
-                                    {...register('userPhoneNumber', {
+                                <SubscribeField
+                                    icon={<IoCall size={18} />}
+                                    placeholder="Please enter your phone number"
+                                    defaultValue={vacSub.data?.userPhoneNumber}
+                                    register={register('userPhoneNumber', {
                                         required: false,
                                         pattern: REGEX_PHONE_NUMBER
                                     })}
-                                    defaultValue={vacSub.data?.userPhoneNumber}
                                 />
-                                {user?.phoneNumber && (
-                                    <FieldUnderCaption caption={user.phoneNumber} />
-                                )}
                                 {errors.userPhoneNumber?.type == 'pattern' && (
                                     <ErrorMessage>Invalid phone number</ErrorMessage>
                                 )}
                             </div>
 
                             <div>
-                                <input
-                                    id="userEmail"
-                                    className={textFieldStyle}
-                                    placeholder="Please enter your email (optional)"
-                                    {...register('userEmail', {
+                                <SubscribeField
+                                    icon={<IoMail size={18} />}
+                                    placeholder="Please enter your email"
+                                    defaultValue={vacSub.data?.userEmail}
+                                    register={register('userEmail', {
                                         required: false,
                                         pattern: REGEX_EMAIL
                                     })}
-                                    defaultValue={vacSub.data?.userEmail}
                                 />
-                                {user?.email && <FieldUnderCaption caption={user.email} />}
                                 {errors.userEmail?.type == 'pattern' && (
                                     <ErrorMessage>Invalid email</ErrorMessage>
                                 )}
@@ -142,22 +179,22 @@ export default function Subscribe() {
                     </div>
 
                     <div className="mt-10">
-                        <div className={groupHeadingStyle}>
-                            Subscribe <span className="underline">your family</span> to your
-                            vaccination updates
-                        </div>
+                        <GroupHeading
+                            title="Subscribe your family"
+                            subtitle="Your family will be informed when your vaccination appointment
+                                changes"
+                        />
 
                         <div className="flex flex-col space-y-4">
                             <div>
-                                <input
-                                    id="familyPhoneNumber"
-                                    className={textFieldStyle}
-                                    placeholder="Please enter their phone number (optional)"
-                                    {...register('familyPhoneNumber', {
+                                <SubscribeField
+                                    icon={<IoCall size={18} />}
+                                    placeholder="Please enter their phone number"
+                                    defaultValue={vacSub.data?.familyPhoneNumber}
+                                    register={register('familyPhoneNumber', {
                                         required: false,
                                         pattern: REGEX_PHONE_NUMBER
                                     })}
-                                    defaultValue={vacSub.data?.familyPhoneNumber}
                                 />
                                 {errors.familyPhoneNumber?.type == 'pattern' && (
                                     <ErrorMessage>Invalid phone number</ErrorMessage>
@@ -165,15 +202,14 @@ export default function Subscribe() {
                             </div>
 
                             <div>
-                                <input
-                                    id="familyEmail"
-                                    className={textFieldStyle}
-                                    placeholder="Please enter their email (optional)"
-                                    {...register('familyEmail', {
+                                <SubscribeField
+                                    icon={<IoMail size={18} />}
+                                    placeholder="Please enter their email"
+                                    defaultValue={vacSub.data?.userEmail}
+                                    register={register('familyEmail', {
                                         required: false,
                                         pattern: REGEX_EMAIL
                                     })}
-                                    defaultValue={vacSub.data?.familyEmail}
                                 />
                                 {errors.familyEmail?.type == 'pattern' && (
                                     <ErrorMessage>Invalid email</ErrorMessage>
@@ -201,9 +237,3 @@ export default function Subscribe() {
         </div>
     );
 }
-
-const FieldUnderCaption = ({ caption }: { caption: string }) => (
-    <div>
-        Use <button className="text-blue-500 pt-1.5 pb-1 font-medium underline">{caption}</button>
-    </div>
-);
