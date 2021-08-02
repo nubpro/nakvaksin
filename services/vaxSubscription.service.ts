@@ -1,7 +1,7 @@
 import { axInstance } from '../apis/nakvaksin.instance';
-import VacSubscription from '../types/VacSubscription';
+import { VaxSubscription } from '../types/vaxSubscription';
 
-function updateVacSub(data: VacSubscription) {
+function updateVaxSubscription(data: VaxSubscription) {
     return axInstance({
         method: 'POST',
         url: '/subscribe',
@@ -9,4 +9,4 @@ function updateVacSub(data: VacSubscription) {
     });
 }
 
-export { updateVacSub };
+export { updateVaxSubscription };

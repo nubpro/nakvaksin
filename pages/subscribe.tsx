@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { GetServerSideProps } from 'next';
+import router from 'next/router';
 import PropTypes from 'prop-types';
 import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,8 +11,8 @@ import { dehydrate } from 'react-query/hydration';
 
 import Overlay from '../components/overlay';
 IoCall;
-import { QK_VAC_SUBSCRIPTION, useVacSub } from '../hooks/useVacSub';
-import { updateVacSub } from '../services/vaxSubscription.service';
+import { QK_VAC_SUBSCRIPTION, useVaxSubscription } from '../hooks/useVaxSubscription';
+import { updateVaxSubscription } from '../services/vaxSubscription.service';
 import { VaxSubscription } from '../types/vaxSubscription';
 import { REGEX_EMAIL, REGEX_PHONE_NUMBER } from '../utils/username';
 
@@ -72,17 +73,20 @@ const SubscribeField = ({
 };
 
 export default function Subscribe() {
-    const vacSub = useVacSub();
+    const vaxSubscriptionQuery = useVaxSubscription();
     const queryClient = useQueryClient();
-    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VaxSubscription>(updateVacSub, {
-        onSuccess: (data, variables) => {
-            queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
-        },
-        onError: (error) => {
-            // TODO: log error to sentry
-            console.error(error.response);
+    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VaxSubscription>(
+        updateVaxSubscription,
+        {
+            onSuccess: (data, variables) => {
+                queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
+            },
+            onError: (error) => {
+                // TODO: log error to sentry
+                console.error(error.response);
+            }
         }
-    });
+    );
 
     const {
         register,
@@ -103,7 +107,11 @@ export default function Subscribe() {
         <div className="flex flex-col h-screen px-5 relative">
             {isSubmitting && <Overlay />}
 
-            <button className="absolute top-0 right-0 m-5" onClick={() => reset()}>
+            <button
+                className="absolute top-0 right-0 m-5"
+                onClick={() => {
+                    router.back();
+                }}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24.178"
@@ -136,9 +144,9 @@ export default function Subscribe() {
                 Subscribe to your vaccination status
             </div>
 
-            {/* <div className="py-10">{JSON.stringify(vacSub.data)}</div> */}
+            {/* <div className="py-10">{JSON.stringify(vaxSubscriptionQuery.data)}</div> */}
 
-            {/* {vacSubMutation.error} TODO: show error from server */}
+            {/* {vaxSubscriptionMutation.error} TODO: show error from server */}
 
             <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
                 <div className="flex-1 text-center">
@@ -150,7 +158,7 @@ export default function Subscribe() {
                                 <SubscribeField
                                     icon={<IoCall size={18} />}
                                     placeholder="Please enter your phone number"
-                                    defaultValue={vacSub.data?.userPhoneNumber}
+                                    defaultValue={vaxSubscriptionQuery.data?.userPhoneNumber}
                                     register={register('userPhoneNumber', {
                                         required: false,
                                         pattern: REGEX_PHONE_NUMBER
@@ -165,7 +173,7 @@ export default function Subscribe() {
                                 <SubscribeField
                                     icon={<IoMail size={18} />}
                                     placeholder="Please enter your email"
-                                    defaultValue={vacSub.data?.userEmail}
+                                    defaultValue={vaxSubscriptionQuery.data?.userEmail}
                                     register={register('userEmail', {
                                         required: false,
                                         pattern: REGEX_EMAIL
@@ -190,7 +198,7 @@ export default function Subscribe() {
                                 <SubscribeField
                                     icon={<IoCall size={18} />}
                                     placeholder="Please enter their phone number"
-                                    defaultValue={vacSub.data?.familyPhoneNumber}
+                                    defaultValue={vaxSubscriptionQuery.data?.familyPhoneNumber}
                                     register={register('familyPhoneNumber', {
                                         required: false,
                                         pattern: REGEX_PHONE_NUMBER
@@ -205,7 +213,7 @@ export default function Subscribe() {
                                 <SubscribeField
                                     icon={<IoMail size={18} />}
                                     placeholder="Please enter their email"
-                                    defaultValue={vacSub.data?.userEmail}
+                                    defaultValue={vaxSubscriptionQuery.data?.userEmail}
                                     register={register('familyEmail', {
                                         required: false,
                                         pattern: REGEX_EMAIL
