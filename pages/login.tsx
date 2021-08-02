@@ -50,7 +50,7 @@ export default function Login() {
     useEffect(() => {
         // user has logged in
         if (user) {
-            router.push('/subscribe');
+            router.push('/dashboard');
         }
     }, [user]);
 
