@@ -1,4 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import classNames from 'classnames';
 import { GetServerSideProps } from 'next';
 import router from 'next/router';
 import PropTypes from 'prop-types';
@@ -51,24 +52,54 @@ const SubscribeField = ({
     icon,
     placeholder,
     defaultValue,
-    register
+    register,
+    readonly = false
 }: {
     icon: ReactElement;
     placeholder: string;
     defaultValue?: string;
     register: any;
+    readonly: boolean;
 }) => {
     return (
         <div className="flex border h-16 items-center border-black rounded-full pl-7">
             <div className="flex mr-4">{icon}</div>
-
             <input
                 className="flex-1 h-10 outline-none rounded-r-full text-sm placeholder-gray-500 font-light"
                 placeholder={placeholder}
                 {...register}
                 defaultValue={defaultValue}
             />
+
+            <ToggleButton />
         </div>
+    );
+};
+
+const ToggleButton = () => {
+    const [toggled, setToggled] = React.useState(false);
+
+    return (
+        <button
+            type="button"
+            className="ml-1 mr-7 focus:outline-none"
+            onClick={() => setToggled((s) => !s)}>
+            <div
+                className={classNames(
+                    'bg-gray-300 w-10 h-6 flex items-center rounded-full p-0.5 transition-colors',
+                    {
+                        'bg-secondary': toggled
+                    }
+                )}>
+                <div
+                    className={classNames(
+                        'bg-white w-5 h-5 rounded-full shadow-md transform transition duration-200 ease-in-out',
+                        {
+                            'translate-x-4': toggled
+                        }
+                    )}></div>
+            </div>
+        </button>
     );
 };
 
@@ -91,8 +122,7 @@ export default function Subscribe() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
-        reset
+        formState: { errors, isSubmitting }
     } = useForm<VaxSubscription>();
 
     const onSubmit = handleSubmit((data) => {
@@ -104,144 +134,146 @@ export default function Subscribe() {
     });
 
     return (
-        <div className="flex flex-col h-screen px-5 relative">
+        <div>
             {isSubmitting && <Overlay />}
 
-            <button
-                className="absolute top-0 right-0 m-5"
-                onClick={() => {
-                    router.back();
-                }}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24.178"
-                    height="24.178"
-                    viewBox="0 0 24.178 24.178">
-                    <g
-                        id="Group_26"
-                        data-name="Group 26"
-                        transform="translate(-178.822 -11.822)"
-                        opacity="0.766">
-                        <rect
-                            id="Rectangle_32"
-                            data-name="Rectangle 32"
-                            width="2.052"
-                            height="32.141"
-                            transform="translate(201.549 11.822) rotate(45)"
-                        />
-                        <rect
-                            id="Rectangle_33"
-                            data-name="Rectangle 33"
-                            width="2.052"
-                            height="32.141"
-                            transform="translate(178.822 13.273) rotate(-45)"
-                        />
-                    </g>
-                </svg>
-            </button>
+            <div className="flex flex-col h-screen px-5 relative max-w-screen-lg m-auto">
+                <button
+                    className="absolute top-0 right-0 p-3 m-4"
+                    onClick={() => {
+                        router.back();
+                    }}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24.178 24.178">
+                        <g
+                            id="Group_26"
+                            data-name="Group 26"
+                            transform="translate(-178.822 -11.822)"
+                            opacity="0.766">
+                            <rect
+                                id="Rectangle_32"
+                                data-name="Rectangle 32"
+                                width="2.052"
+                                height="32.141"
+                                transform="translate(201.549 11.822) rotate(45)"
+                            />
+                            <rect
+                                id="Rectangle_33"
+                                data-name="Rectangle 33"
+                                width="2.052"
+                                height="32.141"
+                                transform="translate(178.822 13.273) rotate(-45)"
+                            />
+                        </g>
+                    </svg>
+                </button>
 
-            <div className="text-center font-light py-7 text-lg">
-                Subscribe to your vaccination status
-            </div>
+                <div className="text-center font-light mt-16 pb-8 text-lg">
+                    Subscribe to your vaccination status
+                </div>
 
-            {/* <div className="py-10">{JSON.stringify(vaxSubscriptionQuery.data)}</div> */}
+                {/* <div className="py-10">{JSON.stringify(vaxSubscriptionQuery.data)}</div> */}
 
-            {/* {vaxSubscriptionMutation.error} TODO: show error from server */}
+                {/* {vaxSubscriptionMutation.error} TODO: show error from server */}
 
-            <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
-                <div className="flex-1 text-center">
-                    <div>
-                        <GroupHeading title="Subscribe your family" />
+                <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
+                    <div className="flex-1 text-center">
+                        <div>
+                            <GroupHeading title="Subscribe your family" />
 
-                        <div className="flex flex-col space-y-4">
-                            <div>
-                                <SubscribeField
-                                    icon={<IoCall size={18} />}
-                                    placeholder="Please enter your phone number"
-                                    defaultValue={vaxSubscriptionQuery.data?.userPhoneNumber}
-                                    register={register('userPhoneNumber', {
-                                        required: false,
-                                        pattern: REGEX_PHONE_NUMBER
-                                    })}
-                                />
-                                {errors.userPhoneNumber?.type == 'pattern' && (
-                                    <ErrorMessage>Invalid phone number</ErrorMessage>
-                                )}
-                            </div>
+                            <div className="flex flex-col space-y-4">
+                                <div>
+                                    <SubscribeField
+                                        icon={<IoCall size={18} />}
+                                        placeholder="Please enter your phone number"
+                                        defaultValue={vaxSubscriptionQuery.data?.userPhoneNumber}
+                                        register={register('userPhoneNumber', {
+                                            required: false,
+                                            pattern: REGEX_PHONE_NUMBER
+                                        })}
+                                    />
+                                    {errors.userPhoneNumber?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid phone number</ErrorMessage>
+                                    )}
+                                </div>
 
-                            <div>
-                                <SubscribeField
-                                    icon={<IoMail size={18} />}
-                                    placeholder="Please enter your email"
-                                    defaultValue={vaxSubscriptionQuery.data?.userEmail}
-                                    register={register('userEmail', {
-                                        required: false,
-                                        pattern: REGEX_EMAIL
-                                    })}
-                                />
-                                {errors.userEmail?.type == 'pattern' && (
-                                    <ErrorMessage>Invalid email</ErrorMessage>
-                                )}
+                                <div>
+                                    <SubscribeField
+                                        icon={<IoMail size={18} />}
+                                        placeholder="Please enter your email"
+                                        defaultValue={vaxSubscriptionQuery.data?.userEmail}
+                                        register={register('userEmail', {
+                                            required: false,
+                                            pattern: REGEX_EMAIL
+                                        })}
+                                    />
+                                    {errors.userEmail?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid email</ErrorMessage>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="mt-10">
-                        <GroupHeading
-                            title="Subscribe your family"
-                            subtitle="Your family will be informed when your vaccination appointment
+                        <div className="mt-10">
+                            <GroupHeading
+                                title="Subscribe your family"
+                                subtitle="Your family will be informed when your vaccination appointment
                                 changes"
-                        />
+                            />
 
-                        <div className="flex flex-col space-y-4">
-                            <div>
-                                <SubscribeField
-                                    icon={<IoCall size={18} />}
-                                    placeholder="Please enter their phone number"
-                                    defaultValue={vaxSubscriptionQuery.data?.familyPhoneNumber}
-                                    register={register('familyPhoneNumber', {
-                                        required: false,
-                                        pattern: REGEX_PHONE_NUMBER
-                                    })}
-                                />
-                                {errors.familyPhoneNumber?.type == 'pattern' && (
-                                    <ErrorMessage>Invalid phone number</ErrorMessage>
-                                )}
-                            </div>
+                            <div className="flex flex-col space-y-4">
+                                <div>
+                                    <SubscribeField
+                                        icon={<IoCall size={18} />}
+                                        placeholder="Please enter their phone number"
+                                        defaultValue={vaxSubscriptionQuery.data?.familyPhoneNumber}
+                                        register={register('familyPhoneNumber', {
+                                            required: false,
+                                            pattern: REGEX_PHONE_NUMBER
+                                        })}
+                                    />
+                                    {errors.familyPhoneNumber?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid phone number</ErrorMessage>
+                                    )}
+                                </div>
 
-                            <div>
-                                <SubscribeField
-                                    icon={<IoMail size={18} />}
-                                    placeholder="Please enter their email"
-                                    defaultValue={vaxSubscriptionQuery.data?.userEmail}
-                                    register={register('familyEmail', {
-                                        required: false,
-                                        pattern: REGEX_EMAIL
-                                    })}
-                                />
-                                {errors.familyEmail?.type == 'pattern' && (
-                                    <ErrorMessage>Invalid email</ErrorMessage>
-                                )}
+                                <div>
+                                    <SubscribeField
+                                        icon={<IoMail size={18} />}
+                                        placeholder="Please enter their email"
+                                        defaultValue={vaxSubscriptionQuery.data?.userEmail}
+                                        register={register('familyEmail', {
+                                            required: false,
+                                            pattern: REGEX_EMAIL
+                                        })}
+                                    />
+                                    {errors.familyEmail?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid email</ErrorMessage>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="flex flex-col items-center mt-10 mb-4">
-                    <button
-                        type="submit"
-                        className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2">
-                        Save
-                    </button>
+                    <div className="flex flex-col items-center mt-10 mb-4">
+                        <button
+                            type="submit"
+                            className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2">
+                            Save
+                        </button>
 
-                    <button
-                        className="my-2 py-2 text-sm flex items-center text-red-500 hover:text-red-700"
-                        type="button">
-                        <BiTrash size={22} />
-                        <div className="ml-1 font-medium">Unsubscribe from NakVaksin</div>
-                    </button>
-                </div>
-            </form>
+                        <button
+                            className="my-2 py-2 text-sm flex items-center text-red-500 hover:text-red-700"
+                            type="button">
+                            <BiTrash size={22} />
+                            <div className="ml-1 font-medium">Unsubscribe from NakVaksin</div>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
