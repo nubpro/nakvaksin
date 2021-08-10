@@ -16,6 +16,7 @@ import { useUser } from '../hooks/useUser';
 import { QK_VAC_SUBSCRIPTION, useVaxSubscription } from '../hooks/useVaxSubscription';
 import { updateVaxSubscription } from '../services/vaxSubscription.service';
 import { VaxSubscription } from '../types/vaxSubscription';
+import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
 import { REGEX_EMAIL, REGEX_PHONE_NUMBER } from '../utils/username';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -67,8 +68,8 @@ const SubscribeTextField = ({
             <input
                 className="flex-1 h-10 outline-none rounded-r-full placeholder-gray-500 font-light"
                 placeholder={placeholder}
-                {...register}
                 defaultValue={defaultValue}
+                {...register}
             />
         </div>
     );
@@ -170,6 +171,7 @@ export default function Subscribe() {
 
     const onSubmit = handleSubmit((data) => {
         // console.log('onsubmit', data);
+
         return mutateAsync(data).catch(() => {
             // no need to do anything as it is being handled in useMutation
             // we are only adding this catch here otherwise we will get Uncaught promise error
@@ -247,7 +249,8 @@ export default function Subscribe() {
                                             }
                                             register={register('userPhoneNumber', {
                                                 required: false,
-                                                pattern: REGEX_PHONE_NUMBER
+                                                pattern: REGEX_PHONE_NUMBER,
+                                                setValueAs: (v) => sanitizePhoneNumber(v)
                                             })}
                                         />
                                     )}
@@ -258,15 +261,33 @@ export default function Subscribe() {
                                 </div>
 
                                 <div>
-                                    <SubscribeTextField
-                                        icon={<IoMail size={18} />}
-                                        placeholder="Please enter your email"
-                                        defaultValue={vaxSubscriptionQuery.data?.userEmail}
-                                        register={register('userEmail', {
-                                            required: false,
-                                            pattern: REGEX_EMAIL
-                                        })}
-                                    />
+                                    {user?.email ? (
+                                        <SubscribeToggle
+                                            icon={<IoMail size={18} />}
+                                            readonlyValue={user.email}
+                                            onToggle={(toggled) => {
+                                                if (toggled) {
+                                                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                                                    setValue('userEmail', user.email!);
+                                                } else {
+                                                    setValue('userEmail', '');
+                                                }
+                                            }}
+                                            stateFetched={vaxSubscriptionQuery.isFetched}
+                                            toggled={!!vaxSubscriptionQuery.data?.userEmail}
+                                        />
+                                    ) : (
+                                        <SubscribeTextField
+                                            icon={<IoMail size={18} />}
+                                            placeholder="Please enter your email"
+                                            defaultValue={vaxSubscriptionQuery.data?.userEmail}
+                                            register={register('userEmail', {
+                                                required: false,
+                                                pattern: REGEX_EMAIL
+                                            })}
+                                        />
+                                    )}
+
                                     {errors.userEmail?.type == 'pattern' && (
                                         <ErrorMessage>Invalid email</ErrorMessage>
                                     )}
@@ -289,7 +310,8 @@ export default function Subscribe() {
                                         defaultValue={vaxSubscriptionQuery.data?.familyPhoneNumber}
                                         register={register('familyPhoneNumber', {
                                             required: false,
-                                            pattern: REGEX_PHONE_NUMBER
+                                            pattern: REGEX_PHONE_NUMBER,
+                                            setValueAs: (v) => sanitizePhoneNumber(v)
                                         })}
                                     />
                                     {errors.familyPhoneNumber?.type == 'pattern' && (
