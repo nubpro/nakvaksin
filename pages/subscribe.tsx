@@ -183,7 +183,7 @@ export default function Subscribe() {
                 <button
                     className="absolute top-0 right-0 p-3 m-4"
                     onClick={() => {
-                        router.back();
+                        router.replace('dashboard');
                     }}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
