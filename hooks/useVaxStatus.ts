@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import type { VaxStatus, VaxStatusElem } from '../types/vaxStatus';
+import { VaxStatus, VaxStatusElem } from '../types/vaxStatus';
 
 const QK_VAXSTATUS = 'vax_status';
 
