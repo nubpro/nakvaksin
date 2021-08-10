@@ -3,14 +3,15 @@ import classNames from 'classnames';
 import { GetServerSideProps } from 'next';
 import router from 'next/router';
 import PropTypes from 'prop-types';
-import React, { ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useForm, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
 import { BiTrash } from 'react-icons/bi';
 import { IoCall, IoMail } from 'react-icons/io5';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
 import Overlay from '../components/overlay';
+import { useUser } from '../hooks/useUser';
 IoCall;
 import { QK_VAC_SUBSCRIPTION, useVaxSubscription } from '../hooks/useVaxSubscription';
 import { updateVaxSubscription } from '../services/vaxSubscription.service';
@@ -48,54 +49,92 @@ const GroupHeading = ({ title, subtitle }: { title: string; subtitle?: string })
     );
 };
 
-const SubscribeField = ({
+const SubscribeTextField = ({
     icon,
     placeholder,
     defaultValue,
-    register,
-    readonly = false
+    register
 }: {
     icon: ReactElement;
     placeholder: string;
     defaultValue?: string;
-    register: any;
-    readonly: boolean;
+    register: UseFormRegisterReturn;
 }) => {
     return (
         <div className="flex border h-16 items-center border-black rounded-full pl-7">
             <div className="flex mr-4">{icon}</div>
+
             <input
                 className="flex-1 h-10 outline-none rounded-r-full text-sm placeholder-gray-500 font-light"
                 placeholder={placeholder}
                 {...register}
                 defaultValue={defaultValue}
             />
-
-            <ToggleButton />
         </div>
     );
 };
 
-const ToggleButton = () => {
-    const [toggled, setToggled] = React.useState(false);
+const SubscribeToggle = ({
+    icon,
+    readonlyValue,
+    onToggle,
+    toggled,
+    stateFetched
+}: {
+    icon: ReactElement;
+    readonlyValue: string;
+    onToggle: (state: boolean) => void;
+    toggled: boolean;
+    stateFetched: boolean;
+}) => {
+    return (
+        <div className="flex border h-16 items-center text-left border-black rounded-full pl-7">
+            <div className="flex mr-4">{icon}</div>
+            <div className="flex-1">{readonlyValue}</div>
+
+            {stateFetched ? (
+                <ToggleButton onToggle={onToggle} toggled={toggled} />
+            ) : (
+                <div className="pr-8">...</div>
+            )}
+        </div>
+    );
+};
+
+const ToggleButton = ({
+    onToggle,
+    toggled
+}: {
+    onToggle: (state: boolean) => void;
+    toggled: boolean;
+}) => {
+    const [mToggled, setMToggled] = useState(false); // internal toggle state
+
+    useEffect(() => {
+        setMToggled(toggled);
+    }, [toggled]);
+
+    useEffect(() => {
+        onToggle(mToggled);
+    }, [mToggled]);
 
     return (
         <button
             type="button"
-            className="ml-1 mr-7 focus:outline-none"
-            onClick={() => setToggled((s) => !s)}>
+            className="ml-1 mr-5 p-2 focus:outline-none"
+            onClick={() => setMToggled((s) => !s)}>
             <div
                 className={classNames(
                     'bg-gray-300 w-10 h-6 flex items-center rounded-full p-0.5 transition-colors',
                     {
-                        'bg-secondary': toggled
+                        'bg-secondary': mToggled
                     }
                 )}>
                 <div
                     className={classNames(
                         'bg-white w-5 h-5 rounded-full shadow-md transform transition duration-200 ease-in-out',
                         {
-                            'translate-x-4': toggled
+                            'translate-x-4': mToggled
                         }
                     )}></div>
             </div>
@@ -104,30 +143,33 @@ const ToggleButton = () => {
 };
 
 export default function Subscribe() {
+    const { user } = useUser();
     const vaxSubscriptionQuery = useVaxSubscription();
     const queryClient = useQueryClient();
-    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VaxSubscription>(
-        updateVaxSubscription,
-        {
-            onSuccess: (data, variables) => {
-                queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
-            },
-            onError: (error) => {
-                // TODO: log error to sentry
-                console.error(error.response);
-            }
+    const { mutateAsync, error: mutateError } = useMutation<
+        AxiosResponse,
+        AxiosError,
+        VaxSubscription
+    >(updateVaxSubscription, {
+        onSuccess: (data, variables) => {
+            queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
+        },
+        onError: (error) => {
+            // TODO: log error to sentry
+            console.error(error.response);
         }
-    );
+    });
 
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting }
+        formState: { errors, isSubmitting },
+        setValue
     } = useForm<VaxSubscription>();
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data);
-        mutateAsync(data).catch(() => {
+        console.log('onsubmit', data);
+        return mutateAsync(data).catch(() => {
             // no need to do anything as it is being handled in useMutation
             // we are only adding this catch here otherwise we will get Uncaught promise error
         });
@@ -170,38 +212,61 @@ export default function Subscribe() {
                         </g>
                     </svg>
                 </button>
-
                 <div className="text-center font-light mt-16 pb-8 text-lg">
                     Subscribe to your vaccination status
                 </div>
 
-                {/* <div className="py-10">{JSON.stringify(vaxSubscriptionQuery.data)}</div> */}
-
-                {/* {vaxSubscriptionMutation.error} TODO: show error from server */}
+                {mutateError && (
+                    <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-2 text-center mb-3">
+                        <span role="img" aria-label="exclaimation">
+                            ⚠️
+                        </span>{' '}
+                        {mutateError.response?.data}
+                    </div>
+                )}
 
                 <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
                     <div className="flex-1 text-center">
                         <div>
-                            <GroupHeading title="Subscribe your family" />
+                            <GroupHeading title="Subscribe yourself" />
 
                             <div className="flex flex-col space-y-4">
                                 <div>
-                                    <SubscribeField
-                                        icon={<IoCall size={18} />}
-                                        placeholder="Please enter your phone number"
-                                        defaultValue={vaxSubscriptionQuery.data?.userPhoneNumber}
-                                        register={register('userPhoneNumber', {
-                                            required: false,
-                                            pattern: REGEX_PHONE_NUMBER
-                                        })}
-                                    />
+                                    {user?.phoneNumber ? (
+                                        <SubscribeToggle
+                                            icon={<IoCall size={18} />}
+                                            readonlyValue={user.phoneNumber}
+                                            onToggle={(toggled) => {
+                                                if (toggled) {
+                                                    setValue('userPhoneNumber', user.phoneNumber);
+                                                } else {
+                                                    setValue('userPhoneNumber', '');
+                                                }
+                                            }}
+                                            stateFetched={vaxSubscriptionQuery.isFetched}
+                                            toggled={!!vaxSubscriptionQuery.data?.userPhoneNumber}
+                                        />
+                                    ) : (
+                                        <SubscribeTextField
+                                            icon={<IoCall size={18} />}
+                                            placeholder="Please enter your phone number"
+                                            defaultValue={
+                                                vaxSubscriptionQuery.data?.userPhoneNumber
+                                            }
+                                            register={register('userPhoneNumber', {
+                                                required: false,
+                                                pattern: REGEX_PHONE_NUMBER
+                                            })}
+                                        />
+                                    )}
+
                                     {errors.userPhoneNumber?.type == 'pattern' && (
                                         <ErrorMessage>Invalid phone number</ErrorMessage>
                                     )}
                                 </div>
 
                                 <div>
-                                    <SubscribeField
+                                    <SubscribeTextField
                                         icon={<IoMail size={18} />}
                                         placeholder="Please enter your email"
                                         defaultValue={vaxSubscriptionQuery.data?.userEmail}
@@ -226,7 +291,7 @@ export default function Subscribe() {
 
                             <div className="flex flex-col space-y-4">
                                 <div>
-                                    <SubscribeField
+                                    <SubscribeTextField
                                         icon={<IoCall size={18} />}
                                         placeholder="Please enter their phone number"
                                         defaultValue={vaxSubscriptionQuery.data?.familyPhoneNumber}
@@ -241,7 +306,7 @@ export default function Subscribe() {
                                 </div>
 
                                 <div>
-                                    <SubscribeField
+                                    <SubscribeTextField
                                         icon={<IoMail size={18} />}
                                         placeholder="Please enter their email"
                                         defaultValue={vaxSubscriptionQuery.data?.userEmail}

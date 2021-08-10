@@ -16,7 +16,8 @@ async function getVaxSubscription() {
 
 const useVaxSubscription = () => {
     return useQuery<VaxSubscription>(QK_VAC_SUBSCRIPTION, getVaxSubscription, {
-        staleTime: 60 * 5 * 1000
+        staleTime: 60 * 5 * 1000,
+        retry: 0 // TODO: in the future, dont retry only for 404 error, 404 means the user has not subscribed
     });
 };
 
