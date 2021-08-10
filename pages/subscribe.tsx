@@ -4,7 +4,8 @@ import { GetServerSideProps } from 'next';
 import router from 'next/router';
 import PropTypes from 'prop-types';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { useForm, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
+import { useForm, UseFormRegisterReturn } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { BiTrash } from 'react-icons/bi';
 import { IoCall, IoMail } from 'react-icons/io5';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
@@ -12,7 +13,6 @@ import { dehydrate } from 'react-query/hydration';
 
 import Overlay from '../components/overlay';
 import { useUser } from '../hooks/useUser';
-IoCall;
 import { QK_VAC_SUBSCRIPTION, useVaxSubscription } from '../hooks/useVaxSubscription';
 import { updateVaxSubscription } from '../services/vaxSubscription.service';
 import { VaxSubscription } from '../types/vaxSubscription';
@@ -146,19 +146,19 @@ export default function Subscribe() {
     const { user } = useUser();
     const vaxSubscriptionQuery = useVaxSubscription();
     const queryClient = useQueryClient();
-    const { mutateAsync, error: mutateError } = useMutation<
-        AxiosResponse,
-        AxiosError,
-        VaxSubscription
-    >(updateVaxSubscription, {
-        onSuccess: (data, variables) => {
-            queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
-        },
-        onError: (error) => {
-            // TODO: log error to sentry
-            console.error(error.response);
+    const formMutation = useMutation<AxiosResponse, AxiosError, VaxSubscription>(
+        updateVaxSubscription,
+        {
+            onSuccess: (data, variables) => {
+                queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
+                toast.success('Saved!');
+            },
+            onError: (error) => {
+                // TODO: log error to sentry
+                console.error(error.response);
+            }
         }
-    });
+    );
 
     const {
         register,
@@ -168,8 +168,8 @@ export default function Subscribe() {
     } = useForm<VaxSubscription>();
 
     const onSubmit = handleSubmit((data) => {
-        console.log('onsubmit', data);
-        return mutateAsync(data).catch(() => {
+        // console.log('onsubmit', data);
+        return formMutation.mutateAsync(data).catch(() => {
             // no need to do anything as it is being handled in useMutation
             // we are only adding this catch here otherwise we will get Uncaught promise error
         });
@@ -216,12 +216,12 @@ export default function Subscribe() {
                     Subscribe to your vaccination status
                 </div>
 
-                {mutateError && (
-                    <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-2 text-center mb-3">
+                {formMutation.error && (
+                    <div className="bg-red-500 text-white border text-sm rounded-md py-2 text-center mb-3">
                         <span role="img" aria-label="exclaimation">
                             ⚠️
                         </span>{' '}
-                        {mutateError.response?.data}
+                        {formMutation.error.response?.data}
                     </div>
                 )}
 
