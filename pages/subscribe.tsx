@@ -337,7 +337,7 @@ export default function Subscribe() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-center mt-10 mb-4">
+                    <div className="flex flex-col items-center mt-4 mb-2">
                         <button
                             type="submit"
                             className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2">
