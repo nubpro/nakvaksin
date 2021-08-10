@@ -65,7 +65,7 @@ const SubscribeTextField = ({
             <div className="flex mr-4">{icon}</div>
 
             <input
-                className="flex-1 h-10 outline-none rounded-r-full text-sm placeholder-gray-500 font-light"
+                className="flex-1 h-10 outline-none rounded-r-full placeholder-gray-500 font-light"
                 placeholder={placeholder}
                 {...register}
                 defaultValue={defaultValue}
