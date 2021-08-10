@@ -323,7 +323,7 @@ export default function Subscribe() {
                                     <SubscribeTextField
                                         icon={<IoMail size={18} />}
                                         placeholder="Please enter their email"
-                                        defaultValue={vaxSubscriptionQuery.data?.userEmail}
+                                        defaultValue={vaxSubscriptionQuery.data?.familyEmail}
                                         register={register('familyEmail', {
                                             required: false,
                                             pattern: REGEX_EMAIL
