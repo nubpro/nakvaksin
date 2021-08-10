@@ -9,7 +9,7 @@ import {
     getVaccinationLocation,
     useVaxStatus
 } from '../hooks/useVaxStatus';
-import { VaxElemState, VaxStatusElem } from '../types/VaxStatus';
+import { VaxElemState, VaxStatusElem } from '../types/vaxStatus';
 
 const COLOR_BY_STATE = {
     [VaxElemState.ACTIVE]: 'bg-gradient-to-r from-yellow-600 to-yellow-400', // TODO: change this maybe
