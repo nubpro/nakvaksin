@@ -146,7 +146,7 @@ export default function Subscribe() {
     const { user } = useUser();
     const vaxSubscriptionQuery = useVaxSubscription();
     const queryClient = useQueryClient();
-    const formMutation = useMutation<AxiosResponse, AxiosError, VaxSubscription>(
+    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VaxSubscription>(
         updateVaxSubscription,
         {
             onSuccess: (data, variables) => {
@@ -156,6 +156,7 @@ export default function Subscribe() {
             onError: (error) => {
                 // TODO: log error to sentry
                 console.error(error.response);
+                toast.error(error?.response?.data);
             }
         }
     );
@@ -169,7 +170,7 @@ export default function Subscribe() {
 
     const onSubmit = handleSubmit((data) => {
         // console.log('onsubmit', data);
-        return formMutation.mutateAsync(data).catch(() => {
+        return mutateAsync(data).catch(() => {
             // no need to do anything as it is being handled in useMutation
             // we are only adding this catch here otherwise we will get Uncaught promise error
         });
@@ -215,15 +216,6 @@ export default function Subscribe() {
                 <div className="text-center font-light mt-16 pb-8 text-lg">
                     Subscribe to your vaccination status
                 </div>
-
-                {formMutation.error && (
-                    <div className="bg-red-500 text-white border text-sm rounded-md py-2 text-center mb-3">
-                        <span role="img" aria-label="exclaimation">
-                            ⚠️
-                        </span>{' '}
-                        {formMutation.error.response?.data}
-                    </div>
-                )}
 
                 <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
                     <div className="flex-1 text-center">
