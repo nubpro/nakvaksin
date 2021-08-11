@@ -16,10 +16,10 @@ const FaqElement = ({
     return (
         <div
             className={classNames(
-                'flex flex-col bg-gray-100 rounded-xl',
+                'flex flex-col bg-gray-100 rounded-xl mb-2',
                 { 'mb-2': !isOpened },
                 {
-                    'shadow-md mb-4': isOpened
+                    'mb-4': isOpened
                 }
             )}>
             <button onClick={() => setIsOpened((s) => !s)}>
@@ -36,8 +36,8 @@ const FaqElement = ({
             </button>
 
             {isOpened && (
-                <div className="bg-white rounded-b-xl p-6">
-                    <p className="break-words">{answer}</p>
+                <div className="bg-gray-50 rounded-b-xl p-6">
+                    <p className="break-words text-gray-800">{answer}</p>
                 </div>
             )}
         </div>
