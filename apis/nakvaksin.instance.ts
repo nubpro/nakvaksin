@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
+import router from 'next/router';
 
-import { getUserToken, setUserToken } from '../services/auth';
+import { clearUserToken, getUserToken, setUserToken } from '../services/auth';
 
 const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL
@@ -15,15 +16,23 @@ instance.interceptors.request.use((config) => {
     return config;
 });
 
-instance.interceptors.response.use((response) => {
-    if (response.headers['x-auth-token']) {
-        setUserToken(response.headers['x-auth-token']);
+instance.interceptors.response.use(
+    (response) => {
+        if (response.headers['x-auth-token']) {
+            setUserToken(response.headers['x-auth-token']);
+        }
+
+        return response;
+    },
+    (error) => {
+        // unauthorized
+        // if (error.response?.status === 401) {
+        //     // clearUserToken();
+        //     // TODO: redirect user to login
+        // }
+
+        return Promise.reject(error);
     }
-
-    // TODO: if status code returns unauthorized (expired token),
-    // clear userToken and kick user out to homepage
-
-    return response;
-});
+);
 
 export { instance as axInstance };
