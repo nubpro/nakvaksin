@@ -7,6 +7,7 @@ export default function SEO() {
         'Vaccination',
         'Vaksinasi',
         'Vaksin',
+        'NakVaksin',
         'Nak Vaksin',
         'My Sejahtera',
         'MySej'

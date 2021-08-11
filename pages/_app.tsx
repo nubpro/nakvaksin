@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
                 <Head>
-                    <title>Nak Vaksin</title>
+                    <title>NakVaksin</title>
                     <SEO />
                 </Head>
                 <Component {...pageProps} />

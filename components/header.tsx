@@ -28,10 +28,7 @@ export default function Header() {
                 <div className="flex">
                     <Link href="/">
                         <h1 className="flex-none text-blue-500 font-bold text-2xl inline">
-                            Nak Vaksin{' '}
-                            <span role="img" aria-label="syringe">
-                                💉
-                            </span>
+                            NakVaksin
                         </h1>
                     </Link>
                     <h1 className="flex-grow text-black inline text-right">
