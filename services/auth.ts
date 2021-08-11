@@ -30,7 +30,7 @@ async function resetPassword(username: string) {
 }
 
 function setUserToken(token: string) {
-    Cookies.set(COOKIE_USER_TOKEN, token, { sameSite: 'strict' });
+    Cookies.set(COOKIE_USER_TOKEN, token, { sameSite: 'strict', expires: 30 });
 }
 
 function getUserToken() {
@@ -42,7 +42,7 @@ function clearUserToken() {
 }
 
 function persistUserProfile(user: User) {
-    Cookies.set(COOKIE_USER_PROFILE, user, { sameSite: 'strict' });
+    Cookies.set(COOKIE_USER_PROFILE, user, { sameSite: 'strict', expires: 30 });
 }
 
 function destroyUserProfile() {
