@@ -23,13 +23,13 @@ export default function SubscribeStatus() {
                 <div className="w-full bg-white py-2 rounded-3xl">
                     <FaPhone className="inline w-2/12" /> |{' '}
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.userPhoneNumber ? data?.userPhoneNumber : 'N/A'}
+                        {data?.userPhoneNumber ? data?.userPhoneNumber : '-'}
                     </p>
                 </div>
                 <div className="w-full bg-white py-2 rounded-3xl">
                     <FaEnvelope className="inline w-2/12" /> |{' '}
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.userEmail ? data?.userEmail : 'N/A'}
+                        {data?.userEmail ? data?.userEmail : '-'}
                     </p>
                 </div>
             </div>
@@ -40,13 +40,13 @@ export default function SubscribeStatus() {
                 <div className="w-full bg-white py-2 rounded-3xl">
                     <FaPhone className="inline w-2/12" /> |{' '}
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.familyPhoneNumber ? data?.familyPhoneNumber : 'N/A'}
+                        {data?.familyPhoneNumber ? data?.familyPhoneNumber : '-'}
                     </p>
                 </div>
                 <div className="w-full bg-white py-2 rounded-3xl">
                     <FaEnvelope className="inline w-2/12" /> |{' '}
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.familyEmail ? data?.familyEmail : 'N/A'}
+                        {data?.familyEmail ? data?.familyEmail : '-'}
                     </p>
                 </div>
             </div>
