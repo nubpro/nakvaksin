@@ -12,11 +12,10 @@ export default function Header() {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
         const publicRoutes = ['/', '/login', '/resetpassword', '/r'];
         const isPublicRoute = publicRoutes.includes(router.pathname);
-        const isUnSubRoute = publicRoutes.filter((r) => r.match(/[/r]/g));
         const isAuthenticated = !!user;
 
         // Redirect unauthenticated user to home
-        if (!isAuthenticated && !isPublicRoute && !isUnSubRoute) {
+        if (!isAuthenticated && !isPublicRoute) {
             router.push('/');
         }
     }, [user, router.pathname]);
