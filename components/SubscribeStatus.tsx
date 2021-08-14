@@ -1,9 +1,15 @@
 import Link from 'next/link';
-import { FaBell, FaEnvelope, FaPen, FaPhone } from 'react-icons/fa';
+import { FaBell, FaPen } from 'react-icons/fa';
+import { IoCall, IoMail } from 'react-icons/io5';
 
 import { useVaxSubscription } from '../hooks/useVaxSubscription';
+
+const NOT_AVAILABLE_MSG = '-';
+const LOADING_MSG = 'Loading...';
+
 export default function SubscribeStatus() {
-    const { data } = useVaxSubscription();
+    const { data, isLoading } = useVaxSubscription();
+
     return (
         <div>
             <h2 className="font-bold">
@@ -12,24 +18,27 @@ export default function SubscribeStatus() {
             <p className="text-xs text-gray-500 py-2">
                 You (and your family) will be notified when your vaccination appointment changes
             </p>
-            <Link href="/subscribe">
-                <button className="float-right bg-blue-500 rounded-full text-white py-1 px-4 mt-1 mr-1">
-                    <FaPen className="inline" /> Edit
-                </button>
-            </Link>
-            <div className="bg-gray-200 rounded-t-xl p-4 space-y-2">
+
+            <div className="bg-gray-200 rounded-t-xl p-4 space-y-2 relative">
+                <Link href="/subscribe">
+                    <a className="absolute top-0 right-0 bg-primary flex rounded-full py-2 px-4 items-center text-white text-sm mr-4 mt-5 shadow-md">
+                        <FaPen className="mr-1" />
+                        Edit
+                    </a>
+                </Link>
+
                 <h3 className="font-bold text-sm">Your Info</h3>
 
                 <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaPhone className="inline w-2/12" /> |{' '}
+                    <IoCall className="inline w-2/12" /> |
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.userPhoneNumber ? data?.userPhoneNumber : '-'}
+                        {isLoading ? LOADING_MSG : data?.userPhoneNumber || NOT_AVAILABLE_MSG}
                     </p>
                 </div>
                 <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaEnvelope className="inline w-2/12" /> |{' '}
+                    <IoMail className="inline w-2/12" /> |
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.userEmail ? data?.userEmail : '-'}
+                        {isLoading ? LOADING_MSG : data?.userEmail || NOT_AVAILABLE_MSG}
                     </p>
                 </div>
             </div>
@@ -38,15 +47,15 @@ export default function SubscribeStatus() {
                 <h3 className="font-bold text-sm">Your family Info</h3>
 
                 <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaPhone className="inline w-2/12" /> |{' '}
+                    <IoCall className="inline w-2/12" /> |
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.familyPhoneNumber ? data?.familyPhoneNumber : '-'}
+                        {isLoading ? LOADING_MSG : data?.familyPhoneNumber || NOT_AVAILABLE_MSG}
                     </p>
                 </div>
                 <div className="w-full bg-white py-2 rounded-3xl">
-                    <FaEnvelope className="inline w-2/12" /> |{' '}
+                    <IoMail className="inline w-2/12" /> |
                     <p className="inline-block text-center w-8/12 mx-auto">
-                        {data?.familyEmail ? data?.familyEmail : '-'}
+                        {isLoading ? LOADING_MSG : data?.familyEmail || NOT_AVAILABLE_MSG}
                     </p>
                 </div>
             </div>
