@@ -25,12 +25,7 @@ export default function Header() {
             <div className="container mx-auto flex flex-wrap mt-8 mb-8 ">
                 <div className="flex sm:w-1/2">
                     <Link href="/">
-                        <a className="text-3xl text-blue-500 ml-1 font-bold">
-                            Nak Vaksin{' '}
-                            <span role="img" aria-label="syringe">
-                                💉
-                            </span>
-                        </a>
+                        <a className="text-3xl text-blue-500 ml-1 font-bold">NakVaksin</a>
                     </Link>
                 </div>
                 <div className="flx sm:w-1/2 flex justify-end ">
