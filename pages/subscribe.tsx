@@ -216,7 +216,7 @@ export default function Subscribe() {
                     </svg>
                 </button>
                 <div className="text-center font-light mt-16 pb-8 text-lg">
-                    Subscribe to your vaccination status
+                    Subscribe to your vaccination updates
                 </div>
 
                 <form className="flex-1 flex flex-col" onSubmit={onSubmit}>

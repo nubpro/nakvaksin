@@ -13,7 +13,7 @@ export default function SubscribeStatus() {
     return (
         <div>
             <h2 className="font-bold">
-                <FaBell className="inline" /> Subscribe to vaccination updates
+                <FaBell className="inline" /> Subscribe to your vaccination updates
             </h2>
             <p className="text-xs text-gray-500 py-2">
                 You (and your family) will be notified when your vaccination appointment changes
