@@ -72,4 +72,4 @@ function getApptDateTime(vaxStatus: VaxStatusElem) {
     };
 }
 
-export { getApptDateTime, getHealthFacility, getVaccinationLocation, useVaxStatus };
+export { getApptDateTime, getHealthFacility, getVaccinationLocation, QK_VAXSTATUS, useVaxStatus };

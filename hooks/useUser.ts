@@ -3,6 +3,8 @@ import { useQuery, useQueryClient } from 'react-query';
 import { axInstance } from '../apis/nakvaksin.instance';
 import { clearUserToken, destroyUserProfile, getUserToken } from '../services/auth';
 import User from '../types/user';
+import { QK_VAXSTATUS } from './useVaxStatus';
+import { QK_VAC_SUBSCRIPTION } from './useVaxSubscription';
 
 const QK_USER = 'user';
 
@@ -31,7 +33,7 @@ const useUser = () => {
         clearUserToken();
         destroyUserProfile();
 
-        await queryClient.invalidateQueries(QK_USER);
+        await queryClient.invalidateQueries([QK_USER, QK_VAC_SUBSCRIPTION, QK_VAXSTATUS]);
     };
 
     return { user, logout };
