@@ -19,7 +19,7 @@ const CallToActionButton = () => {
         <div>
             <Link href={redirectUrl}>
                 <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
-                    Jom! Subscribe to NakVaksin!
+                    Jom! Subscribe to NakVaksin for FREE!
                 </button>
             </Link>
         </div>
@@ -92,10 +92,10 @@ export default function Home() {
 
                                 <div>
                                     <p className="w-full text-xl text-left text-white">
-                                        Missed your appointment?
+                                        Walao weh, I missed my appointment...
                                     </p>
                                     <p className="w-full text-xl text-left text-white">
-                                        When is my children going to get her jab?
+                                        When is my kakak going to get her jab?
                                     </p>
                                     <p className="w-full text-xl text-left text-white">
                                         How can I keep track of my employees&apos; vaccination
