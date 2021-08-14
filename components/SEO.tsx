@@ -8,7 +8,9 @@ export default function SEO() {
         'Vaksinasi',
         'Vaksin',
         'Nak Vaksin',
+        'NakVaksin',
         'My Sejahtera',
+        'MySejahtera',
         'MySej'
     ];
     const url = 'https://www.nakvaksin.com/';
