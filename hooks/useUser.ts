@@ -31,7 +31,7 @@ const useUser = () => {
         clearUserToken();
         destroyUserProfile();
 
-        await queryClient.invalidateQueries();
+        await queryClient.removeQueries();
     };
 
     return { user, logout };
