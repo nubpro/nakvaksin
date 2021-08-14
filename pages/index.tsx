@@ -95,7 +95,7 @@ export default function Home() {
                                         Walao weh, I missed my appointment...
                                     </p>
                                     <p className="w-full text-xl text-left text-white">
-                                        When is my kakak going to get her jab?
+                                        When will my children kena cucuk?
                                     </p>
                                     <p className="w-full text-xl text-left text-white">
                                         How can I keep track of my employees&apos; vaccination
