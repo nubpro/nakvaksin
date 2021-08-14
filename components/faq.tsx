@@ -55,27 +55,47 @@ export default function Faq() {
                 <div className="mt-3">
                     <FaqElement
                         question="Who are We?"
-                        answer="We a group of Malaysian that try to help Malaysian hero to get their vaccination even faster!"
+                        answer="We are three gentlemen from Malaysia trying to contribute to Malaysia’s current landscape. We hope this app serves its purpose which is to ensure everybody’s getting their vaccination dose!"
                     />
                     <FaqElement
-                        question="Why make this application?"
-                        answer="Some of the people miss their vaccination appointment due to sudden appointment or sudden changes in vaccination appointment. Therefore, we decided to build this application to help Malaysian hero to track their vaccination system."
+                        question=" Why did you build this?"
+                        answer="In the early phase of vaccination, we noticed there’s a large group of people aren’t getting their notification when it’s their turn to be jabbed. Worst case is, they would miss out their appointment by accident. We also noticed that when appointment changes, MySejahtera doesn’t notify the users of the change. This app looks to address these shortcomings of MySejahtera."
                     />
                     <FaqElement
-                        question="How does this app work?"
-                        answer="Our System will check your vaccination behalf of you and notify you if your vaccination appointment is been made."
+                        question="Will I get instantly updated as soon as my vaccination status changes?"
+                        answer="Short answer is no and this is due to technical limitations. However, we will check your vaccination status as often as we can. This is currently limited to every hour. We will immediately inform you by SMS or email (your choice) as soon as we detected the changes on our side."
+                    />
+                    <FaqElement
+                        question="Are you affiliated with the government or anybody?"
+                        answer="We have no affiliation with any government bodies including but not limited to, JKJAV. This is a self-initiated non-commercial project. We have no ties with any parties, organizations or companies."
+                    />
+                    <FaqElement
+                        question="What personal information is stored in your database?"
+                        answer="Your name, phone number, email address and your MySejahtera’s ID. We DO NOT store sensitive information which reveals your location and I/C number."
+                    />
+                    <FaqElement
+                        question="What other information is stored in your database?"
+                        answer="For our app to authenticate with MySejahtera, we need to keep a history of your MySejahtera’s token. These tokens are then used to refer to MySejahtera to retrieve your vaccination status. All past tokens are to be removed in 90 days."
+                    />
+                    <FaqElement
+                        question="Okay, but what is a token?"
+                        answer="Please read previous FAQ before proceeding.In layman terms, token is a like a key and where MySejahtera is the lock. “We” need your key to access your vaccination status from MySejahtera. Tokens are temporarily and does not risk exposing your password to us."
+                    />
+                    <FaqElement
+                        question="Is my MySejahtera’s password stored in your database?"
+                        answer="We do not save your password. We are merely relaying your credentials you entered from our app to MySejahtera’s servers to obtain your information (non-sensitive) and vaccination status."
+                    />
+                    <FaqElement
+                        question="  I’m still in doubt. How can I trust this app?"
+                        answer="We understand your concern and hence, we are all in on open sourcing our application’s frontend and backend. You can thoroughly review our code and check out the ins and out. Let us know if you find something suspicious…"
+                    />
+                    <FaqElement
+                        question="How do I permanently delete my account from this app?"
+                        answer="Please reach out to us directly via email (nakvaksin@gmail.com)"
                     />
                     <FaqElement
                         question="How many i shall pay?"
                         answer="None, Nadda, Free, Percuma. However, there is still cost for the application, hence donation and sponsor are welcome"
-                    />
-                    <FaqElement
-                        question="Will my password be save?"
-                        answer="We will not store your password. "
-                    />
-                    <FaqElement
-                        question="Why your notify me late?"
-                        answer="We only check for your vaccination once per day, so checking your MySej is still faster"
                     />
                 </div>
             </div>
