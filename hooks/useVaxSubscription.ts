@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import VaxSubscription from '../types/VaxSubscription';
+import { VaxSubscription } from '../types/vaxSubscription';
 
-const QK_SUBSCRIBE = 'subscribe';
+const QK_VAC_SUBSCRIPTION = 'vax_subscription';
 
 async function getVaxSubscription() {
     const { data } = await axInstance({
@@ -15,7 +15,10 @@ async function getVaxSubscription() {
 }
 
 const useVaxSubscription = () => {
-    return useQuery<VaxSubscription>(QK_SUBSCRIBE, getVaxSubscription);
+    return useQuery<VaxSubscription>(QK_VAC_SUBSCRIPTION, getVaxSubscription, {
+        staleTime: 60 * 5 * 1000,
+        retry: 0 // TODO: in the future, dont retry only for 404 error, 404 means the user has not subscribed
+    });
 };
 
-export { useVaxSubscription };
+export { QK_VAC_SUBSCRIPTION, useVaxSubscription };

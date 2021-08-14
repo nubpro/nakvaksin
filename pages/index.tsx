@@ -7,6 +7,7 @@ import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'reac
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
+import Faq from '../components/faq';
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
 
@@ -18,7 +19,7 @@ const CallToActionButton = () => {
         <div>
             <Link href={redirectUrl}>
                 <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
-                    I nak SMS when appointment is ready{' 💬 '}
+                    Jom! Subscribe to NakVaksin for FREE!
                 </button>
             </Link>
         </div>
@@ -84,18 +85,27 @@ export default function Home() {
                     <Header />
                     <section className="w-full">
                         <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row min-h-screen">
-                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left space-y-8 sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24">
-                                <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font">
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24">
+                                <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font mb-4">
                                     Tiap-tiap hari check MySejahtera?
                                 </h1>
 
-                                <p className="w-full text-xl text-left text-white">
-                                    Missed appointment?
-                                </p>
-                                <p className="w-full text-xl text-left text-white">
-                                    BILA AKU BOLEH KENA CUCUK!?
-                                </p>
-                                <CallToActionButton />
+                                <div>
+                                    <p className="w-full text-xl text-left text-white">
+                                        Walao weh, I missed my appointment...
+                                    </p>
+                                    <p className="w-full text-xl text-left text-white">
+                                        When will my children kena cucuk?
+                                    </p>
+                                    <p className="w-full text-xl text-left text-white">
+                                        How can I keep track of my employees&apos; vaccination
+                                        appointment?
+                                    </p>
+                                </div>
+
+                                <div className="mt-10">
+                                    <CallToActionButton />
+                                </div>
                             </div>
 
                             <div className="sm:flex lg:w-5/6 lg:max-w-lg sm:w-1/2 flex justify-end sm:-mt-24 ">
@@ -113,8 +123,8 @@ export default function Home() {
                     <div className="container mx-auto px-8 md:px-0">
                         <div className="text-center w-full pb-16">
                             <h2 className="uppercase text-gray-800">Kenapa this app?</h2>
-                            <p className="sm:text-3xl text-2xl text-black-800 pt-4 xl:w-1/2 mx-auto">
-                                A simple, easier way to get notified on your appointment.
+                            <p className="sm:text-3xl text-2xl text-black-800 pt-4">
+                                We help you monitor your vaccination appointment!
                             </p>
                         </div>
 
@@ -147,6 +157,9 @@ export default function Home() {
                             />
                         </div>
                     </div>
+                </div>
+                <div className="py-4">
+                    <Faq />
                 </div>
                 <div>
                     <footer className="text-center py-8 border-t border-gray-200 text-xs text-gray-700 w-full">

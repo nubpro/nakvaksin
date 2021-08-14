@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
-import { VaxStatus, VaxStatusElem } from '../types/VaxStatus';
+import { VaxStatus, VaxStatusElem } from '../types/vaxStatus';
 
 const QK_VAXSTATUS = 'vax_status';
 
@@ -70,4 +70,4 @@ function getApptDateTime(vaxStatus: VaxStatusElem) {
     };
 }
 
-export { getApptDateTime, getHealthFacility, getVaccinationLocation, useVaxStatus };
+export { getApptDateTime, getHealthFacility, getVaccinationLocation, QK_VAXSTATUS, useVaxStatus };

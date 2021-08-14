@@ -1,17 +1,20 @@
+const REGEX_EMAIL = new RegExp(
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
+const REGEX_PHONE_NUMBER = new RegExp(
+    /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g
+);
+
 function isEmail(username: string): boolean {
-    const regex = new RegExp(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    );
-    return regex.test(username);
+    return REGEX_EMAIL.test(username);
 }
 
 function isPhoneNumber(username: string): boolean {
-    const regex = new RegExp(/^[+]*[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/g);
-    return regex.test(username);
+    return REGEX_PHONE_NUMBER.test(username);
 }
 
 function isUsernameValid(username: string) {
     return isEmail(username) || isPhoneNumber(username);
 }
 
-export { isEmail, isPhoneNumber, isUsernameValid };
+export { isEmail, isPhoneNumber, isUsernameValid, REGEX_EMAIL, REGEX_PHONE_NUMBER };
