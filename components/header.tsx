@@ -42,6 +42,7 @@ export default function Header() {
                                 className="text-xl text-white bg-blue-600 rounded-xl py-1 px-4 font-bold hover:underline"
                                 onClick={async () => {
                                     await logout();
+                                    await router.push('/');
                                 }}>
                                 Logout
                             </button>
