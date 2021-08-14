@@ -30,18 +30,31 @@ export default function Unsubscribe() {
     const router = useRouter();
     const { key } = router.query;
 
-    if (key !== undefined) {
-        unSub(key).then(() => {
-            setIsUnSubing(false);
-        });
+    if (key && typeof key === 'string') {
+        unSub(key)
+            .then(() => {
+                setIsUnSubing(false);
+            })
+            .catch((error) => {
+                // TODO: log to sentry
+                console.error(error);
+            });
     }
 
     function undo() {
         setIsReSubing(false);
-        reSub(key).then(() => {
-            setIsDoneReSubing(true);
-            setIsReSubing(true);
-        });
+
+        if (key && typeof key === 'string') {
+            reSub(key)
+                .then(() => {
+                    setIsDoneReSubing(true);
+                    setIsReSubing(true);
+                })
+                .catch((error) => {
+                    // TODO: log to sentry
+                    console.error(error);
+                });
+        }
     }
 
     return (
@@ -51,31 +64,39 @@ export default function Unsubscribe() {
             <div className="mx-auto text-center space-y-2">
                 {(isUnSubing || !isReSubing) && (
                     <div>
-                        <button className="bg-blue-500 rounded rounded-full p-6 cursor-default animate-bounce my-2" />
+                        <button className="bg-blue-500 rounded-full p-6 cursor-default animate-bounce my-2" />
                     </div>
                 )}
+
                 {!isUnSubing && !isDoneReSubing && (
                     <>
-                        <h1>You have been unsubscribed to the service.</h1>
-                        <h2 className="mt-4">Whoops! I didnt meant to do that?</h2>
+                        <div>
+                            <span className="font-bold">
+                                You have been unsubscribed from NakVaksin
+                            </span>
+                            <br></br>You will stop receiving any notifications from us when your
+                            vaccination appointment changes
+                        </div>
+                        <div className="pt-4">You didn&apos;t meant to do that?</div>
                         <button
                             onClick={() => undo()}
-                            className="text-white bg-blue-500 px-4 py-2 rounded-xl">
-                            Undo!
+                            className="text-white bg-primary rounded-full py-4 px-10">
+                            Yes, I would like to undo!
                         </button>
-                        <hr />
-                        <h1 className="pt-8 text-sm">
-                            Its OK, we understand... <br />
-                            But we not gonna pretend we are not sad about it
-                            <span className="text-2xl">{' 😢 '}</span>
-                        </h1>
                     </>
                 )}
 
                 {isDoneReSubing && (
                     <>
-                        <h1>Hooray! Your subscription to the service is restore.</h1>
-                        <span className="text-4xl mt-2"> {'🎉🎉'}</span>
+                        <div>
+                            <span className="font-bold">
+                                Hooray! Your subscription to NakVaksin has been restored
+                            </span>
+                            <br />
+                            We will keep you (and your family) updated when your vaccination
+                            appointment changes!
+                        </div>
+                        <div className="text-3xl"> {'🎉 🎉'}</div>
                     </>
                 )}
             </div>
