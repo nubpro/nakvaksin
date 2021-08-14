@@ -1,6 +1,8 @@
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { VaxSubscription } from '../types/vaxSubscription';
 
 const QK_VAC_SUBSCRIPTION = 'vax_subscription';
