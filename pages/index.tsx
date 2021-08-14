@@ -7,6 +7,7 @@ import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'reac
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
+import Faq from '../components/faq';
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
 
@@ -156,6 +157,9 @@ export default function Home() {
                             />
                         </div>
                     </div>
+                </div>
+                <div className="py-4">
+                    <Faq />
                 </div>
                 <div>
                     <footer className="text-center py-8 border-t border-gray-200 text-xs text-gray-700 w-full">
