@@ -2,9 +2,8 @@ import Link from 'next/link';
 import { FaBell, FaEnvelope, FaPen, FaPhone } from 'react-icons/fa';
 
 import { useVaxSubscription } from '../hooks/useVaxSubscription';
-
 export default function SubscribeStatus() {
-    const { data, isLoading } = useVaxSubscription();
+    const { data } = useVaxSubscription();
     return (
         <div>
             <h2 className="font-bold">
@@ -18,45 +17,39 @@ export default function SubscribeStatus() {
                     <FaPen className="inline" /> Edit
                 </button>
             </Link>
-            {isLoading ? (
-                <h3 className="font-bold">Loading...</h3>
-            ) : (
-                <>
-                    <div className="bg-gray-200 rounded-t-xl p-4 space-y-2">
-                        <h3 className="font-bold text-sm">Your Info</h3>
+            <div className="bg-gray-200 rounded-t-xl p-4 space-y-2">
+                <h3 className="font-bold text-sm">Your Info</h3>
 
-                        <div className="w-full bg-white py-2 rounded-3xl">
-                            <FaPhone className="inline w-2/12" /> |{' '}
-                            <p className="inline-block text-center w-8/12 mx-auto">
-                                {data?.userPhoneNumber ? data?.userPhoneNumber : '-'}
-                            </p>
-                        </div>
-                        <div className="w-full bg-white py-2 rounded-3xl">
-                            <FaEnvelope className="inline w-2/12" /> |{' '}
-                            <p className="inline-block text-center w-8/12 mx-auto">
-                                {data?.userEmail ? data?.userEmail : '-'}
-                            </p>
-                        </div>
-                    </div>
+                <div className="w-full bg-white py-2 rounded-3xl">
+                    <FaPhone className="inline w-2/12" /> |{' '}
+                    <p className="inline-block text-center w-8/12 mx-auto">
+                        {data?.userPhoneNumber ? data?.userPhoneNumber : '-'}
+                    </p>
+                </div>
+                <div className="w-full bg-white py-2 rounded-3xl">
+                    <FaEnvelope className="inline w-2/12" /> |{' '}
+                    <p className="inline-block text-center w-8/12 mx-auto">
+                        {data?.userEmail ? data?.userEmail : '-'}
+                    </p>
+                </div>
+            </div>
 
-                    <div className="bg-gray-200 rounded-b-xl p-4 space-y-2">
-                        <h3 className="font-bold text-sm">Your family Info</h3>
+            <div className="bg-gray-200 rounded-b-xl p-4 space-y-2">
+                <h3 className="font-bold text-sm">Your family Info</h3>
 
-                        <div className="w-full bg-white py-2 rounded-3xl">
-                            <FaPhone className="inline w-2/12" /> |{' '}
-                            <p className="inline-block text-center w-8/12 mx-auto">
-                                {data?.familyPhoneNumber ? data?.familyPhoneNumber : '-'}
-                            </p>
-                        </div>
-                        <div className="w-full bg-white py-2 rounded-3xl">
-                            <FaEnvelope className="inline w-2/12" /> |{' '}
-                            <p className="inline-block text-center w-8/12 mx-auto">
-                                {data?.familyEmail ? data?.familyEmail : '-'}
-                            </p>
-                        </div>
-                    </div>
-                </>
-            )}
+                <div className="w-full bg-white py-2 rounded-3xl">
+                    <FaPhone className="inline w-2/12" /> |{' '}
+                    <p className="inline-block text-center w-8/12 mx-auto">
+                        {data?.familyPhoneNumber ? data?.familyPhoneNumber : '-'}
+                    </p>
+                </div>
+                <div className="w-full bg-white py-2 rounded-3xl">
+                    <FaEnvelope className="inline w-2/12" /> |{' '}
+                    <p className="inline-block text-center w-8/12 mx-auto">
+                        {data?.familyEmail ? data?.familyEmail : '-'}
+                    </p>
+                </div>
+            </div>
         </div>
     );
 }
