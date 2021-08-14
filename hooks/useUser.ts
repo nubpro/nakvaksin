@@ -27,11 +27,11 @@ const useUser = () => {
         retry: 1
     });
 
-    const logout = () => {
+    const logout = async () => {
         clearUserToken();
         destroyUserProfile();
 
-        queryClient.invalidateQueries(QK_USER);
+        await queryClient.invalidateQueries(QK_USER);
     };
 
     return { user, logout };

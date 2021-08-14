@@ -40,8 +40,8 @@ export default function Header() {
                             <button
                                 type="button"
                                 className="text-xl text-white bg-blue-600 rounded-xl py-1 px-4 font-bold hover:underline"
-                                onClick={() => {
-                                    logout();
+                                onClick={async () => {
+                                    await logout();
                                 }}>
                                 Logout
                             </button>
