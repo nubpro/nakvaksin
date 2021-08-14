@@ -1,10 +1,28 @@
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 import Header from '../../components/header';
 import { reSub, unSub } from '../../services/SubUnSub';
 
-export default function key() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const queryClient = new QueryClient();
+
+    const { userProfile } = context.req.cookies;
+    if (userProfile) {
+        queryClient.setQueryData('user', JSON.parse(userProfile));
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    };
+};
+
+export default function Unsubscribe() {
     const [isUnSubing, setIsUnSubing] = useState(true);
     const [isReSubing, setIsReSubing] = useState(true);
     const [isDoneReSubing, setIsDoneReSubing] = useState(false);
