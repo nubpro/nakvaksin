@@ -24,7 +24,7 @@ const FaqElement = ({
             )}>
             <button onClick={() => setIsOpened((s) => !s)}>
                 <div className="flex items-center">
-                    <div className="flex-1 flex text-black p-4 font-bold">{question}</div>
+                    <div className="flex-1 flex text-black p-4 font-bold text-left">{question}</div>
                     <div className="w-16">
                         {isOpened ? (
                             <FaChevronUp className="inline text-primary" />
@@ -46,20 +46,24 @@ const FaqElement = ({
 
 export default function Faq() {
     return (
-        <div className="container mx-auto" id="faq-section">
+        <div className="container mx-auto" id="faq">
             <div className="mx-2">
                 <div className="text-black text-lg text-center">
-                    <a href="#faq-section">Biasa Orang Selalu Tanya (FAQ)</a>
+                    <a href="#faq">Biasa Orang Selalu Tanya (FAQ)</a>
                 </div>
 
                 <div className="mt-3">
                     <FaqElement
-                        question="Who are We?"
+                        question="Who are we?"
                         answer="We are three gentlemen from Malaysia trying to contribute to Malaysia’s current landscape. We hope this app serves its purpose which is to ensure everybody’s getting their vaccination dose!"
                     />
                     <FaqElement
-                        question=" Why did you build this?"
+                        question="Why did you build this?"
                         answer="In the early phase of vaccination, we noticed there’s a large group of people aren’t getting their notification when it’s their turn to be jabbed. Worst case is, they would miss out their appointment by accident. We also noticed that when appointment changes, MySejahtera doesn’t notify the users of the change. This app looks to address these shortcomings of MySejahtera."
+                    />
+                    <FaqElement
+                        question="Do I need pay to use this app?"
+                        answer="None, Nadda, Free, Percuma. However, maintaining this app still requires fundings. Hence donation and sponsor are welcome! Please contact us at nakvaksin@gmail.com"
                     />
                     <FaqElement
                         question="Will I get instantly updated as soon as my vaccination status changes?"
@@ -79,23 +83,19 @@ export default function Faq() {
                     />
                     <FaqElement
                         question="Okay, but what is a token?"
-                        answer="Please read previous FAQ before proceeding.In layman terms, token is a like a key and where MySejahtera is the lock. “We” need your key to access your vaccination status from MySejahtera. Tokens are temporarily and does not risk exposing your password to us."
+                        answer="Please read previous FAQ before proceeding. In layman terms, token is a like a key and where MySejahtera is the lock. “We” need your key to access your vaccination status from MySejahtera. Tokens are temporarily and does not risk exposing your password to us."
                     />
                     <FaqElement
                         question="Is my MySejahtera’s password stored in your database?"
                         answer="We do not save your password. We are merely relaying your credentials you entered from our app to MySejahtera’s servers to obtain your information (non-sensitive) and vaccination status."
                     />
                     <FaqElement
-                        question="  I’m still in doubt. How can I trust this app?"
+                        question="I’m still in doubt. How can I trust this app?"
                         answer="We understand your concern and hence, we are all in on open sourcing our application’s frontend and backend. You can thoroughly review our code and check out the ins and out. Let us know if you find something suspicious…"
                     />
                     <FaqElement
                         question="How do I permanently delete my account from this app?"
-                        answer="Please reach out to us directly via email (nakvaksin@gmail.com)"
-                    />
-                    <FaqElement
-                        question="How many i shall pay?"
-                        answer="None, Nadda, Free, Percuma. However, there is still cost for the application, hence donation and sponsor are welcome"
+                        answer="Please reach out to us directly via email (nakvaksin@gmail.com)."
                     />
                 </div>
             </div>
