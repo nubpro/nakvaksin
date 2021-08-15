@@ -3,7 +3,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { GiHumanPyramid } from 'react-icons/gi';
-import { IoHeartCircleOutline, IoLogoGithub, IoNotificationsOutline } from 'react-icons/io5';
+import {
+    IoEye,
+    IoEyedropOutline,
+    IoEyeOutline,
+    IoHeartCircleOutline,
+    IoLogoGithub,
+    IoNotificationsOutline
+} from 'react-icons/io5';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
@@ -134,7 +141,7 @@ export default function Home() {
                                 title={'Guaranteed notification'}
                                 subtitle={"Don't worry, we are not as forgetful"}
                                 description={
-                                    'We promise that you will receive an SMS from us if your vaccination appointment is ready or even changed.'
+                                    'We promise that you will receive an SMS and email from us if your vaccination appointment is ready or even changed.'
                                 }
                             />
                             <FeaturedItem
@@ -144,15 +151,15 @@ export default function Home() {
                                     "Get up to speed with your family member's vaccine appointment updates"
                                 }
                                 description={
-                                    'Keep an eye out for your grandparents, parents and even childrens when their appointed is set up.'
+                                    'Keep an eye out for your grandparents, parents and even childrens when their appointment is set up.'
                                 }
                             />
                             <FeaturedItem
-                                icon={<GiHumanPyramid size={48} />}
-                                title={'Made by Malaysians for everyone'}
-                                subtitle={'We do what we can, we are in this together'}
+                                icon={<IoEyeOutline size={48} />}
+                                title={'Monitor your employees vaccination updates'}
+                                subtitle={'Stop asking "Check your MySejahtera"'}
                                 description={
-                                    ' This is an open-source initiative by Malaysians. Your contributions and donations are very welcomed.'
+                                    'You can subscribe to their vaccination updates and get the latest updates directly from us!'
                                 }
                             />
                         </div>
