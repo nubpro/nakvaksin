@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <footer className="mt-8 text-center py-6 border-t border-gray-200 text-xs text-gray-700 w-full">
             <div>NakVaksin | An initiative by Malaysians for everyone</div>
-            <div>Made by Ching Cheng Kang, WC Chan, Chai Woon Khai</div>
+            <div>Made by Ching Cheng Kang, Julius Chan, Chai Woon Khai</div>
             <div className="mt-2">
                 <a href="mailto:nakvaksin@gmail.com">Need help? Email us</a>
             </div>
