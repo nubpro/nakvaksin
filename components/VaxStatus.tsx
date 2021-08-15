@@ -85,7 +85,7 @@ export default function VaxStatusComponent() {
                 <h1 className="text-black text-2xl text-center font-bold">
                     Your Vaccination Status
                 </h1>
-                <div className="bg-gray-100 rounded-2xl p-4 pb-12">
+                <div className="bg-gray-200 rounded-2xl p-4 pb-12">
                     <div>
                         <h2 className="text-gray-500 text-sm ">Name</h2>
                         <p className="text-black text-xl">{user?.displayName}</p>
