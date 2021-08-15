@@ -16,7 +16,7 @@ export default function Header() {
 
         // Redirect unauthenticated user to home
         if (!isAuthenticated && !isPublicRoute) {
-            router.push('/');
+            router.push('/login');
         }
     }, [user, router.pathname]);
 
@@ -37,7 +37,6 @@ export default function Header() {
                                 className="text-xl text-white bg-blue-600 rounded-xl py-1 px-4 font-bold hover:underline"
                                 onClick={() => {
                                     logout();
-                                    router.push('/');
                                 }}>
                                 Logout
                             </button>
