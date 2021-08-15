@@ -10,13 +10,13 @@ export default function Header() {
 
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
-        const publicRoutes = ['/', '/login', '/resetpassword', '/faq'];
+        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]'];
         const isPublicRoute = publicRoutes.includes(router.pathname);
         const isAuthenticated = !!user;
 
-        // Redirect unauthenticated user to home
+        // Redirect unauthenticated user to login
         if (!isAuthenticated && !isPublicRoute) {
-            router.push('/');
+            router.push('/login');
         }
     }, [user, router.pathname]);
 
@@ -25,12 +25,7 @@ export default function Header() {
             <div className="container mx-auto flex flex-wrap mt-8 mb-8 ">
                 <div className="flex sm:w-1/2">
                     <Link href="/">
-                        <a className="text-3xl text-blue-500 ml-1 font-bold">
-                            Nak Vaksin{' '}
-                            <span role="img" aria-label="syringe">
-                                💉
-                            </span>
-                        </a>
+                        <a className="text-3xl text-blue-500 ml-1 font-bold">NakVaksin</a>
                     </Link>
                 </div>
                 <div className="flx sm:w-1/2 flex justify-end ">
@@ -40,9 +35,8 @@ export default function Header() {
                             <button
                                 type="button"
                                 className="text-xl text-white bg-blue-600 rounded-xl py-1 px-4 font-bold hover:underline"
-                                onClick={async () => {
-                                    await logout();
-                                    await router.push('/');
+                                onClick={() => {
+                                    logout();
                                 }}>
                                 Logout
                             </button>

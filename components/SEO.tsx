@@ -1,6 +1,6 @@
 export default function SEO() {
     const description = 'A simple, easier way to get notified on your vaccination appointment.';
-    const title = 'Nak Naksin!';
+    const title = 'NakVaksin';
     const keyword = [
         'Malaysia',
         'Vaccine',
@@ -8,7 +8,9 @@ export default function SEO() {
         'Vaksinasi',
         'Vaksin',
         'Nak Vaksin',
+        'NakVaksin',
         'My Sejahtera',
+        'MySejahtera',
         'MySej'
     ];
     const url = 'https://www.nakvaksin.com/';
