@@ -14,7 +14,7 @@ export default function Header() {
         const isPublicRoute = publicRoutes.includes(router.pathname);
         const isAuthenticated = !!user;
 
-        // Redirect unauthenticated user to home
+        // Redirect unauthenticated user to login
         if (!isAuthenticated && !isPublicRoute) {
             router.push('/login');
         }
