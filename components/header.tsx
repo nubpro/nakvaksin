@@ -61,7 +61,7 @@ export default function Header({ isHomepage = false }) {
         <>
             <div
                 className={classNames(
-                    'flex items-center px-4 justify-between h-16',
+                    'flex px-4 justify-between h-14',
                     { 'bg-white bg-opacity-70': isHomepage },
                     {
                         'border-b': !isHomepage
@@ -69,23 +69,23 @@ export default function Header({ isHomepage = false }) {
                 )}>
                 {isHomepage ? (
                     <Link href="/dashboard">
-                        <a className="flex-none bg-white py-2 px-4 shadow-sm rounded-full text-primary text-sm">
+                        <a className="flex-none self-center bg-white py-2 px-4 shadow-sm rounded-full text-primary text-sm">
                             <IoHome size={20} className="inline-block align-text-bottom mr-1" />
                             Go to Dashboard
                         </a>
                     </Link>
                 ) : (
-                    <div>
-                        <Link href="/">
-                            <a className="text-xl text-blue-500 font-bold">NakVaksin</a>
-                        </Link>
-                    </div>
+                    <Link href="/">
+                        <a className="flex items-center text-xl text-blue-500 font-bold">
+                            NakVaksin
+                        </a>
+                    </Link>
                 )}
 
                 {user && (
-                    <div className="relative">
+                    <div className="flex relative">
                         <button
-                            className="flex focus:outline-none items-baseline"
+                            className="flex focus:outline-none items-center"
                             onClick={() => setIsOpened((s) => !s)}>
                             <div className="mr-2 font-light leading-tight truncate w-32 md:w-52 text-right">
                                 {user.displayName}
