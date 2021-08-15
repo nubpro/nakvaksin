@@ -1,12 +1,46 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React, { ReactNode, Ref, useEffect, useRef, useState } from 'react';
+import { FaCaretDown } from 'react-icons/fa';
+import { IoHome } from 'react-icons/io5';
 
 import { useUser } from '../hooks/useUser';
 
-export default function Header() {
+Header.propTypes = {
+    isHomepage: PropTypes.bool
+};
+
+export default function Header({ isHomepage = false }) {
+    /**
+     * https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+     * TODO: Move it out of here ...?
+     * Hook that alerts clicks outside of the passed ref
+     */
+    function useOutsideAlerter(ref: Ref<ReactNode>) {
+        useEffect(() => {
+            /**
+             * Alert if clicked on outside of element
+             */
+            function handleClickOutside(event: Event) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                if (ref?.current && !ref?.current.contains(event.target)) {
+                    setIsOpened(false);
+                }
+            }
+
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+            };
+        }, [ref]);
+    }
+
     const { user, logout } = useUser();
     const router = useRouter();
+    const [isOpened, setIsOpened] = useState(false);
 
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
@@ -20,30 +54,60 @@ export default function Header() {
         }
     }, [user, router.pathname]);
 
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+
     return (
-        <header className="z-20 w-full xl:px-0 px-2">
-            <div className="container mx-auto flex flex-wrap mt-8 mb-8 ">
-                <div className="flex sm:w-1/2">
-                    <Link href="/">
-                        <a className="text-3xl text-blue-500 ml-1 font-bold">NakVaksin</a>
+        <>
+            <div
+                className={classNames(
+                    'flex px-4 justify-between h-14',
+                    { 'bg-white bg-opacity-70': isHomepage },
+                    {
+                        'border-b': !isHomepage
+                    }
+                )}>
+                {isHomepage ? (
+                    <Link href="/dashboard">
+                        <a className="flex-none self-center bg-white py-2 px-4 shadow-sm rounded-full text-primary text-sm">
+                            <IoHome size={20} className="inline-block align-text-bottom mr-1" />
+                            Dashboard
+                        </a>
                     </Link>
-                </div>
-                <div className="flx sm:w-1/2 flex justify-end ">
-                    {user && (
-                        <div className="inline">
-                            <h3 className="inline pr-4">Welcome {user.displayName} </h3>
-                            <button
-                                type="button"
-                                className="text-xl text-white bg-blue-600 rounded-xl py-1 px-4 font-bold hover:underline"
-                                onClick={() => {
-                                    logout();
-                                }}>
-                                Logout
-                            </button>
-                        </div>
-                    )}
-                </div>
+                ) : (
+                    <Link href="/">
+                        <a className="flex items-center text-xl text-blue-500 font-bold">
+                            NakVaksin
+                        </a>
+                    </Link>
+                )}
+
+                {user && (
+                    <div className="flex relative">
+                        <button
+                            className="flex focus:outline-none items-center"
+                            onClick={() => setIsOpened((s) => !s)}>
+                            <div className="mr-2 font-light leading-tight truncate w-32 md:w-52 text-right">
+                                {user.displayName}
+                            </div>
+                            <div className="flex items-center justify-center bg-gray-100 w-6 h-6 rounded-full focus:outline-none">
+                                <FaCaretDown className="text-gray-600" size={16} />
+                            </div>
+                        </button>
+
+                        {isOpened && (
+                            <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
+                                <button className="py-2 text-red-500" onClick={() => logout()}>
+                                    Log Out
+                                </button>
+                                {/* <Link href="/">
+                                    <a className="py-2">Privacy Notice</a>
+                                </Link> */}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
-        </header>
+        </>
     );
 }

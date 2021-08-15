@@ -4,6 +4,7 @@ import React from 'react';
 import { AiOutlineBell } from 'react-icons/ai';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
+import Footer from '../components/footer';
 
 import Header from '../components/header';
 import SubscribeStatus from '../components/SubscribeStatus';
@@ -44,13 +45,17 @@ const CTLDashboard = () => {
 };
 export default function dashboard() {
     return (
-        <div className="container mx-auto px-4 pt-5">
+        <>
             <Header />
-            <div className="space-y-3">
-                <CTLDashboard />
-                <VaxStatus />
-                <SubscribeStatus />
+            <div className="container mx-auto px-4 pt-5">
+                <div className="space-y-3">
+                    <CTLDashboard />
+                    <VaxStatus />
+                    <SubscribeStatus />
+                </div>
             </div>
-        </div>
+
+            <Footer />
+        </>
     );
 }

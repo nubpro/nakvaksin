@@ -15,6 +15,7 @@ import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
 import Faq from '../components/faq';
+import Footer from '../components/footer';
 import Header from '../components/header';
 import { useUser } from '../hooks/useUser';
 
@@ -25,7 +26,7 @@ const CallToActionButton = () => {
     return (
         <div>
             <Link href={redirectUrl}>
-                <button className="w-full py-8 px-8 md:py-4 md:px-12 rounded-3xl bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
+                <button className="w-full py-6 px-10 rounded-full bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
                     Jom! Subscribe to NakVaksin for FREE!
                 </button>
             </Link>
@@ -72,6 +73,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default function Home() {
+    const { user } = useUser();
+
     return (
         <div>
             <div
@@ -89,22 +92,22 @@ export default function Home() {
             />
             <div className="absolute w-full flex flex-col">
                 <div>
-                    <Header />
+                    {user && <Header isHomepage={true} />}
+
                     <section className="w-full">
                         <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row min-h-screen">
-                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24">
-                                <h1 className="text-4xl font-bold tracking-tighter text-white lg:text-6xl title-font mb-4">
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24 space-y-4">
+                                <div className="text-4xl text-primary font-bold mt-4">
+                                    NakVaksin
+                                </div>
+                                <div className="text-2xl font-semibold text-white title-font mb-4">
                                     Tiap-tiap hari check MySejahtera?
-                                </h1>
+                                </div>
 
-                                <div>
-                                    <p className="w-full text-xl text-left text-white">
-                                        Walao weh, I missed my appointment...
-                                    </p>
-                                    <p className="w-full text-xl text-left text-white">
-                                        When will my children kena cucuk?
-                                    </p>
-                                    <p className="w-full text-xl text-left text-white">
+                                <div className="text-white text-opacity-90 italic space-y-1">
+                                    <p>Walao weh, I missed my appointment...</p>
+                                    <p>When will my children kena cucuk?</p>
+                                    <p>
                                         How can I keep track of my employees&apos; vaccination
                                         appointment?
                                     </p>
@@ -168,16 +171,7 @@ export default function Home() {
                 <div className="py-4">
                     <Faq />
                 </div>
-                <div>
-                    <footer className="text-center py-8 border-t border-gray-200 text-xs text-gray-700 w-full">
-                        An initiative by Malaysians for everyone
-                        <div className="mt-1">
-                            <a href="https://github.com/nubpro/nakvaksin">
-                                <IoLogoGithub size={20} className="inline-block" />
-                            </a>
-                        </div>
-                    </footer>
-                </div>
+                <Footer />
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import 'tailwindcss/tailwind.css';
+import '../styles/globals.css';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
                 <Head>
-                    <title>Nak Vaksin</title>
+                    <title>NakVaksin</title>
                     <SEO />
                 </Head>
                 <Toaster />

@@ -92,71 +92,72 @@ export default function Login() {
     });
 
     return (
-        <div className="container mx-auto px-4 pt-5">
+        <>
             <Header />
+            <div className="container mx-auto px-4 pt-5">
+                <div className="relative mt-10 text-center border-gray-100 border-2 rounded-lg p-5 md:p-10 overflow-hidden">
+                    {isSubmitting && <Overlay />}
 
-            <div className="relative mt-10 text-center border-gray-100 border-2 rounded-lg p-5 md:p-10 overflow-hidden">
-                {isSubmitting && <Overlay />}
+                    <form onSubmit={onSubmit}>
+                        <Image
+                            src="/mysejahtera-logo.png"
+                            alt="MySejahtera logo"
+                            width={50}
+                            height={50}
+                        />
+                        <div className="text-sm">Please use your MySejahtera account to login</div>
 
-                <form onSubmit={onSubmit}>
-                    <Image
-                        src="/mysejahtera-logo.png"
-                        alt="MySejahtera logo"
-                        width={50}
-                        height={50}
-                    />
-                    <div className="text-sm">Please use your MySejahtera account to login</div>
+                        <div className="mt-4">
+                            {AuthErrorMessage.length > 0 && (
+                                <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-1 px-1 mb-3">
+                                    <span role="img" aria-label="exclaimation">
+                                        ⚠️
+                                    </span>{' '}
+                                    {AuthErrorMessage}
+                                </div>
+                            )}
 
-                    <div className="mt-4">
-                        {AuthErrorMessage.length > 0 && (
-                            <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-1 px-1 mb-3">
-                                <span role="img" aria-label="exclaimation">
-                                    ⚠️
-                                </span>{' '}
-                                {AuthErrorMessage}
+                            <div className="relative text-left mb-3">
+                                <label htmlFor="username" className="text-gray-700 text-sm">
+                                    Phone Number or Email
+                                </label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder={'60123456789 / ali@email.com'}
+                                    {...register('username', { required: true })}
+                                />
+                                {errors.username && <ErrorMessage>This is required.</ErrorMessage>}
                             </div>
-                        )}
+                            <div className="relative text-left">
+                                <label htmlFor="password" className="text-gray-700 text-sm">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Please enter your password"
+                                    {...register('password', { required: true })}
+                                />
+                                {errors.password && <ErrorMessage>This is required.</ErrorMessage>}
+                            </div>
 
-                        <div className="relative text-left mb-3">
-                            <label htmlFor="username" className="text-gray-700 text-sm">
-                                Phone Number or Email
-                            </label>
-                            <input
-                                type="text"
-                                id="username"
-                                className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                placeholder={'60123456789 / ali@email.com'}
-                                {...register('username', { required: true })}
-                            />
-                            {errors.username && <ErrorMessage>This is required.</ErrorMessage>}
+                            <button
+                                type="submit"
+                                className="mt-6 py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                Login
+                            </button>
+                            <div className="mt-1">
+                                <Link href="/resetpassword">
+                                    <a className="text-sm hover:underline">Forgot password?</a>
+                                </Link>
+                            </div>
                         </div>
-                        <div className="relative text-left">
-                            <label htmlFor="password" className="text-gray-700 text-sm">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                placeholder="Please enter your password"
-                                {...register('password', { required: true })}
-                            />
-                            {errors.password && <ErrorMessage>This is required.</ErrorMessage>}
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="mt-6 py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                            Login
-                        </button>
-                        <div className="mt-1">
-                            <Link href="/resetpassword">
-                                <a className="text-sm hover:underline">Forgot password?</a>
-                            </Link>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
