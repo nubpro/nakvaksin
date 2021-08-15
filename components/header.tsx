@@ -55,16 +55,12 @@ export default function Header() {
             <div className="container mx-auto flex flex-col mt-8 mb-8 ">
                 <div className="flex">
                     <Link href="/">
-
-
                         <a className="text-3xl text-blue-500 ml-1 font-bold">NakVaksin</a>
-
                     </Link>
                     <h1 className="flex-grow text-black inline text-right">
                         {user && <h3 className="float-right">{user.displayName} </h3>}
                     </h1>
                     {user && (
-
                         <button
                             className="h-auto px-2 right-0"
                             onClick={() => setIsOpened((s) => !s)}>
@@ -74,7 +70,6 @@ export default function Header() {
                                 <FaCaretDown className="inline text-black bg-gray-200 rounded-xl text-xl" />
                             )}
                         </button>
-
                     )}
                 </div>
                 {isOpened && (
