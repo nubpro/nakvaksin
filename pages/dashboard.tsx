@@ -32,7 +32,7 @@ const CTLDashboard = () => {
                 <AiOutlineBell className="flex-none text-4xl self-center mr-2" />
                 <div className="flex-grow">
                     <h3 className="text-left font-bold text-sm">
-                        Subscribe to my appointment updates
+                        Subscribe to my vaccination updates
                     </h3>
                     <p className="text-left text-white opacity-80 text-xs">
                         We will keep you (and your family) updated when your vaccination appointment
