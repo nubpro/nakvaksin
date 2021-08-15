@@ -1,11 +1,18 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import React, { ReactNode, Ref, useEffect, useRef, useState } from 'react';
-import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
+import { FaCaretDown } from 'react-icons/fa';
+import { IoHome } from 'react-icons/io5';
 
 import { useUser } from '../hooks/useUser';
 
-export default function Header() {
+Header.propTypes = {
+    isHomepage: PropTypes.bool
+};
+
+export default function Header({ isHomepage = false }) {
     /**
      * https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
      * TODO: Move it out of here ...?
@@ -51,45 +58,56 @@ export default function Header() {
     useOutsideAlerter(wrapperRef);
 
     return (
-        <header className="z-20 w-full xl:px-0 px-2">
-            <div className="container mx-auto flex flex-col mt-8 mb-8 ">
-                <div className="flex">
-                    <Link href="/">
-                        <a className="text-3xl text-blue-500 ml-1 font-bold">NakVaksin</a>
+        <>
+            <div
+                className={classNames(
+                    'flex items-center px-4 justify-between h-16',
+                    { 'bg-white bg-opacity-70': isHomepage },
+                    {
+                        'border-b': !isHomepage
+                    }
+                )}>
+                {isHomepage ? (
+                    <Link href="/dashboard">
+                        <a className="flex-none bg-white py-2 px-4 shadow-sm rounded-full text-primary text-sm">
+                            <IoHome size={20} className="inline-block align-text-bottom mr-1" />
+                            Go to Dashboard
+                        </a>
                     </Link>
-                    <h1 className="flex-grow text-black inline text-right">
-                        {user && <h3 className="float-right">{user.displayName} </h3>}
-                    </h1>
-                    {user && (
+                ) : (
+                    <div>
+                        <Link href="/">
+                            <a className="text-xl text-blue-500 font-bold">NakVaksin</a>
+                        </Link>
+                    </div>
+                )}
+
+                {user && (
+                    <div className="relative">
                         <button
-                            className="h-auto px-2 right-0"
+                            className="flex focus:outline-none items-baseline"
                             onClick={() => setIsOpened((s) => !s)}>
-                            {isOpened ? (
-                                <FaCaretUp className="inline text-black bg-gray-200 rounded-xl text-xl" />
-                            ) : (
-                                <FaCaretDown className="inline text-black bg-gray-200 rounded-xl text-xl" />
-                            )}
-                        </button>
-                    )}
-                </div>
-                {isOpened && (
-                    <div
-                        className="absolute container bg-transparent w-1/2 md:w-1/4 text-center my-6 py-2 right-0 z-10"
-                        ref={wrapperRef}>
-                        <button
-                            className="bg-gray-50 w-4/5 mx-auto border rounded border-black p-1"
-                            onClick={() => {
-                                logout();
-                            }}>
-                            Logout
+                            <div className="mr-2 font-light leading-tight truncate w-32 md:w-52 text-right">
+                                {user.displayName}
+                            </div>
+                            <div className="flex items-center justify-center bg-gray-100 w-6 h-6 rounded-full focus:outline-none">
+                                <FaCaretDown className="text-gray-600" size={16} />
+                            </div>
                         </button>
 
-                        <button className="bg-gray-50 w-4/5 mx-auto border rounded border-black p-1">
-                            Privacy Notice
-                        </button>
+                        {isOpened && (
+                            <div className="flex flex-col text-center absolute mt-2 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
+                                <button className="py-2 text-red-500" onClick={() => logout()}>
+                                    Log Out
+                                </button>
+                                {/* <Link href="/">
+                                    <a className="py-2">Privacy Notice</a>
+                                </Link> */}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
-        </header>
+        </>
     );
 }
