@@ -1,8 +1,10 @@
+import { AxiosError } from 'axios';
 import { DateTime } from 'luxon';
 import { useQuery } from 'react-query';
 
 import { axInstance } from '../apis/nakvaksin.instance';
 import { VaxStatus, VaxStatusElem } from '../types/vaxStatus';
+import { useUser } from './useUser';
 
 const QK_VAXSTATUS = 'vax_status';
 
@@ -20,9 +22,16 @@ async function getVaxStatus() {
 }
 
 const useVaxStatus = () => {
-    return useQuery<VaxStatus>(QK_VAXSTATUS, getVaxStatus, {
+    const { logout } = useUser();
+
+    return useQuery<VaxStatus, AxiosError>(QK_VAXSTATUS, getVaxStatus, {
         staleTime: 1000 * 86400, // 1 days
-        retry: 1
+        retry: 1,
+        onError: (error) => {
+            if (error.response?.status === 400 || error.response?.status === 401) {
+                logout(true);
+            }
+        }
     });
 };
 
