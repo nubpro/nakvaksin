@@ -74,7 +74,7 @@ export default function Header() {
                 </div>
                 {isOpened && (
                     <div
-                        className="absolute container bg-transparent w-1/2 md:w-1/4 text-center my-6 py-2 right-0"
+                        className="absolute container bg-transparent w-1/2 md:w-1/4 text-center my-6 py-2 right-0 z-10"
                         ref={wrapperRef}>
                         <button
                             className="bg-gray-50 w-4/5 mx-auto border rounded border-black p-1"
