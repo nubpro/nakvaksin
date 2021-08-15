@@ -89,13 +89,15 @@ export default function Home() {
 
                     <section className="w-full">
                         <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row min-h-screen">
-                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24">
-                                <div className="text-4xl text-primary font-bold">NakVaksin</div>
+                            <div className="w-full lg:flex-grow lg:w-3/5 flex flex-col items-start text-left sm:px-8 mb-8 sm:mb-0 content-center sm:-mt-24 space-y-4">
+                                <div className="text-4xl text-primary font-bold mt-4">
+                                    NakVaksin
+                                </div>
                                 <div className="text-2xl font-semibold text-white title-font mb-4">
                                     Tiap-tiap hari check MySejahtera?
                                 </div>
 
-                                <div className="text-white text-opacity-90 italic">
+                                <div className="text-white text-opacity-90 italic space-y-1">
                                     <p>Walao weh, I missed my appointment...</p>
                                     <p>When will my children kena cucuk?</p>
                                     <p>
