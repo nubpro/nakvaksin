@@ -71,7 +71,7 @@ export default function Header({ isHomepage = false }) {
                     <Link href="/dashboard">
                         <a className="flex-none self-center bg-white py-2 px-4 shadow-sm rounded-full text-primary text-sm">
                             <IoHome size={20} className="inline-block align-text-bottom mr-1" />
-                            Go to Dashboard
+                            Dashboard
                         </a>
                     </Link>
                 ) : (
