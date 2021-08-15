@@ -9,12 +9,13 @@ import {
     getVaccinationLocation,
     useVaxStatus
 } from '../hooks/useVaxStatus';
-import { VaxElemState, VaxStatusElem } from '../types/VaxStatus';
+import { VaxElemState, VaxStatusElem } from '../types/vaxStatus';
 
 const COLOR_BY_STATE = {
     [VaxElemState.ACTIVE]: 'bg-gradient-to-r from-yellow-600 to-yellow-400', // TODO: change this maybe
     [VaxElemState.PENDING]: 'bg-gradient-to-r from-yellow-600 to-yellow-400',
-    [VaxElemState.COMPLETED]: 'bg-gradient-to-r from-green-400 to-blue-500'
+    [VaxElemState.COMPLETED]: 'bg-gradient-to-r from-green-400 to-blue-500',
+    [VaxElemState.CANCELLED]: 'bg-gradient-to-r from-red-400 to-yellow-500'
 };
 
 const VaxStatusCard = ({

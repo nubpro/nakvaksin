@@ -1,122 +1,23 @@
+import { AxiosError, AxiosResponse } from 'axios';
 import classNames from 'classnames';
 import { GetServerSideProps } from 'next';
-import React, { MouseEvent, ReactNode, useState } from 'react';
-import { GoCheck } from 'react-icons/go';
-import { IoCallOutline, IoTrashOutline } from 'react-icons/io5';
-import { QueryClient } from 'react-query';
+import router from 'next/router';
+import PropTypes from 'prop-types';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useForm, UseFormRegisterReturn } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { BiTrash } from 'react-icons/bi';
+import { IoCall, IoMail } from 'react-icons/io5';
+import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 
-import Header from '../components/header';
+import Overlay from '../components/overlay';
 import { useUser } from '../hooks/useUser';
-
-const Checkbox = ({
-    children,
-    checked = false,
-    className,
-    onClick
-}: {
-    children: ReactNode;
-    checked?: boolean;
-    className?: string;
-    onClick?: (event: MouseEvent) => void;
-}) => {
-    const [isChecked, setIsChecked] = useState(checked);
-
-    return (
-        <button
-            className={classNames(
-                'w-full text-left focus:outline-none focus:ring-4 py-4 px-5 bg-primary rounded-lg text-sm md:text-base font-extrabold text-white flex items-center flex-1',
-                className
-            )}
-            onClick={(e) => onClick && onClick(e)}>
-            <div className="mr-8 flex-1">{children}</div>
-
-            <div className="my-1">
-                {isChecked ? (
-                    <div className="bg-primaryDark rounded text-white h-12 w-12 flex-none flex justify-center items-center">
-                        <GoCheck size={35} />
-                    </div>
-                ) : (
-                    <div className="rounded border-4 border-white text-white h-12 w-12 flex-none flex justify-center items-center"></div>
-                )}
-            </div>
-        </button>
-    );
-};
-
-const ExpandedCheckbox = ({
-    checked = false,
-    className,
-    onClick
-}: {
-    checked?: boolean;
-    className?: string;
-    onClick?: (event: MouseEvent) => void;
-}) => {
-    const [isChecked, setIsChecked] = useState(checked);
-
-    return (
-        <div>
-            <button
-                className={classNames(
-                    'w-full rounded-t-lg text-left focus:outline-none focus:ring-4 py-4 px-5 bg-primary text-sm md:text-base font-extrabold text-white flex items-center flex-1',
-                    className
-                )}
-                onClick={(e) => onClick && onClick(e)}>
-                <div className="mr-4 flex-1">I would like to inform my family / friend too</div>
-
-                <div className="my-1">
-                    {isChecked ? (
-                        <div className="bg-primaryDark rounded text-white h-12 w-12 flex-none flex justify-center items-center">
-                            <GoCheck size={35} />
-                        </div>
-                    ) : (
-                        <div className="rounded border-4 border-white text-white h-12 w-12 flex-none flex justify-center items-center"></div>
-                    )}
-                </div>
-            </button>
-            <div className="bg-gray-100 rounded-b-lg px-4 py-5">
-                <div className="flex items-center">
-                    <IoCallOutline size={25} className="text-gray-800" />
-                    <div className="leading-tight text-sm ml-2">
-                        <div className="text-gray-800">Please enter their phone number</div>
-                        <div className="text-gray-500">
-                            Only send your appointment to someone you trust
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-gray-300 h-px mt-2"></div>
-
-                <div className="py-6 px-3">
-                    <input
-                        type="text"
-                        id="username"
-                        className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder={'60123456789'}
-                    />
-                </div>
-
-                <div className="bg-gray-300 h-px"></div>
-
-                <div className="flex items-center mt-3">
-                    <button className="text-sm rounded-full h-10 bg-secondary inline-block px-6 text-white focus:ring-2 focus:outline-none focus:ring-secondary focus:ring-opacity-40 hover:bg-secondaryDark">
-                        Save
-                    </button>
-
-                    <button className="text-sm ml-4 h-10 flex items-center justify-center text-red-500 hover:text-red-800">
-                        <IoTrashOutline size={22} />
-                        <div className="ml-1">Remove this number</div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// Checkbox.propTypes = {
-//     children: PropTypes.node,
-//     checked: PropTypes.bool
-// };
+import { QK_VAC_SUBSCRIPTION, useVaxSubscription } from '../hooks/useVaxSubscription';
+import { updateVaxSubscription } from '../services/vaxSubscription.service';
+import { VaxSubscription } from '../types/vaxSubscription';
+import sanitizePhoneNumber from '../utils/sanitizePhoneNumber';
+import { REGEX_EMAIL, REGEX_PHONE_NUMBER } from '../utils/username';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const queryClient = new QueryClient();
@@ -133,24 +34,325 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
 };
 
-export default function Subscribe() {
-    const { user } = useUser();
+const ErrorMessage: React.FC = ({ children }) => (
+    <div className="text-sm text-red-500 mt-1">{children}</div>
+);
+ErrorMessage.propTypes = {
+    children: PropTypes.node
+};
+
+const GroupHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => {
+    return (
+        <div className="mb-2">
+            <div className="font-medium">{title}</div>
+            <div className="text-sm text-gray-500">{subtitle}</div>
+        </div>
+    );
+};
+
+const SubscribeTextField = ({
+    icon,
+    placeholder,
+    defaultValue,
+    register
+}: {
+    icon: ReactElement;
+    placeholder: string;
+    defaultValue?: string;
+    register: UseFormRegisterReturn;
+}) => {
+    return (
+        <div className="flex border h-16 items-center border-black rounded-full pl-7">
+            <div className="flex mr-4">{icon}</div>
+
+            <input
+                className="flex-1 h-10 outline-none rounded-r-full placeholder-gray-500 font-light"
+                placeholder={placeholder}
+                defaultValue={defaultValue}
+                {...register}
+            />
+        </div>
+    );
+};
+
+const SubscribeToggle = ({
+    icon,
+    readonlyValue,
+    onToggle,
+    toggled,
+    stateFetched
+}: {
+    icon: ReactElement;
+    readonlyValue: string;
+    onToggle: (state: boolean) => void;
+    toggled: boolean;
+    stateFetched: boolean;
+}) => {
+    return (
+        <div className="flex border h-16 items-center text-left border-black rounded-full pl-7">
+            <div className="flex mr-4">{icon}</div>
+            <div className="flex-1">{readonlyValue}</div>
+
+            {stateFetched ? (
+                <ToggleButton onToggle={onToggle} toggled={toggled} />
+            ) : (
+                <div className="pr-8">...</div>
+            )}
+        </div>
+    );
+};
+
+const ToggleButton = ({
+    onToggle,
+    toggled
+}: {
+    onToggle: (state: boolean) => void;
+    toggled: boolean;
+}) => {
+    const [mToggled, setMToggled] = useState(false); // internal toggle state
+
+    useEffect(() => {
+        setMToggled(toggled);
+    }, [toggled]);
+
+    useEffect(() => {
+        onToggle(mToggled);
+    }, [mToggled]);
 
     return (
-        <div className="container mx-auto px-4 pt-5">
-            <Header />
+        <button
+            type="button"
+            className="ml-1 mr-5 p-2 focus:outline-none"
+            onClick={() => setMToggled((s) => !s)}>
+            <div
+                className={classNames(
+                    'bg-gray-300 w-10 h-6 flex items-center rounded-full p-0.5 transition-colors',
+                    {
+                        'bg-secondary': mToggled
+                    }
+                )}>
+                <div
+                    className={classNames(
+                        'bg-white w-5 h-5 rounded-full shadow-md transform transition duration-200 ease-in-out',
+                        {
+                            'translate-x-4': mToggled
+                        }
+                    )}></div>
+            </div>
+        </button>
+    );
+};
 
-            <Checkbox>
-                <div>Text me once my appointment is set</div>
-                <div className="flex mt-2 ml-1 items-center">
-                    <IoCallOutline size={23} />
-                    <span className="text-base sm:text-lg font-normal ml-1.5">
-                        {user?.username}
-                    </span>
+export default function Subscribe() {
+    const { user } = useUser();
+    const vaxSubscriptionQuery = useVaxSubscription();
+    const queryClient = useQueryClient();
+    const { mutateAsync } = useMutation<AxiosResponse, AxiosError, VaxSubscription>(
+        updateVaxSubscription,
+        {
+            onSuccess: (data, variables) => {
+                queryClient.setQueryData(QK_VAC_SUBSCRIPTION, variables);
+                toast.success('Saved!');
+            },
+            onError: (error) => {
+                // TODO: log error to sentry
+                console.error(error.response);
+                toast.error(error?.response?.data);
+            }
+        }
+    );
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        setValue
+    } = useForm<VaxSubscription>();
+
+    const onSubmit = handleSubmit((data) => {
+        // console.log('onsubmit', data);
+
+        return mutateAsync(data).catch(() => {
+            // no need to do anything as it is being handled in useMutation
+            // we are only adding this catch here otherwise we will get Uncaught promise error
+        });
+    });
+
+    return (
+        <div>
+            {isSubmitting && <Overlay />}
+
+            <div className="flex flex-col h-screen px-5 relative max-w-screen-lg m-auto">
+                <button
+                    className="absolute top-0 right-0 p-3 m-4"
+                    onClick={() => {
+                        router.replace('dashboard');
+                    }}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24.178 24.178">
+                        <g
+                            id="Group_26"
+                            data-name="Group 26"
+                            transform="translate(-178.822 -11.822)"
+                            opacity="0.766">
+                            <rect
+                                id="Rectangle_32"
+                                data-name="Rectangle 32"
+                                width="2.052"
+                                height="32.141"
+                                transform="translate(201.549 11.822) rotate(45)"
+                            />
+                            <rect
+                                id="Rectangle_33"
+                                data-name="Rectangle 33"
+                                width="2.052"
+                                height="32.141"
+                                transform="translate(178.822 13.273) rotate(-45)"
+                            />
+                        </g>
+                    </svg>
+                </button>
+                <div className="text-center font-light mt-16 pb-8 text-lg">
+                    Subscribe to your vaccination updates
                 </div>
-            </Checkbox>
 
-            <ExpandedCheckbox className={'mt-5'} />
+                <form className="flex-1 flex flex-col" onSubmit={onSubmit}>
+                    <div className="flex-1 text-center">
+                        <div>
+                            <GroupHeading title="Subscribe yourself" />
+
+                            <div className="flex flex-col space-y-4">
+                                <div>
+                                    {user?.phoneNumber ? (
+                                        <SubscribeToggle
+                                            icon={<IoCall size={18} />}
+                                            readonlyValue={user.phoneNumber}
+                                            onToggle={(toggled) => {
+                                                if (toggled) {
+                                                    setValue('userPhoneNumber', user.phoneNumber);
+                                                } else {
+                                                    setValue('userPhoneNumber', '');
+                                                }
+                                            }}
+                                            stateFetched={vaxSubscriptionQuery.isFetched}
+                                            toggled={!!vaxSubscriptionQuery.data?.userPhoneNumber}
+                                        />
+                                    ) : (
+                                        <SubscribeTextField
+                                            icon={<IoCall size={18} />}
+                                            placeholder="Please enter your phone number"
+                                            defaultValue={
+                                                vaxSubscriptionQuery.data?.userPhoneNumber
+                                            }
+                                            register={register('userPhoneNumber', {
+                                                required: false,
+                                                pattern: REGEX_PHONE_NUMBER,
+                                                setValueAs: (v) => sanitizePhoneNumber(v)
+                                            })}
+                                        />
+                                    )}
+
+                                    {errors.userPhoneNumber?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid phone number</ErrorMessage>
+                                    )}
+                                </div>
+
+                                <div>
+                                    {user?.email ? (
+                                        <SubscribeToggle
+                                            icon={<IoMail size={18} />}
+                                            readonlyValue={user.email}
+                                            onToggle={(toggled) => {
+                                                if (toggled) {
+                                                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                                                    setValue('userEmail', user.email!);
+                                                } else {
+                                                    setValue('userEmail', '');
+                                                }
+                                            }}
+                                            stateFetched={vaxSubscriptionQuery.isFetched}
+                                            toggled={!!vaxSubscriptionQuery.data?.userEmail}
+                                        />
+                                    ) : (
+                                        <SubscribeTextField
+                                            icon={<IoMail size={18} />}
+                                            placeholder="Please enter your email"
+                                            defaultValue={vaxSubscriptionQuery.data?.userEmail}
+                                            register={register('userEmail', {
+                                                required: false,
+                                                pattern: REGEX_EMAIL
+                                            })}
+                                        />
+                                    )}
+
+                                    {errors.userEmail?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid email</ErrorMessage>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-10">
+                            <GroupHeading
+                                title="Subscribe your family"
+                                subtitle="Your family will be informed when your vaccination appointment
+                                changes"
+                            />
+
+                            <div className="flex flex-col space-y-4">
+                                <div>
+                                    <SubscribeTextField
+                                        icon={<IoCall size={18} />}
+                                        placeholder="Please enter their phone number"
+                                        defaultValue={vaxSubscriptionQuery.data?.familyPhoneNumber}
+                                        register={register('familyPhoneNumber', {
+                                            required: false,
+                                            pattern: REGEX_PHONE_NUMBER,
+                                            setValueAs: (v) => sanitizePhoneNumber(v)
+                                        })}
+                                    />
+                                    {errors.familyPhoneNumber?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid phone number</ErrorMessage>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <SubscribeTextField
+                                        icon={<IoMail size={18} />}
+                                        placeholder="Please enter their email"
+                                        defaultValue={vaxSubscriptionQuery.data?.familyEmail}
+                                        register={register('familyEmail', {
+                                            required: false,
+                                            pattern: REGEX_EMAIL
+                                        })}
+                                    />
+                                    {errors.familyEmail?.type == 'pattern' && (
+                                        <ErrorMessage>Invalid email</ErrorMessage>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-center mt-4 mb-2">
+                        <button
+                            type="submit"
+                            className="btn bg-green-500 text-white border-4 border-green-500 rounded-2xl w-full py-2">
+                            Save
+                        </button>
+
+                        <button
+                            className="my-2 py-2 text-sm flex items-center text-red-500 hover:text-red-700"
+                            type="button">
+                            <BiTrash size={22} />
+                            <div className="ml-1 font-medium">Unsubscribe from NakVaksin</div>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

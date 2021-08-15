@@ -15,7 +15,8 @@ export interface VaxStatusElem {
 export enum VaxElemState {
     PENDING = 'PENDING',
     ACTIVE = 'ACTIVE',
-    COMPLETED = 'COMPLETED'
+    COMPLETED = 'COMPLETED',
+    CANCELLED = 'CANCELLED'
 }
 
 interface HeaderTextOrText {
