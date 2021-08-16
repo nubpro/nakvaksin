@@ -17,22 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
                 <Head>
-                    <script
-                        async
-                        src={`https://www.googletagmanager.com/gtag/js?id=G-9BJ58SKGY6`}
-                    />
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-9BJ58SKGY6', {
-              page_path: window.location.pathname,
-            });
-          `
-                        }}
-                    />
                     <title>NakVaksin</title>
                     <SEO />
                 </Head>
