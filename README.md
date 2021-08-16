@@ -6,15 +6,17 @@
 A simple, easier way to get notified on your appointment.
 <br />
 <br />
-<a href="https://nakvaksin.vercel.app/">View the App (Under development)</a>
+<a href="https://nakvaksin.vercel.app/">View the App</a>
 ·
 <a href="https://github.com/nubpro/nakvaksin/issues">Report Bug</a>
 ·
 <a href="https://github.com/nubpro/nakvaksin/issues">Request Feature</a>
+·
+<a href="https://github.com/cwcheak/nakvaksin-backend">Backend Repo</a>
 </p>
 
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 As some [MySejahtera](https://mysejahtera.malaysia.gov.my/intro_en/) user do not receive any notification and missed their appointment, or user are forced to check the application every day for the very same reason.
