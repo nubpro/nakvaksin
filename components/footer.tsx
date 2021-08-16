@@ -5,7 +5,11 @@ export default function Footer() {
         <footer className="mt-8 text-center py-6 border-t border-gray-200 text-xs text-gray-700 w-full">
             <div>NakVaksin | An initiative by Malaysians for everyone</div>
             <div>
-                Made by Julius Chan,{' '}
+                Made by{' '}
+                <a href="https://twitter.com/cwcheak" rel="external noreferrer" target="_blank">
+                    Julius Chan
+                </a>
+                ,{' '}
                 <a href="https://www.chengkangzai.com/" rel="external noreferrer" target="_blank">
                     Ching Cheng Kang
                 </a>
