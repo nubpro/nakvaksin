@@ -71,7 +71,7 @@ export default function Header({ isHomepage = false }) {
                     <Link href="/dashboard">
                         <a className="flex-none self-center bg-white py-2 px-4 shadow-sm rounded-full text-primary text-sm">
                             <IoHome size={20} className="inline-block align-text-bottom mr-1" />
-                            Go to Dashboard
+                            Dashboard
                         </a>
                     </Link>
                 ) : (
@@ -96,7 +96,7 @@ export default function Header({ isHomepage = false }) {
                         </button>
 
                         {isOpened && (
-                            <div className="flex flex-col text-center absolute mt-2 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
+                            <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
                                 <button className="py-2 text-red-500" onClick={() => logout()}>
                                     Log Out
                                 </button>
