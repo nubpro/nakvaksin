@@ -49,7 +49,7 @@ export default function Faq() {
         <div className="container mx-auto" id="faq">
             <div className="mx-2">
                 <div className="text-black text-lg text-center">
-                    <a href="#faq">Biasa Orang Selalu Tanya (FAQ)</a>
+                    <a href="#faq">Soalan Yang Biasa Ditanya (FAQ)</a>
                 </div>
 
                 <div className="mt-3">
