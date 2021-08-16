@@ -15,8 +15,8 @@ A simple, easier way to get notified on your appointment.
 <a href="https://github.com/cwcheak/nakvaksin-backend">Backend Repo</a>
 </p>
 
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 As some [MySejahtera](https://mysejahtera.malaysia.gov.my/intro_en/) user do not receive any notification and missed their appointment, or user are forced to check the application every day for the very same reason.
