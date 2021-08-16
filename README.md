@@ -6,11 +6,13 @@
 A simple, easier way to get notified on your appointment.
 <br />
 <br />
-<a href="https://nakvaksin.vercel.app/">View the App (Under development)</a>
+<a href="https://nakvaksin.vercel.app/">View the App</a>
 ·
 <a href="https://github.com/nubpro/nakvaksin/issues">Report Bug</a>
 ·
 <a href="https://github.com/nubpro/nakvaksin/issues">Request Feature</a>
+·
+<a href="https://github.com/cwcheak/nakvaksin-backend">Backend Repo</a>
 </p>
 
 
