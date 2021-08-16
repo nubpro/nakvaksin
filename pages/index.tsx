@@ -100,6 +100,7 @@ export default function Home() {
                                 <div className="text-4xl text-primary font-bold mt-4">
                                     NakVaksin
                                 </div>
+
                                 <div className="text-2xl font-semibold text-white title-font mb-4">
                                     Tiap-tiap hari check MySejahtera?
                                 </div>
