@@ -13,7 +13,7 @@ async function login(username: string, password: string) {
         method: 'POST',
         url: '/login',
         data: {
-            username,
+            username: sanitizePhoneNumber(username),
             password
         }
     });
