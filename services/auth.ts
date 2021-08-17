@@ -9,6 +9,16 @@ const COOKIE_USER_TOKEN = 'userToken';
 const COOKIE_USER_PROFILE = 'userProfile';
 
 async function login(username: string, password: string) {
+    // Match phone numbers and format appropriately
+    const phoneMatcher = /\d{10}/;
+    if (phoneMatcher.test(username)) {
+        if (username.charAt(0) === '+') {
+            username = username.slice(1);
+        } else if (username.charAt(0) === '0') {
+            username = '6' + username;
+        }
+    }
+
     return axInstance({
         method: 'POST',
         url: '/login',
