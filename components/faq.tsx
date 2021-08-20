@@ -63,7 +63,7 @@ export default function Faq() {
                     />
                     <FaqElement
                         question="Do I need pay to use this app?"
-                        answer="None, Nadda, Free, Percuma. However, maintaining this app still requires fundings. Hence donation and sponsor are welcome! Please contact us at nakvaksin@gmail.com"
+                        answer="None, Nadda, Free, Percuma. However, maintaining this app still requires fundings. Hence donation and sponsor are welcome! Please contact us at feedback@nakvaksin.com"
                     />
                     <FaqElement
                         question="Will I get instantly updated as soon as my vaccination status changes?"
@@ -95,7 +95,7 @@ export default function Faq() {
                     />
                     <FaqElement
                         question="How do I permanently delete my account from this app?"
-                        answer="Please reach out to us directly via email (nakvaksin@gmail.com)."
+                        answer="Please reach out to us directly via email (feedback@nakvaksin.com)."
                     />
                 </div>
             </div>

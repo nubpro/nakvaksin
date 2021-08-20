@@ -19,7 +19,7 @@ export default function Footer() {
                 </a>
             </div>
             <div className="mt-2">
-                <a href="mailto:nakvaksin@gmail.com" rel="author">
+                <a href="mailto:feedback@nakvaksin.com" rel="author">
                     Need help? Email us
                 </a>
             </div>
