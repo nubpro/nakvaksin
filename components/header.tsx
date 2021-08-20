@@ -44,7 +44,7 @@ export default function Header({ isHomepage = false }) {
 
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
-        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]'];
+        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy'];
         const isPublicRoute = publicRoutes.includes(router.pathname);
         const isAuthenticated = !!user;
 
