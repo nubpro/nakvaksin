@@ -107,7 +107,7 @@ export default function Home() {
 
                                 <div className="text-white text-opacity-90 italic space-y-1">
                                     <p>Walao weh, I missed my appointment...</p>
-                                    <p>When will my children kena cucuk?</p>
+                                    <p>When will my children get jabbed?</p>
                                     <p>
                                         How can I keep track of my employees&apos; vaccination
                                         appointment?
