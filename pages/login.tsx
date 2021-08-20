@@ -115,7 +115,7 @@ export default function Login() {
                                     your MySejahtera features
                                 </span>
                                 . It is a risk to expose your MySejahtera account to a third-party
-                                like us. It is upto you whether you would like to use our service.{' '}
+                                like us. It is up to you whether you would like to use our service.{' '}
                                 <span className="underline font-bold">
                                     However, we must emphasize that we DO NOT AND WILL NEVER
                                     analyze, sell or distribute your personal data. Sensitive
@@ -123,7 +123,7 @@ export default function Login() {
                                     identification number and your location are NOT collected
                                 </span>
                                 . We are only using your MySejahtera account to access your
-                                vaccination status and contact information.
+                                vaccination status and contact information only.
                                 <br />
                                 <br />
                                 Please refer to our{' '}
