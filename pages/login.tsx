@@ -107,6 +107,37 @@ export default function Login() {
                         />
                         <div className="text-sm">Please use your MySejahtera account to login</div>
 
+                        <div className="border px-5 py-2 text-sm max-w-xl m-auto my-4">
+                            <div className="font-medium text-center">Can you trust us?</div>
+                            <div className="text-left">
+                                <span className="underline">
+                                    By logging in to this app, you are granting us to access all
+                                    your MySejahtera features
+                                </span>
+                                . It is a risk to expose your MySejahtera account to a third-party
+                                like us. It is upto you whether you would like to use our service.{' '}
+                                <span className="underline font-bold">
+                                    However, we must emphasize that we DO NOT AND WILL NEVER
+                                    analyze, sell or distribute your personal data. Sensitive
+                                    information including but not limited to your personal
+                                    identification number and your location are NOT collected
+                                </span>
+                                . We are only using your MySejahtera account to access your
+                                vaccination status and contact information.
+                                <br />
+                                <br />
+                                Please refer to our{' '}
+                                <a href="/privacy" className="text-primary">
+                                    Privacy Notice
+                                </a>{' '}
+                                and{' '}
+                                <a href="/#faq" className="text-primary">
+                                    FAQ
+                                </a>{' '}
+                                for more information
+                            </div>
+                        </div>
+
                         <div className="mt-4">
                             {AuthErrorMessage.length > 0 && (
                                 <div className="bg-red-500 text-white border border-red-500 text-sm rounded-md py-1 px-1 mb-3">

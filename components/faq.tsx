@@ -75,7 +75,7 @@ export default function Faq() {
                     />
                     <FaqElement
                         question="What personal information is stored in your database?"
-                        answer="Your name, phone number, email address and your MySejahtera’s ID. We DO NOT store sensitive information which reveals your location and I/C number."
+                        answer="Your name, phone number, email address, your MySejahtera’s ID and your vaccination appointments. We DO NOT store sensitive information which reveals your location and personal identification number."
                     />
                     <FaqElement
                         question="What other information is stored in your database?"
