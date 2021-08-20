@@ -120,9 +120,9 @@ export default function Login() {
                                     However, we must emphasize that we DO NOT and WILL NEVER
                                     analyze, sell or distribute your personal data. Sensitive
                                     information are NOT collected, this includes but not limited to
-                                    your personal identification number, your location, your
-                                    check-ins history, your medical history, your risk assessment
-                                    and your depencies information
+                                    your personal identification number, location, check-ins
+                                    history, medical history, risk assessment and dependencies
+                                    information
                                 </span>
                                 . We are only using your MySejahtera account to access your
                                 vaccination status and contact information only.
