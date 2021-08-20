@@ -107,9 +107,9 @@ export default function Login() {
                         />
                         <div className="text-sm">Please use your MySejahtera account to login</div>
 
-                        <div className="border px-5 py-2 text-sm max-w-xl m-auto my-4">
+                        <div className="border px-5 py-2 text-sm max-w-3xl m-auto my-4">
                             <div className="font-medium text-center">Can you trust us?</div>
-                            <div className="text-left">
+                            <div className="text-justify">
                                 <span className="underline">
                                     By logging in to this app, you are granting us access to all
                                     your MySejahtera features
