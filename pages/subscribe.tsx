@@ -349,8 +349,8 @@ export default function Subscribe() {
 
                         <button
                             className="my-2 py-2 text-sm flex items-center text-red-500 hover:text-red-700"
-                            type="submit"
-                            onClick={() => {
+                            type="button"
+                            onClick={async () => {
                                 const yes = confirm(
                                     'Are you sure you want to unsubscribe from NakVaksin?\nYou and your family will stop receiving notification from us'
                                 );
@@ -360,6 +360,7 @@ export default function Subscribe() {
                                     setValue('familyPhoneNumber', '');
                                     setValue('familyEmail', '');
 
+                                    await onSubmit();
                                     router.replace('dashboard');
                                 }
                             }}>
