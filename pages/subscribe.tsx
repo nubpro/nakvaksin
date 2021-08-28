@@ -349,7 +349,21 @@ export default function Subscribe() {
 
                         <button
                             className="my-2 py-2 text-sm flex items-center text-red-500 hover:text-red-700"
-                            type="button">
+                            type="button"
+                            onClick={async () => {
+                                const yes = confirm(
+                                    'Are you sure you want to unsubscribe from NakVaksin?\nYou and your family will stop receiving notification from us'
+                                );
+                                if (yes) {
+                                    setValue('userPhoneNumber', '');
+                                    setValue('userEmail', '');
+                                    setValue('familyPhoneNumber', '');
+                                    setValue('familyEmail', '');
+
+                                    await onSubmit();
+                                    router.replace('dashboard');
+                                }
+                            }}>
                             <BiTrash size={22} />
                             <div className="ml-1 font-medium">Unsubscribe from NakVaksin</div>
                         </button>
