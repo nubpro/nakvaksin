@@ -232,7 +232,10 @@ export default function Subscribe() {
                                             readonlyValue={user.phoneNumber}
                                             onToggle={(toggled) => {
                                                 if (toggled) {
-                                                    setValue('userPhoneNumber', user.phoneNumber);
+                                                    setValue(
+                                                        'userPhoneNumber',
+                                                        sanitizePhoneNumber(user.phoneNumber)
+                                                    );
                                                 } else {
                                                     setValue('userPhoneNumber', '');
                                                 }
