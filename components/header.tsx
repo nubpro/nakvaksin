@@ -97,12 +97,12 @@ export default function Header({ isHomepage = false }) {
 
                         {isOpened && (
                             <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
+                                <Link href="/privacy">
+                                    <a className="py-2">Privacy Notice</a>
+                                </Link>
                                 <button className="py-2 text-red-500" onClick={() => logout()}>
                                     Log Out
                                 </button>
-                                {/* <Link href="/">
-                                    <a className="py-2">Privacy Notice</a>
-                                </Link> */}
                             </div>
                         )}
                     </div>
