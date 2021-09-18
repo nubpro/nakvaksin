@@ -16,7 +16,7 @@ const FaqElement = ({
     return (
         <div
             className={classNames(
-                'flex flex-col bg-gray-100 rounded-xl mb-2',
+                'flex flex-col bg-gray-100 rounded-xl mb-2 transition-all',
                 { 'mb-2': !isOpened },
                 {
                     'mb-4': isOpened
