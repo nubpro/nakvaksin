@@ -98,8 +98,9 @@ export default function Header({ isHomepage = false }) {
                         <p className="text-center mx-auto">NakVaksin is closing down... </p>
                     </div>
                 </Link>
-                {user ? (
-                    <div className="flex relative">
+
+                <div className="flex relative">
+                    {user && (
                         <button
                             className="flex focus:outline-none items-center"
                             onClick={() => setIsOpened((s) => !s)}>
@@ -110,21 +111,19 @@ export default function Header({ isHomepage = false }) {
                                 <FaCaretDown className="text-gray-600" size={16} />
                             </div>
                         </button>
+                    )}
 
-                        {isOpened && (
-                            <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
-                                <Link href="/privacy">
-                                    <a className="py-2">Privacy Notice</a>
-                                </Link>
-                                <button className="py-2 text-red-500" onClick={() => logout()}>
-                                    Log Out
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <div className="flex relative"> </div>
-                )}
+                    {isOpened && (
+                        <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
+                            <Link href="/privacy">
+                                <a className="py-2">Privacy Notice</a>
+                            </Link>
+                            <button className="py-2 text-red-500" onClick={() => logout()}>
+                                Log Out
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );
