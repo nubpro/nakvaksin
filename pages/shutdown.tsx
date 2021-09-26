@@ -22,8 +22,8 @@ export default function Closing() {
                     <p>
                         On <strong>3rd October 2021</strong>, we will begin terminating our services
                         and hence, you will stop receiving any further notification from us. All
-                        data stored will be erased permanently from our database. The source codes
-                        will remain open and available on our{' '}
+                        data stored including your information will be erased permanently from our
+                        database. NakVaksin&apos;s source codes will remain available on our{' '}
                         <a href="https://github.com/nubpro/nakvaksin" className="underline">
                             GitHub repo
                         </a>{' '}
