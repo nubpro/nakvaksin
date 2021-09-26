@@ -44,7 +44,7 @@ export default function Header({ isHomepage = false }) {
 
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
-        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy'];
+        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy', '/closing'];
         const isPublicRoute = publicRoutes.includes(router.pathname);
         const isAuthenticated = !!user;
 
@@ -59,6 +59,18 @@ export default function Header({ isHomepage = false }) {
 
     return (
         <>
+            <div
+                className={classNames(
+                    'flex px-4 py-2 justify-between bg-white bg-opacity-70 sm:hidden'
+                )}>
+                <Link href="/closing">
+                    <div className="items-center cursor-pointer mx-auto">
+                        <p className="text-center mx-auto animate-pulse">
+                            NakVaksin is closing down...{' '}
+                        </p>
+                    </div>
+                </Link>
+            </div>
             <div
                 className={classNames(
                     'flex px-4 justify-between h-14',
@@ -81,8 +93,12 @@ export default function Header({ isHomepage = false }) {
                         </a>
                     </Link>
                 )}
-
-                {user && (
+                <Link href="/closing">
+                    <div className="items-center cursor-pointer hidden sm:flex animate-pulse">
+                        <p className="text-center mx-auto">NakVaksin is closing down... </p>
+                    </div>
+                </Link>
+                {user ? (
                     <div className="flex relative">
                         <button
                             className="flex focus:outline-none items-center"
@@ -106,6 +122,8 @@ export default function Header({ isHomepage = false }) {
                             </div>
                         )}
                     </div>
+                ) : (
+                    <div className="flex relative"> </div>
                 )}
             </div>
         </>
