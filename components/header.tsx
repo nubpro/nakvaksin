@@ -44,7 +44,7 @@ export default function Header({ isHomepage = false }) {
 
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
-        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy'];
+        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy', '/shutdown'];
         const isPublicRoute = publicRoutes.includes(router.pathname);
         const isAuthenticated = !!user;
 
@@ -59,6 +59,13 @@ export default function Header({ isHomepage = false }) {
 
     return (
         <>
+            <Link href="/shutdown">
+                <a className="flex bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-2 justify-center text-center">
+                    <span className="animate-pulse text-white font-medium">
+                        Announcement: NakVaksin is shutting down on 3 Oct
+                    </span>
+                </a>
+            </Link>
             <div
                 className={classNames(
                     'flex px-4 justify-between h-14',
@@ -82,8 +89,8 @@ export default function Header({ isHomepage = false }) {
                     </Link>
                 )}
 
-                {user && (
-                    <div className="flex relative">
+                <div className="flex relative">
+                    {user && (
                         <button
                             className="flex focus:outline-none items-center"
                             onClick={() => setIsOpened((s) => !s)}>
@@ -94,19 +101,19 @@ export default function Header({ isHomepage = false }) {
                                 <FaCaretDown className="text-gray-600" size={16} />
                             </div>
                         </button>
+                    )}
 
-                        {isOpened && (
-                            <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
-                                <Link href="/privacy">
-                                    <a className="py-2">Privacy Notice</a>
-                                </Link>
-                                <button className="py-2 text-red-500" onClick={() => logout()}>
-                                    Log Out
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
+                    {isOpened && (
+                        <div className="flex flex-col text-center absolute mt-12 bg-white w-full shadow rounded-lg divide-y tracking-tight z-50">
+                            <Link href="/privacy">
+                                <a className="py-2">Privacy Notice</a>
+                            </Link>
+                            <button className="py-2 text-red-500" onClick={() => logout()}>
+                                Log Out
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );
