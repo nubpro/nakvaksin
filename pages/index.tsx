@@ -92,7 +92,17 @@ export default function Home() {
             />
             <div className="absolute w-full flex flex-col">
                 <div>
-                    {user && <Header isHomepage={true} />}
+                    {user ? (
+                        <Header isHomepage={true} />
+                    ) : (
+                        <Link href="/shutdown">
+                            <a className="flex bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-2 justify-center text-center">
+                                <span className="animate-pulse text-white font-medium">
+                                    Announcement: NakVaksin is shutting down on 3 Oct
+                                </span>
+                            </a>
+                        </Link>
+                    )}
 
                     <section className="w-full">
                         <div className="container flex flex-col items-center px-5 mx-auto sm:flex-row min-h-screen">

@@ -44,7 +44,7 @@ export default function Header({ isHomepage = false }) {
 
     useEffect(() => {
         // TODO: Move this outside of header, probably in _app.tsx (need to create an AuthProvider I think)
-        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy', '/closing'];
+        const publicRoutes = ['/', '/login', '/resetpassword', '/r/[key]', '/privacy', '/shutdown'];
         const isPublicRoute = publicRoutes.includes(router.pathname);
         const isAuthenticated = !!user;
 
@@ -59,18 +59,13 @@ export default function Header({ isHomepage = false }) {
 
     return (
         <>
-            <div
-                className={classNames(
-                    'flex px-4 py-2 justify-between bg-white bg-opacity-70 sm:hidden'
-                )}>
-                <Link href="/closing">
-                    <div className="items-center cursor-pointer mx-auto">
-                        <p className="text-center mx-auto animate-pulse">
-                            NakVaksin is closing down...{' '}
-                        </p>
-                    </div>
-                </Link>
-            </div>
+            <Link href="/shutdown">
+                <a className="flex bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-2 justify-center text-center">
+                    <span className="animate-pulse text-white font-medium">
+                        Announcement: NakVaksin is shutting down on 3 Oct
+                    </span>
+                </a>
+            </Link>
             <div
                 className={classNames(
                     'flex px-4 justify-between h-14',
@@ -93,11 +88,6 @@ export default function Header({ isHomepage = false }) {
                         </a>
                     </Link>
                 )}
-                <Link href="/closing">
-                    <div className="items-center cursor-pointer hidden sm:flex animate-pulse">
-                        <p className="text-center mx-auto">NakVaksin is closing down... </p>
-                    </div>
-                </Link>
 
                 <div className="flex relative">
                     {user && (
