@@ -17,7 +17,7 @@ export default function Closing() {
                         When we build NakVaksin we have a common goal - To ensure all Malaysian
                         received their vaccination on schedule. Day by day, we are inching closer to
                         have everybody vaccinated. With at least 83% of adults vaccinated as of 26
-                        Sept, we think this is right time to end NakVaksin services.
+                        Sept, we think this is the right time to end NakVaksin services.
                     </p>
                     <p>
                         On <strong>3rd October 2021</strong>, we will begin terminating our services
