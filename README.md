@@ -23,10 +23,12 @@ As some [MySejahtera](https://mysejahtera.malaysia.gov.my/intro_en/) user do not
 <br>
 This application will provide a simple, easier way to get notified on user's vaccination appointment.
 
+<img src="https://user-images.githubusercontent.com/762914/134812928-a6e6f17f-33d8-4575-a4c3-14ad14ac9a3c.png" alt="dashboard" width="250"/>
+<img src="https://user-images.githubusercontent.com/762914/134812805-049616ca-eecf-4784-97b3-028bf8bb6ae2.png" alt="subscribe form" width="250"/>
+
 ### Built With
 
--   [React JS](https://reactjs.org/)
--   [Next JS](https://nextjs.org/)
+-   [NextJS](https://nextjs.org/)
 
 <!-- GETTING STARTED -->
 
