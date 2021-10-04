@@ -18,23 +18,10 @@ export default function Footer() {
                     Chai Woon Khai
                 </a>
             </div>
-            <div className="mt-2">
-                <a href="/#faq" className="text-primary">
-                    FAQ
-                </a>{' '}
-                |{' '}
-                <a href="/privacy" className="text-primary">
-                    Privacy Notice
-                </a>{' '}
-                |{' '}
-                <a href="mailto:feedback@nakvaksin.com" rel="author" className="text-primary">
-                    Contact Us
-                </a>
-            </div>
+
             <div className="mt-1">
                 <a href="https://github.com/nubpro/nakvaksin">
                     <IoLogoGithub size={20} className="inline-block" />
-                    <span className="align-middle"> Source Code</span>
                 </a>
             </div>
         </footer>
