@@ -19,7 +19,7 @@ async function requestInit() {
     const cleaned = await raw.replace('/*-secure-', '').replace('*/', '');
     const data = JSON.parse(cleaned);
 
-    const cookies = res.headers.get('set-cookie').replaceAll(',', ';');
+    const cookies = res.headers.get('set-cookie').replace(/,/g, ';');
     const instanceId = data['challenges']['wl_antiXSRFRealm']['WL-Instance-Id'];
     const deviceToken = data['challenges']['wl_deviceNoProvisioningRealm']['token'];
 
